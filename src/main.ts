@@ -1,3 +1,4 @@
+
 interface ICapturable {
   capturar(): Mineral;
 }
@@ -163,32 +164,33 @@ class IntroduccionReducida implements ISistemaEntrada {
   }
 
   private render(): void {
-    const opcionesOrigen = Object.values(OrigenMaterialLunar)
-      .map(o => `<option value="${o}">${o}</option>`)
-      .join('');
-    const opcionesClasificacion = Object.values(ClasificacionMaterialLunar)
-      .map(c => `<option value="${c}">${c}</option>`)
-      .join('');
-    const opcionesTextura = Object.values(TexturaMaterialLunar)
-      .map(t => `<option value="${t}">${t}</option>`)
-      .join('');
+    const opcionesOrigen = Object.values(OrigenMaterialLunar) as string[];
+    const opcionesClasificacion = Object.values(ClasificacionMaterialLunar) as string[];
+    const opcionesTextura = Object.values(TexturaMaterialLunar) as string[];
 
     this.contenedor.innerHTML = `
       <h3>Formulario Reducido</h3>
       <form id="form-reducido">
         <input type="text" id="id" placeholder="ID LLDDDDLL" /><br>
         <input type="text" id="nombre" placeholder="Nombre" /><br>
-        <select id="origen"><option value="">Origen</option>${opcionesOrigen}</select><br>
+        <select id="origen"><option value="">Origen</option>
+          ${opcionesOrigen.map(o => `<option value="${o}">${o}</option>`).join('')}
+        </select><br>
         <input type="number" id="dureza" placeholder="Dureza 1-10" /><br>
         <input type="number" id="tamanoGrano" placeholder="Tamaño de grano (mm)" /><br>
-        <select id="clasificacion"><option value="">Clasificación</option>${opcionesClasificacion}</select><br>
+        <select id="clasificacion"><option value="">Clasificación</option>
+          ${opcionesClasificacion.map(c => `<option value="${c}">${c}</option>`).join('')}
+        </select><br>
         <input type="number" id="tamanoCristal" placeholder="Tamaño de cristales" /><br>
         <input type="number" id="temperatura" placeholder="Temperatura (K)" /><br>
         <input type="text" id="estructura" placeholder="Estructura" /><br>
-        <select id="textura"><option value="">Textura</option>${opcionesTextura}</select><br>
+        <select id="textura"><option value="">Textura</option>
+          ${opcionesTextura.map(t => `<option value="${t}">${t}</option>`).join('')}
+        </select><br>
       </form>
     `;
   }
+
   dameMineral(): Mineral {
     const id = (document.getElementById("id") as HTMLInputElement).value;
     const nombre = (document.getElementById("nombre") as HTMLInputElement).value;
@@ -221,21 +223,15 @@ class IntroduccionExtendida implements ISistemaEntrada {
 
   constructor(idContenedor: string) {
     const cont = document.getElementById(idContenedor);
-    if (!cont) throw new Error("No se encontró el contenedor del formulario reducido");
+    if (!cont) throw new Error("No se encontró el contenedor del formulario extendido");
     this.contenedor = cont;
     this.render();
   }
 
   private render(): void {
-    const opcionesOrigen = Object.values(OrigenMaterialLunar)
-      .map(o => `<option value="${o}">${o}</option>`)
-      .join('');
-    const opcionesClasificacion = Object.values(ClasificacionMaterialLunar)
-      .map(c => `<option value="${c}">${c}</option>`)
-      .join('');
-    const opcionesTextura = Object.values(TexturaMaterialLunar)
-      .map(t => `<option value="${t}">${t}</option>`)
-      .join('');
+    const opcionesOrigen = Object.values(OrigenMaterialLunar) as string[];
+    const opcionesClasificacion = Object.values(ClasificacionMaterialLunar) as string[];
+    const opcionesTextura = Object.values(TexturaMaterialLunar) as string[];
 
     this.contenedor.innerHTML = `
       <h3>Formulario Extendido</h3>
@@ -243,22 +239,23 @@ class IntroduccionExtendida implements ISistemaEntrada {
         <div><label>ID: </label><input type="text" id="id" /></div>
         <div><label>Nombre: </label><input type="text" id="nombre" /></div>
         <div><label>Origen: </label>
-          <select id="origen">${opcionesOrigen}</select>
+          <select id="origen">${opcionesOrigen.map(o => `<option value="${o}">${o}</option>`).join('')}</select>
         </div>
         <div><label>Dureza (1-10): </label><input type="number" id="dureza" min="1" max="10" /></div>
         <div><label>Tamaño de grano (mm): </label><input type="number" id="tamanoGrano" /></div>
         <div><label>Clasificación: </label>
-          <select id="clasificacion">${opcionesClasificacion}</select>
+          <select id="clasificacion">${opcionesClasificacion.map(c => `<option value="${c}">${c}</option>`).join('')}</select>
         </div>
         <div><label>Tamaño de cristales (0-10): </label><input type="number" id="tamanoCristal" min="0" max="10" /></div>
         <div><label>Temperatura (K): </label><input type="number" id="temperatura" min="-100" max="100" /></div>
         <div><label>Estructura: </label><input type="text" id="estructura" /></div>
         <div><label>Textura: </label>
-          <select id="textura">${opcionesTextura}</select>
+          <select id="textura">${opcionesTextura.map(t => `<option value="${t}">${t}</option>`).join('')}</select>
         </div>
       </form>
     `;
   }
+
   dameMineral(): Mineral {
     const id = (document.getElementById("id") as HTMLInputElement).value;
     const nombre = (document.getElementById("nombre") as HTMLInputElement).value;
@@ -285,6 +282,7 @@ class IntroduccionExtendida implements ISistemaEntrada {
     );
   }
 }
+
 
 class Astronauta implements IPilotable {
   constructor(
@@ -330,6 +328,7 @@ window.onload = () => {
   const botonNuevaMision = document.getElementById("nueva-mision")!;
   const resultadoDiv = document.getElementById("resultado")!;
 
+  //iniciarAnimacionFondo();
   let misionActual: Mision;
 
   inicio.addEventListener("click", (e) => {

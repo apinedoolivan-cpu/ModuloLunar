@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    // Estructura de carpetas
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    // Target moderno y módulos ES
+   
+    "target": "es2017",
+    "module": "ESNext",
+    "lib": ["es2017", "dom"], 
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Archivos de declaración
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+
+    // Estricto
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    
+    // Compatibilidad con navegador
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts"]
+}

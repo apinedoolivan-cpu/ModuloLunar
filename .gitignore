@@ -1,0 +1,26 @@
+# Node modules
+node_modules/
+
+# Lock files
+package-lock.json
+package.json
+
+# ESLint config
+.eslintrc
+.eslintrc.js
+.eslintrc.json
+eslint.config.js
+eslint.config.cjs
+eslint.config.mts
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# System files
+.DS_Store
+Thumbs.db
