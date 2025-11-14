@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap')
+
+$primary-color: #0ff
+$secondary-color: #00f
+$text-color: #f0f0f0
+$bg-dark: #1a1a2e
+$form-bg: rgba(0, 0, 30, 0.85)
+
+body
+  margin: 0
+  min-height: 100vh
+  overflow: hidden
+  font-family: 'Orbitron', sans-serif
+  background: url('../images/FondoLunar.jpg') no-repeat bottom center
+  background-size: cover
+  position: relative
+
+// Animación de estrellas fugaces
+@keyframes estrellasFugaces
+  0%
+    transform: translateX(0) translateY(0)
+    opacity: 0
+  30%
+    opacity: 1
+  100%
+    transform: translateX(1200px) translateY(600px)
+    opacity: 0
+
+.stars-container
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  pointer-events: none
+  overflow: hidden
+  z-index: -2
+
+.star
+  position: absolute
+  width: 2px
+  height: 2px
+  background: #fff
+  border-radius: 50%
+  opacity: 0
+  animation: estrellasFugaces 2s linear infinite
+  &:nth-child(1)
+    top: 20%
+    left: 10%
+    animation-delay: 0s
+  &:nth-child(2)
+    top: 40%
+    left: 20%
+    animation-delay: 0.5s
+  &:nth-child(3)
+    top: 60%
+    left: 5%
+    animation-delay: 1s
+  &:nth-child(4)
+    top: 30%
+    left: 50%
+    animation-delay: 1.5s
+  &:nth-child(5)
+    top: 70%
+    left: 80%
+    animation-delay: 2s
+
+// Encabezados
+h1, h2, h3
+  text-align: center
+  color: #ffeedd
+  text-shadow: 0 0 15px #fff, 0 0 30px $secondary-color
+
+// Formularios futuristas
+form
+  background: $form-bg
+  padding: 25px
+  margin: 20px auto
+  border-radius: 20px
+  width: 90%
+  max-width: 650px
+  box-shadow: 0 0 20px $secondary-color, 0 0 40px $primary-color, 0 0 60px $primary-color inset
+  border: 1px solid rgba(255, 255, 255, 0.1)
+  transition: all 0.3s ease
+
+  &:hover
+    box-shadow: 0 0 25px $primary-color, 0 0 50px $secondary-color, 0 0 70px $primary-color inset
+
+  div
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin-bottom: 10px
+
+    label
+      display: inline-block
+      width: 40%
+      font-weight: bold
+      text-shadow: 0 0 5px $secondary-color
+
+  input, select
+    width: calc(100% - 20px)
+    padding: 10px 12px
+    border-radius: 10px
+    border: 1px solid #888
+    background: rgba(255, 255, 255, 0.05)
+    color: #fff
+    font-size: 1rem
+    box-shadow: 0 0 5px $primary-color
+    transition: all 0.2s ease
+
+    &:focus
+      outline: none
+      box-shadow: 0 0 10px $primary-color, 0 0 20px $secondary-color
+      background: rgba(0, 0, 50, 0.5)
+
+  button
+    background: linear-gradient(145deg, #2222aa, #5555ff)
+    border: none
+    border-radius: 12px
+    padding: 12px 25px
+    color: #fff
+    font-weight: bold
+    cursor: pointer
+    font-size: 1.1rem
+    box-shadow: 0 0 15px $secondary-color, 0 0 30px $primary-color
+    transition: all 0.3s ease
+
+    &:hover
+      transform: scale(1.08)
+      box-shadow: 0 0 30px $primary-color, 0 0 50px $secondary-color, 0 0 70px $primary-color inset
+
+#resultado, #vista-mineral
+  background: rgba(0, 0, 50, 0.8)
+  margin: 20px auto
+  padding: 25px
+  border-radius: 20px
+  max-width: 850px
+  box-shadow: 0 0 25px $primary-color, 0 0 50px $secondary-color, 0 0 75px $primary-color inset
+  border: 1px solid rgba(255,255,255,0.1)
+  position: relative
+  animation: flash 0.5s ease-in-out
+
+  @keyframes flash
+    0%
+      box-shadow: 0 0 5px $primary-color inset
+    50%
+      box-shadow: 0 0 50px $primary-color, 0 0 100px $secondary-color inset
+    100%
+      box-shadow: 0 0 25px $primary-color, 0 0 50px $secondary-color inset
+
+emojis
+  text-align: center
+  font-size: 2em
+  margin-top: 15px
+
+@media (max-width: 600px)
+  form div
+    flex-direction: column
+    align-items: flex-start
+
+    label
+      width: 100%
+      margin-bottom: 5px
+
+#canvas-bg
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: -1 

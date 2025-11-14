@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Misión Lunar</title>
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+  <link rel="stylesheet" href="/dist/styles.css">
+</head>
+<body>
+  <canvas id="canvas-bg"></canvas>
+  <h1>🪐 Misión Lunar</h1>
+
+  <div id="inicio-mision">
+    <input type="text" id="nombre-astronauta" placeholder="Nombre del astronauta"/>
+    <button data-criterio="igneas">Igneas</button>
+    <button data-criterio="metamorfica">Metamórficas</button>
+    <button data-criterio="sedimentaria">Sedimentaria</button>
+  </div>
+
+  <div id="datos-mision" style="margin-top:20px;"></div>
+
+  <div id="forma-entrada" style="margin-top:20px;"></div>
+
+  <div id="mineral-form" style="margin-top:20px;"></div>
+
+  <div>
+    <button id="validar-mineral" style="margin-top:10px;">Validar Mineral</button>
+  </div>
+
+  <div id="resultado" style="margin-top:20px;"></div>
+
+  <div>
+    <button id="nueva-mision" style="margin-top:20px;">Iniciar Nueva Misión</button>
+  </div>
+
+  <script type="module" src="dist/animacionFondo.js"></script>
+</body>
+</html>
