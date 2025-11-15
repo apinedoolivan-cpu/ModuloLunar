@@ -1,4 +1,3 @@
-
 interface ICapturable {
   capturar(): Mineral;
 }
@@ -25,7 +24,15 @@ interface IPilotable {
 interface IMisionable {
   analiza(): boolean;
 }
+interface Punto {
+  x: number;
+  y: number;
+}
 
+interface EntornoEstrella {
+  ancho: number;
+  alto: number;
+}
 enum OrigenMaterialLunar {
   Igneas = "Ígneas",
   Metamoficas = "Metamórficas",
@@ -320,6 +327,89 @@ class Mision implements IMisionable {
     return esValido;
   }
 }
+class Estrella {
+  esMeteoro: boolean;
+  x: number = 0;
+  y: number = 0;
+  velocidad: number = 0;
+  longitud: number = 0;
+  opacidad: number = 0;
+  dx: number = 0;
+  dy: number = 0;
+  color: string = "";
+  estela: Punto[] = [];
+  entorno: EntornoEstrella;
+
+  constructor(entorno: EntornoEstrella) {
+    this.entorno = entorno;
+    this.esMeteoro = Math.random() < 0.15;
+    this.iniciarPosicionAleatoria();
+  }
+
+  iniciarPosicionAleatoria(): void {
+    this.x = Math.random() * this.entorno.ancho;
+    this.y = Math.random() * this.entorno.alto;
+    this.velocidad = 2 + Math.random() * 3;
+    this.longitud = 15 + Math.random() * 25;
+    this.opacidad = this.esMeteoro ? 0.8 + Math.random() * 0.2 : 0.3 + Math.random() * 0.5;
+    this.dx = this.velocidad;
+    this.dy = this.velocidad * 0.3;
+    this.color = this.esMeteoro
+      ? `rgba(${200 + Math.random() * 55},${200 + Math.random() * 55},255,`
+      : `rgba(255,255,255,`;
+    this.estela = [];
+  }
+
+  reiniciar(): void {
+    if (Math.random() < 0.5) {
+      this.x = Math.random() * this.entorno.ancho;
+      this.y = 0;
+    } else {
+      this.x = this.entorno.ancho;
+      this.y = Math.random() * this.entorno.alto;
+    }
+    this.velocidad = 2 + Math.random() * 3;
+    this.longitud = 15 + Math.random() * 25;
+    this.opacidad = this.esMeteoro ? 0.8 + Math.random() * 0.2 : 0.3 + Math.random() * 0.5;
+    this.dx = this.velocidad;
+    this.dy = this.velocidad * 0.3;
+    this.color = this.esMeteoro
+      ? `rgba(${200 + Math.random() * 55},${200 + Math.random() * 55},255,`
+      : `rgba(255,255,255,`;
+    this.estela = [];
+  }
+
+  dibujar(pincel: CanvasRenderingContext2D, entorno: EntornoEstrella): void {
+    this.estela.push({ x: this.x, y: this.y });
+    if (this.estela.length > this.longitud) this.estela.shift();
+
+    for (let i = 0; i < this.estela.length - 1; i++) {
+      const p1 = this.estela[i];
+      const p2 = this.estela[i + 1];
+      if (!p1 || !p2) continue;
+      const alfa = (i / this.estela.length) * this.opacidad;
+      pincel.beginPath();
+      pincel.moveTo(p1.x, p1.y);
+      pincel.lineTo(p2.x, p2.y);
+      pincel.strokeStyle = `${this.color}${alfa})`;
+      pincel.lineWidth = this.esMeteoro ? 3 : 2;
+      pincel.stroke();
+    }
+
+    pincel.beginPath();
+    pincel.arc(this.x, this.y, this.esMeteoro ? 4 : 3, 0, Math.PI * 2);
+    pincel.fillStyle = `${this.color}${this.opacidad + 0.3})`;
+    pincel.fill();
+
+    this.x -= this.dx;
+    this.y += this.dy;
+
+    const primero = this.estela[0];
+    if (primero && (primero.x < -50 || primero.y > entorno.alto + 50)) {
+      this.reiniciar();
+    }
+  }
+}
 
 window.onload = () => {
   const inicio = document.getElementById("inicio-mision")!;
@@ -327,19 +417,76 @@ window.onload = () => {
   const datosMisionDiv = document.getElementById("datos-mision")!;
   const botonNuevaMision = document.getElementById("nueva-mision")!;
   const resultadoDiv = document.getElementById("resultado")!;
+  const lienzo = document.createElement("canvas");
 
-  //iniciarAnimacionFondo();
+  // Animación de fondo
+  lienzo.id = "canvas-fondo";
+  lienzo.style.position = "fixed";
+  lienzo.style.top = "0";
+  lienzo.style.left = "0";
+  lienzo.style.width = "100%";
+  lienzo.style.height = "100%";
+  lienzo.style.zIndex = "-1";
+  document.body.appendChild(lienzo);
+
+  const pincel = lienzo.getContext("2d") as CanvasRenderingContext2D;
+
+  const entorno: EntornoEstrella = {
+    ancho: window.innerWidth,
+    alto: window.innerHeight
+  };
+
+  const ajustarTamano = () => {
+    entorno.ancho = window.innerWidth;
+    entorno.alto = window.innerHeight;
+    lienzo.width = entorno.ancho;
+    lienzo.height = entorno.alto;
+  };
+
+  window.addEventListener("resize", ajustarTamano);
+  ajustarTamano();
+
+  const estrellas: Estrella[] = [];
+  for (let i = 0; i < 150; i++) {
+    estrellas.push(new Estrella(entorno));
+  }
+
+  const animar = () => {
+    pincel.clearRect(0, 0, entorno.ancho, entorno.alto);
+    estrellas.forEach(e => e.dibujar(pincel, entorno));
+    requestAnimationFrame(animar);
+  };
+
+  animar();
   let misionActual: Mision;
 
   inicio.addEventListener("click", (e) => {
     const target = e.target as HTMLButtonElement;
-    if(target.tagName !== "BUTTON") return;
+    if (target.tagName !== "BUTTON") return;
 
-    const nombrePiloto = (document.getElementById("nombre-astronauta") as HTMLInputElement).value || "Agmunsen";
+    inicio.style.display = "none";
+
+    const formAstro = document.getElementById("form-astronauta")!;
+    formAstro.style.display = "block";
+
+    (formAstro as any).criterioElegido = target.dataset.criterio;
+  });
+
+  document.getElementById("aceptar-astro")!.addEventListener("click", () => {
+
+    const formAstro = document.getElementById("form-astronauta")!;
+    formAstro.style.display = "none";
+
+    const id = (document.getElementById("astro-id") as HTMLInputElement).value || "AGM001";
+    const nombre = (document.getElementById("astro-nombre") as HTMLInputElement).value || "Agmunsen";
+    const edad = parseInt((document.getElementById("astro-edad") as HTMLInputElement).value) || 40;
+
+    const astronauta = new Astronauta(id, nombre, edad);
+
     let criterio: ICriterioValidacion;
     let tipoMaterial: string;
 
-    switch(target.dataset.criterio){
+    switch((formAstro as any).criterioElegido){
       case "igneas":
         criterio = new CriterioIgneas();
         tipoMaterial = "Ígneas";
@@ -355,11 +502,10 @@ window.onload = () => {
       default:
         return;
     }
-
-    const astronauta = new Astronauta("AGM001", nombrePiloto, 45);
-
     datosMisionDiv.innerHTML = `
-      <p><strong>Astronauta:</strong> ${nombrePiloto}</p>
+      <p><strong>Astronauta:</strong> ${astronauta.dameNombre()}</p>
+      <p><strong>Identificador:</strong> ${astronauta.dameId()}</p>
+      <p><strong>Edad:</strong> ${astronauta.dameEdad()}</p>
       <p><strong>Fecha inicio:</strong> ${new Date().toLocaleString()}</p>
       <p><strong>Tipo de material a recolectar:</strong> ${tipoMaterial}</p>
     `;

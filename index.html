@@ -10,8 +10,14 @@
   <canvas id="canvas-bg"></canvas>
   <h1>🪐 Misión Lunar</h1>
 
+  <div id="form-astronauta" class="popup-astro" style="display:none;">
+    <h3>Datos del Astronauta</h3>
+    <input id="astro-id" placeholder="Identificador" /><br>
+    <input id="astro-nombre" placeholder="Nombre completo" /><br>
+    <input id="astro-edad" type="number" placeholder="Edad" /><br>
+    <button id="aceptar-astro">Aceptar</button>
+  </div>
   <div id="inicio-mision">
-    <input type="text" id="nombre-astronauta" placeholder="Nombre del astronauta"/>
     <button data-criterio="igneas">Igneas</button>
     <button data-criterio="metamorfica">Metamórficas</button>
     <button data-criterio="sedimentaria">Sedimentaria</button>
@@ -33,6 +39,6 @@
     <button id="nueva-mision" style="margin-top:20px;">Iniciar Nueva Misión</button>
   </div>
 
-  <script type="module" src="dist/animacionFondo.js"></script>
+  <script type="module" src="src/main.js"></script>
 </body>
 </html>
