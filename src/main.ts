@@ -215,13 +215,13 @@ class IntroduccionExtendida implements ISistemaEntrada {
         </div>
 
         <div id="ext-elemento">
-          <label for="ext-tamanoCristal">Tamaño de cristales (0-10)</label>
+          <label for="ext-tamanoCristal">Tamaño de cristales</label>
           <input id="ext-tamanoCristal" type="number" min="0" max="10" required />
         </div>
 
         <div id="ext-elemento" >
           <label for="ext-temperatura">Temperatura (K)</label>
-          <input id="ext-temperatura" type="number" required />
+          <input id="ext-temperatura" type="number" min="-100" max="100" required />
         </div>
 
         <div id="ext-elemento">
@@ -311,7 +311,7 @@ class IntroduccionReducida implements ISistemaEntrada {
 
         <input id="red-tamanoCristal" type="number" step="0.1" placeholder="Tamaño de cristal" required />
 
-        <input id="red-temperatura" type="number" step="1" placeholder="Temperatura de formación (K)" required />
+        <input id="red-temperatura" type="number" step="1" min="-100" max="100" placeholder="Temperatura de formación (K)" required />
 
         <input id="red-estructura" type="text" placeholder="Estructura" required />
       </form>
@@ -626,7 +626,7 @@ window.onload = () => {
     const formElemento = document.querySelector("#mineral-form form") as HTMLFormElement;
     
     if (!formElemento.checkValidity()) {
-      alert("Por favor completa todos los campos requeridos");
+      alert("Valores del mineral incompletos o inválidos. Por favor, revise el formulario.");
       return;
     }
     const mineral = misionActual.entrada.dameMineral();
