@@ -128,7 +128,7 @@ class CriterioSedimentarias implements ICriterioValidacion {
 class FormatoEuropeo implements ISistemaSalida {
   muestra(mineral: Mineral): string {
     return `
-      <h3>🪨 Formato Europeo</h3>
+      <h3>Formato Europeo</h3>
       <p><strong>ID:</strong> ${mineral.id}</p>
       <p><strong>Nombre:</strong> ${mineral.nombre}</p>
       <p><strong>Origen:</strong> ${mineral.origen}</p>
@@ -146,7 +146,7 @@ class FormatoEuropeo implements ISistemaSalida {
 class FormatoAmericano implements ISistemaSalida {
   muestra(mineral: Mineral): string {
     return `
-      <h3>🌕 American Format</h3>
+      <h3>American Format</h3>
       <p><strong>ID:</strong> ${mineral.id}</p>
       <p><strong>Name:</strong> ${mineral.nombre}</p>
       <p><strong>Origin:</strong> ${mineral.origen}</p>
@@ -160,71 +160,6 @@ class FormatoAmericano implements ISistemaSalida {
     `;
   }
 }
-class IntroduccionReducida implements ISistemaEntrada {
-  private contenedor: HTMLElement;
-
-  constructor(idContenedor: string) {
-    const cont = document.getElementById(idContenedor);
-    if (!cont) throw new Error("No se encontró el contenedor del formulario reducido");
-    this.contenedor = cont;
-    this.render();
-  }
-
-  private render(): void {
-    const opcionesOrigen = Object.values(OrigenMaterialLunar) as string[];
-    const opcionesClasificacion = Object.values(ClasificacionMaterialLunar) as string[];
-    const opcionesTextura = Object.values(TexturaMaterialLunar) as string[];
-
-    this.contenedor.innerHTML = `
-      <h3>Formulario Reducido</h3>
-      <form id="form-reducido">
-        <input type="text" id="id" placeholder="ID LLDDDDLL" /><br>
-        <input type="text" id="nombre" placeholder="Nombre" /><br>
-        <select id="origen"><option value="">Origen</option>
-          ${opcionesOrigen.map(o => `<option value="${o}">${o}</option>`).join('')}
-        </select><br>
-        <input type="number" id="dureza" placeholder="Dureza 1-10" /><br>
-        <input type="number" id="tamanoGrano" placeholder="Tamaño de grano (mm)" /><br>
-        <select id="clasificacion"><option value="">Clasificación</option>
-          ${opcionesClasificacion.map(c => `<option value="${c}">${c}</option>`).join('')}
-        </select><br>
-        <input type="number" id="tamanoCristal" placeholder="Tamaño de cristales" /><br>
-        <input type="number" id="temperatura" placeholder="Temperatura (K)" /><br>
-        <input type="text" id="estructura" placeholder="Estructura" /><br>
-        <select id="textura"><option value="">Textura</option>
-          ${opcionesTextura.map(t => `<option value="${t}">${t}</option>`).join('')}
-        </select><br>
-      </form>
-    `;
-  }
-
-  dameMineral(): Mineral {
-    const id = (document.getElementById("id") as HTMLInputElement).value;
-    const nombre = (document.getElementById("nombre") as HTMLInputElement).value;
-    const origen = (document.getElementById("origen") as HTMLSelectElement).value as OrigenMaterialLunar;
-    const dureza = parseInt((document.getElementById("dureza") as HTMLInputElement).value);
-    const tamañoGrano = parseFloat((document.getElementById("tamanoGrano") as HTMLInputElement).value);
-    const clasificacion = (document.getElementById("clasificacion") as HTMLSelectElement).value as ClasificacionMaterialLunar;
-    const tamañoCristal = parseInt((document.getElementById("tamanoCristal") as HTMLInputElement).value);
-    const temperaturaFormacion = parseInt((document.getElementById("temperatura") as HTMLInputElement).value);
-    const estructura = (document.getElementById("estructura") as HTMLInputElement).value;
-    const textura = (document.getElementById("textura") as HTMLSelectElement).value as TexturaMaterialLunar;
-
-    return new Mineral(
-      id,
-      nombre,
-      origen,
-      dureza,
-      tamañoGrano,
-      clasificacion,
-      tamañoCristal,
-      temperaturaFormacion,
-      estructura,
-      textura
-    );
-  }
-}
-
 class IntroduccionExtendida implements ISistemaEntrada {
   private contenedor: HTMLElement;
 
@@ -242,38 +177,80 @@ class IntroduccionExtendida implements ISistemaEntrada {
 
     this.contenedor.innerHTML = `
       <h3>Formulario Extendido</h3>
-      <form id="form-extendido">
-        <div><label>ID: </label><input type="text" id="id" /></div>
-        <div><label>Nombre: </label><input type="text" id="nombre" /></div>
-        <div><label>Origen: </label>
-          <select id="origen">${opcionesOrigen.map(o => `<option value="${o}">${o}</option>`).join('')}</select>
+      <form class="form-extendido" id="form-extendido" novalidate>
+        <div id="ext-elemento">
+          <label for="ext-id">ID</label>
+          <input id="ext-id" type="text" required />
         </div>
-        <div><label>Dureza (1-10): </label><input type="number" id="dureza" min="1" max="10" /></div>
-        <div><label>Tamaño de grano (mm): </label><input type="number" id="tamanoGrano" /></div>
-        <div><label>Clasificación: </label>
-          <select id="clasificacion">${opcionesClasificacion.map(c => `<option value="${c}">${c}</option>`).join('')}</select>
+
+        <div id="ext-elemento">
+          <label for="ext-nombre">Nombre</label>
+          <input id="ext-nombre" type="text" required />
         </div>
-        <div><label>Tamaño de cristales (0-10): </label><input type="number" id="tamanoCristal" min="0" max="10" /></div>
-        <div><label>Temperatura (K): </label><input type="number" id="temperatura" min="-100" max="100" /></div>
-        <div><label>Estructura: </label><input type="text" id="estructura" /></div>
-        <div><label>Textura: </label>
-          <select id="textura">${opcionesTextura.map(t => `<option value="${t}">${t}</option>`).join('')}</select>
+
+        <div id="ext-elemento">
+          <label for="ext-origen">Origen</label>
+          <select id="ext-origen" required>
+            <option value="">Seleccione</option>
+            ${opcionesOrigen.map(o => `<option value="${o}">${o}</option>`).join('')}
+          </select>
+        </div>
+
+        <div id="ext-elemento">
+          <label for="ext-dureza">Dureza (1-10)</label>
+          <input id="ext-dureza" type="number" min="1" max="10" required />
+        </div>
+
+        <div id="ext-elemento">
+          <label for="ext-tamanoGrano">Tamaño de grano (mm)</label>
+          <input id="ext-tamanoGrano" type="number" step="0.01" required />
+        </div>
+
+        <div id="ext-elemento">
+          <label for="ext-clasificacion">Clasificación</label>
+          <select id="ext-clasificacion" required>
+            <option value="">Seleccione</option>
+            ${opcionesClasificacion.map(c => `<option value="${c}">${c}</option>`).join('')}
+          </select>
+        </div>
+
+        <div id="ext-elemento">
+          <label for="ext-tamanoCristal">Tamaño de cristales (0-10)</label>
+          <input id="ext-tamanoCristal" type="number" min="0" max="10" required />
+        </div>
+
+        <div id="ext-elemento" >
+          <label for="ext-temperatura">Temperatura (K)</label>
+          <input id="ext-temperatura" type="number" required />
+        </div>
+
+        <div id="ext-elemento">
+          <label for="ext-textura">Textura</label>
+          <select id="ext-textura" required>
+            <option value="">Seleccione</option>
+            ${opcionesTextura.map(t => `<option value="${t}">${t}</option>`).join('')}
+          </select>
+        </div>
+
+        <div id="ext-elemento-estructura">
+          <label for="ext-estructura">Estructura</label>
+          <input id="ext-estructura" class="campo-estructura" type="text" required />
         </div>
       </form>
     `;
   }
 
   dameMineral(): Mineral {
-    const id = (document.getElementById("id") as HTMLInputElement).value;
-    const nombre = (document.getElementById("nombre") as HTMLInputElement).value;
-    const origen = (document.getElementById("origen") as HTMLSelectElement).value as OrigenMaterialLunar;
-    const dureza = parseInt((document.getElementById("dureza") as HTMLInputElement).value);
-    const tamañoGrano = parseFloat((document.getElementById("tamanoGrano") as HTMLInputElement).value);
-    const clasificacion = (document.getElementById("clasificacion") as HTMLSelectElement).value as ClasificacionMaterialLunar;
-    const tamañoCristal = parseInt((document.getElementById("tamanoCristal") as HTMLInputElement).value);
-    const temperaturaFormacion = parseInt((document.getElementById("temperatura") as HTMLInputElement).value);
-    const estructura = (document.getElementById("estructura") as HTMLInputElement).value;
-    const textura = (document.getElementById("textura") as HTMLSelectElement).value as TexturaMaterialLunar;
+    const id = (document.getElementById("ext-id") as HTMLInputElement).value;
+    const nombre = (document.getElementById("ext-nombre") as HTMLInputElement).value;
+    const origen = (document.getElementById("ext-origen") as HTMLSelectElement).value as OrigenMaterialLunar;
+    const dureza = parseFloat((document.getElementById("ext-dureza") as HTMLInputElement).value);
+    const tamañoGrano = parseFloat((document.getElementById("ext-tamanoGrano") as HTMLInputElement).value);
+    const clasificacion = (document.getElementById("ext-clasificacion") as HTMLSelectElement).value as ClasificacionMaterialLunar;
+    const tamañoCristal = parseFloat((document.getElementById("ext-tamanoCristal") as HTMLInputElement).value);
+    const temperaturaFormacion = parseFloat((document.getElementById("ext-temperatura") as HTMLInputElement).value);
+    const estructura = (document.getElementById("ext-estructura") as HTMLInputElement).value;
+    const textura = (document.getElementById("ext-textura") as HTMLSelectElement).value as TexturaMaterialLunar;
 
     return new Mineral(
       id,
@@ -284,6 +261,101 @@ class IntroduccionExtendida implements ISistemaEntrada {
       clasificacion,
       tamañoCristal,
       temperaturaFormacion,
+      estructura,
+      textura
+    );
+  }
+}
+
+class IntroduccionReducida implements ISistemaEntrada {
+  private contenedor: HTMLElement;
+
+  constructor(idContenedor: string) {
+    const cont = document.getElementById(idContenedor);
+    if (!cont) throw new Error("No se encontró el contenedor del formulario reducido");
+    this.contenedor = cont;
+    this.render();
+  }
+
+  private render(): void {
+    const opcionesOrigen = Object.values(OrigenMaterialLunar) as string[];
+    const opcionesClasificacion = Object.values(ClasificacionMaterialLunar) as string[];
+    const opcionesTextura = Object.values(TexturaMaterialLunar) as string[];
+
+    this.contenedor.innerHTML = `
+      <h3>Formulario Reducido</h3>
+      <form class="form-reducido" id="form-reducido" novalidate>
+
+        <input id="red-id" type="text" placeholder="ID del mineral (LLDDDDLL)" required />
+
+        <input id="red-nombre" type="text" placeholder="Nombre del mineral" required />
+
+        <input id="red-origen" list="lista-origen" type="text" placeholder="Origen" required />
+        <datalist id="lista-origen">
+          ${opcionesOrigen.map(o => `<option value="${o}"></option>`).join('')}
+        </datalist>
+
+        <input id="red-clasificacion" list="lista-clasificacion" type="text" placeholder="Clasificación" required />
+        <datalist id="lista-clasificacion">
+          ${opcionesClasificacion.map(c => `<option value="${c}"></option>`).join('')}
+        </datalist>
+
+        <input id="red-textura" list="lista-textura" type="text" placeholder="Textura" required />
+        <datalist id="lista-textura">
+          ${opcionesTextura.map(t => `<option value="${t}"></option>`).join('')}
+        </datalist>
+
+        <input id="red-dureza" type="number" step="0.1" min="1" max="10" placeholder="Dureza (1-10)" required />
+
+        <input id="red-tamano" type="number" step="0.1" placeholder="Tamaño del grano (mm)" required />
+
+        <input id="red-tamanoCristal" type="number" step="0.1" placeholder="Tamaño de cristal" required />
+
+        <input id="red-temperatura" type="number" step="1" placeholder="Temperatura de formación (K)" required />
+
+        <input id="red-estructura" type="text" placeholder="Estructura" required />
+      </form>
+    `;
+  }
+
+  dameMineral(): Mineral {
+    const opcionesOrigen = Object.values(OrigenMaterialLunar) as string[];
+    const opcionesClasificacion = Object.values(ClasificacionMaterialLunar) as string[];
+    const opcionesTextura = Object.values(TexturaMaterialLunar) as string[];
+
+    const origenTexto = (document.getElementById("red-origen") as HTMLInputElement).value;
+    const clasTexto = (document.getElementById("red-clasificacion") as HTMLInputElement).value;
+    const texturaTexto = (document.getElementById("red-textura") as HTMLInputElement).value;
+
+    const origen = opcionesOrigen.includes(origenTexto)
+      ? origenTexto as OrigenMaterialLunar
+      : opcionesOrigen[0] as OrigenMaterialLunar;
+
+    const clasificacion = opcionesClasificacion.includes(clasTexto)
+      ? clasTexto as ClasificacionMaterialLunar
+      : opcionesClasificacion[0] as ClasificacionMaterialLunar;
+
+    const textura = opcionesTextura.includes(texturaTexto)
+      ? texturaTexto as TexturaMaterialLunar
+      : opcionesTextura[0] as TexturaMaterialLunar;
+
+    const id = (document.getElementById("red-id") as HTMLInputElement).value;
+    const nombre = (document.getElementById("red-nombre") as HTMLInputElement).value;
+    const dureza = parseFloat((document.getElementById("red-dureza") as HTMLInputElement).value);
+    const tamañoGrano = parseFloat((document.getElementById("red-tamano") as HTMLInputElement).value);
+    const tamañoCristal = parseFloat((document.getElementById("red-tamanoCristal") as HTMLInputElement).value);
+    const temperaturaFormacion = parseFloat((document.getElementById("red-temperatura") as HTMLInputElement).value);
+    const estructura = (document.getElementById("red-estructura") as HTMLInputElement).value;
+
+    return new Mineral(
+      id,
+      nombre,
+      origen,
+      dureza,
+      tamañoGrano,
+      clasificacion,
+      isNaN(tamañoCristal) ? 0 : tamañoCristal,
+      isNaN(temperaturaFormacion) ? 0 : temperaturaFormacion,
       estructura,
       textura
     );
@@ -415,9 +487,14 @@ window.onload = () => {
   const inicio = document.getElementById("inicio-mision")!;
   const formaEntradaDiv = document.getElementById("forma-entrada")!;
   const datosMisionDiv = document.getElementById("datos-mision")!;
+  const mineralFormDiv = document.getElementById("mineral-form")!;
   const botonNuevaMision = document.getElementById("nueva-mision")!;
   const resultadoDiv = document.getElementById("resultado")!;
+  const validarMineralBtn = document.getElementById("validar-mineral")!;
+  const formAstro = document.getElementById("form-astronauta")!;
   const lienzo = document.createElement("canvas");
+  const formExtendido = document.getElementById("form-extendido") as HTMLFormElement;
+  const formReducido = document.getElementById("form-reducido") as HTMLFormElement;
 
   // Animación de fondo
   lienzo.id = "canvas-fondo";
@@ -456,8 +533,16 @@ window.onload = () => {
     estrellas.forEach(e => e.dibujar(pincel, entorno));
     requestAnimationFrame(animar);
   };
-
   animar();
+
+  formAstro.style.display = "none";
+  formaEntradaDiv.style.display = "none";
+  validarMineralBtn.style.display = "none";
+  resultadoDiv.style.display = "none";
+  datosMisionDiv.style.display = "none";
+  mineralFormDiv.style.display = "none";
+  botonNuevaMision.style.display = "none";
+
   let misionActual: Mision;
 
   inicio.addEventListener("click", (e) => {
@@ -465,28 +550,24 @@ window.onload = () => {
     if (target.tagName !== "BUTTON") return;
 
     inicio.style.display = "none";
-
-    const formAstro = document.getElementById("form-astronauta")!;
-    formAstro.style.display = "block";
-
+    formAstro.style.display = "flex";
     (formAstro as any).criterioElegido = target.dataset.criterio;
   });
 
   document.getElementById("aceptar-astro")!.addEventListener("click", () => {
-
-    const formAstro = document.getElementById("form-astronauta")!;
     formAstro.style.display = "none";
+    formaEntradaDiv.style.display = "flex";
+    botonNuevaMision.style.display = "flex";
 
     const id = (document.getElementById("astro-id") as HTMLInputElement).value || "AGM001";
     const nombre = (document.getElementById("astro-nombre") as HTMLInputElement).value || "Agmunsen";
     const edad = parseInt((document.getElementById("astro-edad") as HTMLInputElement).value) || 40;
-
     const astronauta = new Astronauta(id, nombre, edad);
 
     let criterio: ICriterioValidacion;
     let tipoMaterial: string;
 
-    switch((formAstro as any).criterioElegido){
+    switch ((formAstro as any).criterioElegido) {
       case "igneas":
         criterio = new CriterioIgneas();
         tipoMaterial = "Ígneas";
@@ -502,13 +583,16 @@ window.onload = () => {
       default:
         return;
     }
+
     datosMisionDiv.innerHTML = `
+      <h2>Datos de la Misión</h2>
       <p><strong>Astronauta:</strong> ${astronauta.dameNombre()}</p>
       <p><strong>Identificador:</strong> ${astronauta.dameId()}</p>
       <p><strong>Edad:</strong> ${astronauta.dameEdad()}</p>
       <p><strong>Fecha inicio:</strong> ${new Date().toLocaleString()}</p>
       <p><strong>Tipo de material a recolectar:</strong> ${tipoMaterial}</p>
     `;
+    datosMisionDiv.style.display = "flex";
 
     formaEntradaDiv.innerHTML = `
       <button id="extendida">Forma Extendida</button>
@@ -517,10 +601,11 @@ window.onload = () => {
 
     formaEntradaDiv.addEventListener("click", (e) => {
       const targetEntrada = e.target as HTMLButtonElement;
-      if(!targetEntrada.id) return;
+
+      if (!targetEntrada.id) return;
 
       let entradaSistema: ISistemaEntrada;
-      if(targetEntrada.id === "extendida") {
+      if (targetEntrada.id === "extendida") {
         entradaSistema = new IntroduccionExtendida("mineral-form");
       } else {
         entradaSistema = new IntroduccionReducida("mineral-form");
@@ -532,15 +617,18 @@ window.onload = () => {
         entradaSistema,
         new FormatoEuropeo()
       );
+      validarMineralBtn.style.display = "flex";
+      mineralFormDiv.style.display = "flex";
     });
   });
 
-  document.getElementById("validar-mineral")!.addEventListener("click",()=>{
-    if(!misionActual) {
-      alert("Primero selecciona un criterio y una forma de entrada");
+  validarMineralBtn.addEventListener("click", () => {
+    const formElemento = document.querySelector("#mineral-form form") as HTMLFormElement;
+    
+    if (!formElemento.checkValidity()) {
+      alert("Por favor completa todos los campos requeridos");
       return;
     }
-
     const mineral = misionActual.entrada.dameMineral();
     const esValido = misionActual.criterio.esValido(mineral);
 
@@ -549,7 +637,7 @@ window.onload = () => {
 
     resultadoDiv.innerHTML = `
       <h2>Misión de ${misionActual.piloto.dameNombre()}</h2>
-      <p><strong>Criterio:</strong> ${misionActual.criterio.descripcion()}</p>
+      <p> ${misionActual.criterio.descripcion()}</p>
       <p><strong>Resultado:</strong> ${esValido ? "✅ Válido" : "❌ No válido"}</p>
       <div style="display:flex; gap:30px; flex-wrap:wrap;">
         <div style="border:1px solid #ccc; padding:10px; width:45%;">${formatoEuropeo.muestra(mineral)}</div>
@@ -557,9 +645,8 @@ window.onload = () => {
       </div>
       <div class="emojis">${esValido ? "😄" : "😠"}</div>
     `;
+    resultadoDiv.style.display = "flex";
   });
 
-  botonNuevaMision.addEventListener("click",()=>{
-    location.reload();
-  });
+  botonNuevaMision.addEventListener("click", () => location.reload());
 };

@@ -94,7 +94,7 @@ var FormatoEuropeo = /** @class */ (function () {
     function FormatoEuropeo() {
     }
     FormatoEuropeo.prototype.muestra = function (mineral) {
-        return "\n      <h3>\uD83E\uDEA8 Formato Europeo</h3>\n      <p><strong>ID:</strong> ".concat(mineral.id, "</p>\n      <p><strong>Nombre:</strong> ").concat(mineral.nombre, "</p>\n      <p><strong>Origen:</strong> ").concat(mineral.origen, "</p>\n      <p><strong>Dureza:</strong> ").concat(mineral.dureza, " / 10</p>\n      <p><strong>Tama\u00F1o de grano:</strong> ").concat(mineral.dameTamañoGrano(), " (").concat(mineral.tamañoGrano, " mm)</p>\n      <p><strong>Clasificaci\u00F3n:</strong> ").concat(mineral.clasificacion, "</p>\n      <p><strong>Tama\u00F1o de cristales:</strong> ").concat(mineral.tamañoCristal, "</p>\n      <p><strong>Temperatura de formaci\u00F3n:</strong> ").concat((mineral.temperaturaFormacion - 273.15).toFixed(2), " \u00B0C</p>\n      <p><strong>Estructura:</strong> ").concat(mineral.estructura, "</p>\n      <p><strong>Textura:</strong> ").concat(mineral.textura, "</p>\n    ");
+        return "\n      <h3>Formato Europeo</h3>\n      <p><strong>ID:</strong> ".concat(mineral.id, "</p>\n      <p><strong>Nombre:</strong> ").concat(mineral.nombre, "</p>\n      <p><strong>Origen:</strong> ").concat(mineral.origen, "</p>\n      <p><strong>Dureza:</strong> ").concat(mineral.dureza, " / 10</p>\n      <p><strong>Tama\u00F1o de grano:</strong> ").concat(mineral.dameTamañoGrano(), " (").concat(mineral.tamañoGrano, " mm)</p>\n      <p><strong>Clasificaci\u00F3n:</strong> ").concat(mineral.clasificacion, "</p>\n      <p><strong>Tama\u00F1o de cristales:</strong> ").concat(mineral.tamañoCristal, "</p>\n      <p><strong>Temperatura de formaci\u00F3n:</strong> ").concat((mineral.temperaturaFormacion - 273.15).toFixed(2), " \u00B0C</p>\n      <p><strong>Estructura:</strong> ").concat(mineral.estructura, "</p>\n      <p><strong>Textura:</strong> ").concat(mineral.textura, "</p>\n    ");
     };
     return FormatoEuropeo;
 }());
@@ -102,38 +102,9 @@ var FormatoAmericano = /** @class */ (function () {
     function FormatoAmericano() {
     }
     FormatoAmericano.prototype.muestra = function (mineral) {
-        return "\n      <h3>\uD83C\uDF15 American Format</h3>\n      <p><strong>ID:</strong> ".concat(mineral.id, "</p>\n      <p><strong>Name:</strong> ").concat(mineral.nombre, "</p>\n      <p><strong>Origin:</strong> ").concat(mineral.origen, "</p>\n      <p><strong>Hardness:</strong> ").concat(mineral.dureza, " / 10</p>\n      <p><strong>Grain size:</strong> ").concat(mineral.dameTamañoGrano(), " (").concat(mineral.tamañoGrano, " mm)</p>\n      <p><strong>Classification:</strong> ").concat(mineral.clasificacion, "</p>\n      <p><strong>Crystal size:</strong> ").concat(mineral.tamañoCristal, "</p>\n      <p><strong>Formation temperature:</strong> ").concat(((mineral.temperaturaFormacion - 273.15) * 9 / 5 + 32).toFixed(2), " \u00B0F</p>\n      <p><strong>Structure:</strong> ").concat(mineral.estructura, "</p>\n      <p><strong>Texture:</strong> ").concat(mineral.textura, "</p>\n    ");
+        return "\n      <h3>American Format</h3>\n      <p><strong>ID:</strong> ".concat(mineral.id, "</p>\n      <p><strong>Name:</strong> ").concat(mineral.nombre, "</p>\n      <p><strong>Origin:</strong> ").concat(mineral.origen, "</p>\n      <p><strong>Hardness:</strong> ").concat(mineral.dureza, " / 10</p>\n      <p><strong>Grain size:</strong> ").concat(mineral.dameTamañoGrano(), " (").concat(mineral.tamañoGrano, " mm)</p>\n      <p><strong>Classification:</strong> ").concat(mineral.clasificacion, "</p>\n      <p><strong>Crystal size:</strong> ").concat(mineral.tamañoCristal, "</p>\n      <p><strong>Formation temperature:</strong> ").concat(((mineral.temperaturaFormacion - 273.15) * 9 / 5 + 32).toFixed(2), " \u00B0F</p>\n      <p><strong>Structure:</strong> ").concat(mineral.estructura, "</p>\n      <p><strong>Texture:</strong> ").concat(mineral.textura, "</p>\n    ");
     };
     return FormatoAmericano;
-}());
-var IntroduccionReducida = /** @class */ (function () {
-    function IntroduccionReducida(idContenedor) {
-        var cont = document.getElementById(idContenedor);
-        if (!cont)
-            throw new Error("No se encontró el contenedor del formulario reducido");
-        this.contenedor = cont;
-        this.render();
-    }
-    IntroduccionReducida.prototype.render = function () {
-        var opcionesOrigen = Object.values(OrigenMaterialLunar);
-        var opcionesClasificacion = Object.values(ClasificacionMaterialLunar);
-        var opcionesTextura = Object.values(TexturaMaterialLunar);
-        this.contenedor.innerHTML = "\n      <h3>Formulario Reducido</h3>\n      <form id=\"form-reducido\">\n        <input type=\"text\" id=\"id\" placeholder=\"ID LLDDDDLL\" /><br>\n        <input type=\"text\" id=\"nombre\" placeholder=\"Nombre\" /><br>\n        <select id=\"origen\"><option value=\"\">Origen</option>\n          ".concat(opcionesOrigen.map(function (o) { return "<option value=\"".concat(o, "\">").concat(o, "</option>"); }).join(''), "\n        </select><br>\n        <input type=\"number\" id=\"dureza\" placeholder=\"Dureza 1-10\" /><br>\n        <input type=\"number\" id=\"tamanoGrano\" placeholder=\"Tama\u00F1o de grano (mm)\" /><br>\n        <select id=\"clasificacion\"><option value=\"\">Clasificaci\u00F3n</option>\n          ").concat(opcionesClasificacion.map(function (c) { return "<option value=\"".concat(c, "\">").concat(c, "</option>"); }).join(''), "\n        </select><br>\n        <input type=\"number\" id=\"tamanoCristal\" placeholder=\"Tama\u00F1o de cristales\" /><br>\n        <input type=\"number\" id=\"temperatura\" placeholder=\"Temperatura (K)\" /><br>\n        <input type=\"text\" id=\"estructura\" placeholder=\"Estructura\" /><br>\n        <select id=\"textura\"><option value=\"\">Textura</option>\n          ").concat(opcionesTextura.map(function (t) { return "<option value=\"".concat(t, "\">").concat(t, "</option>"); }).join(''), "\n        </select><br>\n      </form>\n    ");
-    };
-    IntroduccionReducida.prototype.dameMineral = function () {
-        var id = document.getElementById("id").value;
-        var nombre = document.getElementById("nombre").value;
-        var origen = document.getElementById("origen").value;
-        var dureza = parseInt(document.getElementById("dureza").value);
-        var tamañoGrano = parseFloat(document.getElementById("tamanoGrano").value);
-        var clasificacion = document.getElementById("clasificacion").value;
-        var tamañoCristal = parseInt(document.getElementById("tamanoCristal").value);
-        var temperaturaFormacion = parseInt(document.getElementById("temperatura").value);
-        var estructura = document.getElementById("estructura").value;
-        var textura = document.getElementById("textura").value;
-        return new Mineral(id, nombre, origen, dureza, tamañoGrano, clasificacion, tamañoCristal, temperaturaFormacion, estructura, textura);
-    };
-    return IntroduccionReducida;
 }());
 var IntroduccionExtendida = /** @class */ (function () {
     function IntroduccionExtendida(idContenedor) {
@@ -147,22 +118,63 @@ var IntroduccionExtendida = /** @class */ (function () {
         var opcionesOrigen = Object.values(OrigenMaterialLunar);
         var opcionesClasificacion = Object.values(ClasificacionMaterialLunar);
         var opcionesTextura = Object.values(TexturaMaterialLunar);
-        this.contenedor.innerHTML = "\n      <h3>Formulario Extendido</h3>\n      <form id=\"form-extendido\">\n        <div><label>ID: </label><input type=\"text\" id=\"id\" /></div>\n        <div><label>Nombre: </label><input type=\"text\" id=\"nombre\" /></div>\n        <div><label>Origen: </label>\n          <select id=\"origen\">".concat(opcionesOrigen.map(function (o) { return "<option value=\"".concat(o, "\">").concat(o, "</option>"); }).join(''), "</select>\n        </div>\n        <div><label>Dureza (1-10): </label><input type=\"number\" id=\"dureza\" min=\"1\" max=\"10\" /></div>\n        <div><label>Tama\u00F1o de grano (mm): </label><input type=\"number\" id=\"tamanoGrano\" /></div>\n        <div><label>Clasificaci\u00F3n: </label>\n          <select id=\"clasificacion\">").concat(opcionesClasificacion.map(function (c) { return "<option value=\"".concat(c, "\">").concat(c, "</option>"); }).join(''), "</select>\n        </div>\n        <div><label>Tama\u00F1o de cristales (0-10): </label><input type=\"number\" id=\"tamanoCristal\" min=\"0\" max=\"10\" /></div>\n        <div><label>Temperatura (K): </label><input type=\"number\" id=\"temperatura\" min=\"-100\" max=\"100\" /></div>\n        <div><label>Estructura: </label><input type=\"text\" id=\"estructura\" /></div>\n        <div><label>Textura: </label>\n          <select id=\"textura\">").concat(opcionesTextura.map(function (t) { return "<option value=\"".concat(t, "\">").concat(t, "</option>"); }).join(''), "</select>\n        </div>\n      </form>\n    ");
+        this.contenedor.innerHTML = "\n      <h3>Formulario Extendido</h3>\n      <form class=\"form-extendido\" id=\"form-extendido\" novalidate>\n        <div id=\"ext-elemento\">\n          <label for=\"ext-id\">ID</label>\n          <input id=\"ext-id\" type=\"text\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-nombre\">Nombre</label>\n          <input id=\"ext-nombre\" type=\"text\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-origen\">Origen</label>\n          <select id=\"ext-origen\" required>\n            <option value=\"\">Seleccione</option>\n            ".concat(opcionesOrigen.map(function (o) { return "<option value=\"".concat(o, "\">").concat(o, "</option>"); }).join(''), "\n          </select>\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-dureza\">Dureza (1-10)</label>\n          <input id=\"ext-dureza\" type=\"number\" min=\"1\" max=\"10\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-tamanoGrano\">Tama\u00F1o de grano (mm)</label>\n          <input id=\"ext-tamanoGrano\" type=\"number\" step=\"0.01\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-clasificacion\">Clasificaci\u00F3n</label>\n          <select id=\"ext-clasificacion\" required>\n            <option value=\"\">Seleccione</option>\n            ").concat(opcionesClasificacion.map(function (c) { return "<option value=\"".concat(c, "\">").concat(c, "</option>"); }).join(''), "\n          </select>\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-tamanoCristal\">Tama\u00F1o de cristales (0-10)</label>\n          <input id=\"ext-tamanoCristal\" type=\"number\" min=\"0\" max=\"10\" required />\n        </div>\n\n        <div id=\"ext-elemento\" >\n          <label for=\"ext-temperatura\">Temperatura (K)</label>\n          <input id=\"ext-temperatura\" type=\"number\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-textura\">Textura</label>\n          <select id=\"ext-textura\" required>\n            <option value=\"\">Seleccione</option>\n            ").concat(opcionesTextura.map(function (t) { return "<option value=\"".concat(t, "\">").concat(t, "</option>"); }).join(''), "\n          </select>\n        </div>\n\n        <div id=\"ext-elemento-estructura\">\n          <label for=\"ext-estructura\">Estructura</label>\n          <input id=\"ext-estructura\" class=\"campo-estructura\" type=\"text\" required />\n        </div>\n      </form>\n    ");
     };
     IntroduccionExtendida.prototype.dameMineral = function () {
-        var id = document.getElementById("id").value;
-        var nombre = document.getElementById("nombre").value;
-        var origen = document.getElementById("origen").value;
-        var dureza = parseInt(document.getElementById("dureza").value);
-        var tamañoGrano = parseFloat(document.getElementById("tamanoGrano").value);
-        var clasificacion = document.getElementById("clasificacion").value;
-        var tamañoCristal = parseInt(document.getElementById("tamanoCristal").value);
-        var temperaturaFormacion = parseInt(document.getElementById("temperatura").value);
-        var estructura = document.getElementById("estructura").value;
-        var textura = document.getElementById("textura").value;
+        var id = document.getElementById("ext-id").value;
+        var nombre = document.getElementById("ext-nombre").value;
+        var origen = document.getElementById("ext-origen").value;
+        var dureza = parseFloat(document.getElementById("ext-dureza").value);
+        var tamañoGrano = parseFloat(document.getElementById("ext-tamanoGrano").value);
+        var clasificacion = document.getElementById("ext-clasificacion").value;
+        var tamañoCristal = parseFloat(document.getElementById("ext-tamanoCristal").value);
+        var temperaturaFormacion = parseFloat(document.getElementById("ext-temperatura").value);
+        var estructura = document.getElementById("ext-estructura").value;
+        var textura = document.getElementById("ext-textura").value;
         return new Mineral(id, nombre, origen, dureza, tamañoGrano, clasificacion, tamañoCristal, temperaturaFormacion, estructura, textura);
     };
     return IntroduccionExtendida;
+}());
+var IntroduccionReducida = /** @class */ (function () {
+    function IntroduccionReducida(idContenedor) {
+        var cont = document.getElementById(idContenedor);
+        if (!cont)
+            throw new Error("No se encontró el contenedor del formulario reducido");
+        this.contenedor = cont;
+        this.render();
+    }
+    IntroduccionReducida.prototype.render = function () {
+        var opcionesOrigen = Object.values(OrigenMaterialLunar);
+        var opcionesClasificacion = Object.values(ClasificacionMaterialLunar);
+        var opcionesTextura = Object.values(TexturaMaterialLunar);
+        this.contenedor.innerHTML = "\n      <h3>Formulario Reducido</h3>\n      <form class=\"form-reducido\" id=\"form-reducido\" novalidate>\n\n        <input id=\"red-id\" type=\"text\" placeholder=\"ID del mineral (LLDDDDLL)\" required />\n\n        <input id=\"red-nombre\" type=\"text\" placeholder=\"Nombre del mineral\" required />\n\n        <input id=\"red-origen\" list=\"lista-origen\" type=\"text\" placeholder=\"Origen\" required />\n        <datalist id=\"lista-origen\">\n          ".concat(opcionesOrigen.map(function (o) { return "<option value=\"".concat(o, "\"></option>"); }).join(''), "\n        </datalist>\n\n        <input id=\"red-clasificacion\" list=\"lista-clasificacion\" type=\"text\" placeholder=\"Clasificaci\u00F3n\" required />\n        <datalist id=\"lista-clasificacion\">\n          ").concat(opcionesClasificacion.map(function (c) { return "<option value=\"".concat(c, "\"></option>"); }).join(''), "\n        </datalist>\n\n        <input id=\"red-textura\" list=\"lista-textura\" type=\"text\" placeholder=\"Textura\" required />\n        <datalist id=\"lista-textura\">\n          ").concat(opcionesTextura.map(function (t) { return "<option value=\"".concat(t, "\"></option>"); }).join(''), "\n        </datalist>\n\n        <input id=\"red-dureza\" type=\"number\" step=\"0.1\" min=\"1\" max=\"10\" placeholder=\"Dureza (1-10)\" required />\n\n        <input id=\"red-tamano\" type=\"number\" step=\"0.1\" placeholder=\"Tama\u00F1o del grano (mm)\" required />\n\n        <input id=\"red-tamanoCristal\" type=\"number\" step=\"0.1\" placeholder=\"Tama\u00F1o de cristal\" required />\n\n        <input id=\"red-temperatura\" type=\"number\" step=\"1\" placeholder=\"Temperatura de formaci\u00F3n (K)\" required />\n\n        <input id=\"red-estructura\" type=\"text\" placeholder=\"Estructura\" required />\n      </form>\n    ");
+    };
+    IntroduccionReducida.prototype.dameMineral = function () {
+        var opcionesOrigen = Object.values(OrigenMaterialLunar);
+        var opcionesClasificacion = Object.values(ClasificacionMaterialLunar);
+        var opcionesTextura = Object.values(TexturaMaterialLunar);
+        var origenTexto = document.getElementById("red-origen").value;
+        var clasTexto = document.getElementById("red-clasificacion").value;
+        var texturaTexto = document.getElementById("red-textura").value;
+        var origen = opcionesOrigen.includes(origenTexto)
+            ? origenTexto
+            : opcionesOrigen[0];
+        var clasificacion = opcionesClasificacion.includes(clasTexto)
+            ? clasTexto
+            : opcionesClasificacion[0];
+        var textura = opcionesTextura.includes(texturaTexto)
+            ? texturaTexto
+            : opcionesTextura[0];
+        var id = document.getElementById("red-id").value;
+        var nombre = document.getElementById("red-nombre").value;
+        var dureza = parseFloat(document.getElementById("red-dureza").value);
+        var tamañoGrano = parseFloat(document.getElementById("red-tamano").value);
+        var tamañoCristal = parseFloat(document.getElementById("red-tamanoCristal").value);
+        var temperaturaFormacion = parseFloat(document.getElementById("red-temperatura").value);
+        var estructura = document.getElementById("red-estructura").value;
+        return new Mineral(id, nombre, origen, dureza, tamañoGrano, clasificacion, isNaN(tamañoCristal) ? 0 : tamañoCristal, isNaN(temperaturaFormacion) ? 0 : temperaturaFormacion, estructura, textura);
+    };
+    return IntroduccionReducida;
 }());
 var Astronauta = /** @class */ (function () {
     function Astronauta(identificador, nombreCompleto, edad) {
@@ -272,9 +284,14 @@ window.onload = function () {
     var inicio = document.getElementById("inicio-mision");
     var formaEntradaDiv = document.getElementById("forma-entrada");
     var datosMisionDiv = document.getElementById("datos-mision");
+    var mineralFormDiv = document.getElementById("mineral-form");
     var botonNuevaMision = document.getElementById("nueva-mision");
     var resultadoDiv = document.getElementById("resultado");
+    var validarMineralBtn = document.getElementById("validar-mineral");
+    var formAstro = document.getElementById("form-astronauta");
     var lienzo = document.createElement("canvas");
+    var formExtendido = document.getElementById("form-extendido");
+    var formReducido = document.getElementById("form-reducido");
     // Animación de fondo
     lienzo.id = "canvas-fondo";
     lienzo.style.position = "fixed";
@@ -307,19 +324,26 @@ window.onload = function () {
         requestAnimationFrame(animar);
     };
     animar();
+    formAstro.style.display = "none";
+    formaEntradaDiv.style.display = "none";
+    validarMineralBtn.style.display = "none";
+    resultadoDiv.style.display = "none";
+    datosMisionDiv.style.display = "none";
+    mineralFormDiv.style.display = "none";
+    botonNuevaMision.style.display = "none";
     var misionActual;
     inicio.addEventListener("click", function (e) {
         var target = e.target;
         if (target.tagName !== "BUTTON")
             return;
         inicio.style.display = "none";
-        var formAstro = document.getElementById("form-astronauta");
-        formAstro.style.display = "block";
+        formAstro.style.display = "flex";
         formAstro.criterioElegido = target.dataset.criterio;
     });
     document.getElementById("aceptar-astro").addEventListener("click", function () {
-        var formAstro = document.getElementById("form-astronauta");
         formAstro.style.display = "none";
+        formaEntradaDiv.style.display = "flex";
+        botonNuevaMision.style.display = "flex";
         var id = document.getElementById("astro-id").value || "AGM001";
         var nombre = document.getElementById("astro-nombre").value || "Agmunsen";
         var edad = parseInt(document.getElementById("astro-edad").value) || 40;
@@ -342,7 +366,8 @@ window.onload = function () {
             default:
                 return;
         }
-        datosMisionDiv.innerHTML = "\n      <p><strong>Astronauta:</strong> ".concat(astronauta.dameNombre(), "</p>\n      <p><strong>Identificador:</strong> ").concat(astronauta.dameId(), "</p>\n      <p><strong>Edad:</strong> ").concat(astronauta.dameEdad(), "</p>\n      <p><strong>Fecha inicio:</strong> ").concat(new Date().toLocaleString(), "</p>\n      <p><strong>Tipo de material a recolectar:</strong> ").concat(tipoMaterial, "</p>\n    ");
+        datosMisionDiv.innerHTML = "\n      <h2>Datos de la Misi\u00F3n</h2>\n      <p><strong>Astronauta:</strong> ".concat(astronauta.dameNombre(), "</p>\n      <p><strong>Identificador:</strong> ").concat(astronauta.dameId(), "</p>\n      <p><strong>Edad:</strong> ").concat(astronauta.dameEdad(), "</p>\n      <p><strong>Fecha inicio:</strong> ").concat(new Date().toLocaleString(), "</p>\n      <p><strong>Tipo de material a recolectar:</strong> ").concat(tipoMaterial, "</p>\n    ");
+        datosMisionDiv.style.display = "flex";
         formaEntradaDiv.innerHTML = "\n      <button id=\"extendida\">Forma Extendida</button>\n      <button id=\"reducida\">Forma Reducida</button>\n    ";
         formaEntradaDiv.addEventListener("click", function (e) {
             var targetEntrada = e.target;
@@ -356,20 +381,22 @@ window.onload = function () {
                 entradaSistema = new IntroduccionReducida("mineral-form");
             }
             misionActual = new Mision(astronauta, criterio, entradaSistema, new FormatoEuropeo());
+            validarMineralBtn.style.display = "flex";
+            mineralFormDiv.style.display = "flex";
         });
     });
-    document.getElementById("validar-mineral").addEventListener("click", function () {
-        if (!misionActual) {
-            alert("Primero selecciona un criterio y una forma de entrada");
+    validarMineralBtn.addEventListener("click", function () {
+        var formElemento = document.querySelector("#mineral-form form");
+        if (!formElemento.checkValidity()) {
+            alert("Por favor completa todos los campos requeridos");
             return;
         }
         var mineral = misionActual.entrada.dameMineral();
         var esValido = misionActual.criterio.esValido(mineral);
         var formatoEuropeo = new FormatoEuropeo();
         var formatoAmericano = new FormatoAmericano();
-        resultadoDiv.innerHTML = "\n      <h2>Misi\u00F3n de ".concat(misionActual.piloto.dameNombre(), "</h2>\n      <p><strong>Criterio:</strong> ").concat(misionActual.criterio.descripcion(), "</p>\n      <p><strong>Resultado:</strong> ").concat(esValido ? "✅ Válido" : "❌ No válido", "</p>\n      <div style=\"display:flex; gap:30px; flex-wrap:wrap;\">\n        <div style=\"border:1px solid #ccc; padding:10px; width:45%;\">").concat(formatoEuropeo.muestra(mineral), "</div>\n        <div style=\"border:1px solid #ccc; padding:10px; width:45%;\">").concat(formatoAmericano.muestra(mineral), "</div>\n      </div>\n      <div class=\"emojis\">").concat(esValido ? "😄" : "😠", "</div>\n    ");
+        resultadoDiv.innerHTML = "\n      <h2>Misi\u00F3n de ".concat(misionActual.piloto.dameNombre(), "</h2>\n      <p> ").concat(misionActual.criterio.descripcion(), "</p>\n      <p><strong>Resultado:</strong> ").concat(esValido ? "✅ Válido" : "❌ No válido", "</p>\n      <div style=\"display:flex; gap:30px; flex-wrap:wrap;\">\n        <div style=\"border:1px solid #ccc; padding:10px; width:45%;\">").concat(formatoEuropeo.muestra(mineral), "</div>\n        <div style=\"border:1px solid #ccc; padding:10px; width:45%;\">").concat(formatoAmericano.muestra(mineral), "</div>\n      </div>\n      <div class=\"emojis\">").concat(esValido ? "😄" : "😠", "</div>\n    ");
+        resultadoDiv.style.display = "flex";
     });
-    botonNuevaMision.addEventListener("click", function () {
-        location.reload();
-    });
+    botonNuevaMision.addEventListener("click", function () { return location.reload(); });
 };
