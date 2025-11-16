@@ -120,18 +120,49 @@ var IntroduccionExtendida = /** @class */ (function () {
         var opcionesTextura = Object.values(TexturaMaterialLunar);
         this.contenedor.innerHTML = "\n      <h3>Formulario Extendido</h3>\n      <form class=\"form-extendido\" id=\"form-extendido\" novalidate>\n        <div id=\"ext-elemento\">\n          <label for=\"ext-id\">ID (LLDDDDLL)</label>\n          <input id=\"ext-id\" type=\"text\" required pattern=\"[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}\" />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-nombre\">Nombre</label>\n          <input id=\"ext-nombre\" type=\"text\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-origen\">Origen</label>\n          <select id=\"ext-origen\" required>\n            <option value=\"\">Seleccione</option>\n            ".concat(opcionesOrigen.map(function (o) { return "<option value=\"".concat(o, "\">").concat(o, "</option>"); }).join(''), "\n          </select>\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-dureza\">Dureza (1-10)</label>\n          <input id=\"ext-dureza\" type=\"number\" step=\"1\" min=\"1\" max=\"10\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-tamanoGrano\">Tama\u00F1o de grano (mm)</label>\n          <input id=\"ext-tamanoGrano\" type=\"number\" step=\"1\" min=\"1\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-clasificacion\">Clasificaci\u00F3n</label>\n          <select id=\"ext-clasificacion\" required>\n            <option value=\"\">Seleccione</option>\n            ").concat(opcionesClasificacion.map(function (c) { return "<option value=\"".concat(c, "\">").concat(c, "</option>"); }).join(''), "\n          </select>\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-tamanoCristal\">Tama\u00F1o de cristales</label>\n          <input id=\"ext-tamanoCristal\" type=\"number\" step=\"1\" min=\"0\" max=\"10\" required />\n        </div>\n\n        <div id=\"ext-elemento\" >\n          <label for=\"ext-temperatura\">Temperatura (K)</label>\n          <input id=\"ext-temperatura\" type=\"number\" step=\"1\" min=\"-100\" max=\"100\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-textura\">Textura</label>\n          <select id=\"ext-textura\" required>\n            <option value=\"\">Seleccione</option>\n            ").concat(opcionesTextura.map(function (t) { return "<option value=\"".concat(t, "\">").concat(t, "</option>"); }).join(''), "\n          </select>\n        </div>\n\n        <div id=\"ext-elemento-estructura\">\n          <label for=\"ext-estructura\">Estructura</label>\n          <input id=\"ext-estructura\" class=\"campo-estructura\" type=\"text\" required />\n        </div>\n      </form>\n    ");
     };
+    IntroduccionExtendida.prototype.leerCamposSimples = function () {
+        var ids = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            ids[_i] = arguments[_i];
+        }
+        return ids.map(function (id) {
+            var el = document.getElementById(id);
+            if (!el)
+                throw new Error("No existe el elemento con id ".concat(id));
+            return el.value;
+        });
+    };
     IntroduccionExtendida.prototype.dameMineral = function () {
-        var id = document.getElementById("ext-id").value;
-        var nombre = document.getElementById("ext-nombre").value;
-        var origen = document.getElementById("ext-origen").value;
-        var dureza = parseFloat(document.getElementById("ext-dureza").value);
-        var tamañoGrano = parseFloat(document.getElementById("ext-tamanoGrano").value);
-        var clasificacion = document.getElementById("ext-clasificacion").value;
-        var tamañoCristal = parseFloat(document.getElementById("ext-tamanoCristal").value);
-        var temperaturaFormacion = parseFloat(document.getElementById("ext-temperatura").value);
-        var estructura = document.getElementById("ext-estructura").value;
-        var textura = document.getElementById("ext-textura").value;
-        return new Mineral(id, nombre, origen, dureza, tamañoGrano, clasificacion, tamañoCristal, temperaturaFormacion, estructura, textura);
+        var _a = this.leerCamposSimples("ext-id", "ext-nombre", "ext-origen", "ext-dureza", "ext-tamanoGrano", "ext-clasificacion", "ext-tamanoCristal", "ext-temperatura", "ext-estructura", "ext-textura"), id = _a[0], nombre = _a[1], origen = _a[2], dureza = _a[3], tamGrano = _a[4], clasificacion = _a[5], tamCristal = _a[6], temperatura = _a[7], estructura = _a[8], textura = _a[9];
+        return new Mineral(id !== null && id !== void 0 ? id : "", nombre !== null && nombre !== void 0 ? nombre : "", origen, parseFloat(dureza !== null && dureza !== void 0 ? dureza : "0"), parseFloat(tamGrano !== null && tamGrano !== void 0 ? tamGrano : "0"), clasificacion, parseFloat(tamCristal !== null && tamCristal !== void 0 ? tamCristal : "0"), parseFloat(temperatura !== null && temperatura !== void 0 ? temperatura : "0"), estructura !== null && estructura !== void 0 ? estructura : "", textura);
+    };
+    IntroduccionExtendida.prototype.validarFormulario = function () {
+        var _a, _b, _c;
+        var ids = [
+            "ext-id",
+            "ext-nombre",
+            "ext-origen",
+            "ext-dureza",
+            "ext-tamanoGrano",
+            "ext-clasificacion",
+            "ext-tamanoCristal",
+            "ext-temperatura",
+            "ext-estructura",
+            "ext-textura"
+        ];
+        var valores = this.leerCamposSimples.apply(this, ids);
+        for (var i = 0; i < ids.length; i++) {
+            if (((_a = valores[i]) !== null && _a !== void 0 ? _a : "").trim() === "") {
+                var nombreCampo = ((_b = ids[i]) !== null && _b !== void 0 ? _b : "").slice(4);
+                return "El campo \"".concat(nombreCampo, "\" es obligatorio.");
+            }
+        }
+        var idValor = (_c = valores[0]) !== null && _c !== void 0 ? _c : "";
+        var regexID = /^[A-Z]{2}[0-9]{4}[A-Z]{2}$/;
+        if (!regexID.test(idValor)) {
+            return "El ID debe tener el formato LLDDDDLL (ejemplo: AB1234CD).";
+        }
+        return null;
     };
     return IntroduccionExtendida;
 }());
@@ -149,30 +180,49 @@ var IntroduccionReducida = /** @class */ (function () {
         var opcionesTextura = Object.values(TexturaMaterialLunar);
         this.contenedor.innerHTML = "\n      <h3>Formulario Reducido</h3>\n      <form class=\"form-reducido\" id=\"form-reducido\" novalidate>\n\n        <input id=\"red-id\" type=\"text\" placeholder=\"ID (LLDDDDLL)\" required pattern=\"[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}\" />\n\n        <input id=\"red-nombre\" type=\"text\" placeholder=\"Nombre del mineral\" required />\n\n        <input id=\"red-origen\" list=\"lista-origen\" type=\"text\" placeholder=\"Origen\" required />\n        <datalist id=\"lista-origen\">\n          ".concat(opcionesOrigen.map(function (o) { return "<option value=\"".concat(o, "\"></option>"); }).join(''), "\n        </datalist>\n\n        <input id=\"red-clasificacion\" list=\"lista-clasificacion\" type=\"text\" placeholder=\"Clasificaci\u00F3n\" required />\n        <datalist id=\"lista-clasificacion\">\n          ").concat(opcionesClasificacion.map(function (c) { return "<option value=\"".concat(c, "\"></option>"); }).join(''), "\n        </datalist>\n\n        <input id=\"red-textura\" list=\"lista-textura\" type=\"text\" placeholder=\"Textura\" required />\n        <datalist id=\"lista-textura\">\n          ").concat(opcionesTextura.map(function (t) { return "<option value=\"".concat(t, "\"></option>"); }).join(''), "\n        </datalist>\n\n        <input id=\"red-dureza\" type=\"number\" step=\"1\" min=\"1\" max=\"10\" placeholder=\"Dureza (1-10)\" required />\n\n        <input id=\"red-tamano\" type=\"number\" step=\"1\" min=\"0\" placeholder=\"Tama\u00F1o del grano (mm)\" required />\n\n        <input id=\"red-tamanoCristal\" type=\"number\" step=\"1\" min=\"0\" max=\"10\" placeholder=\"Tama\u00F1o de cristal\" required />\n    \n        <input id=\"red-temperatura\" type=\"number\" step=\"1\" min=\"-100\" max=\"100\" placeholder=\"Temperatura de formaci\u00F3n (K)\" required />\n\n        <input id=\"red-estructura\" type=\"text\" placeholder=\"Estructura\" required />\n      </form>\n    ");
     };
+    IntroduccionReducida.prototype.leerCamposSimples = function () {
+        var ids = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            ids[_i] = arguments[_i];
+        }
+        return ids.map(function (id) {
+            var el = document.getElementById(id);
+            if (!el)
+                throw new Error("No existe el elemento con id ".concat(id));
+            return el.value;
+        });
+    };
     IntroduccionReducida.prototype.dameMineral = function () {
-        var opcionesOrigen = Object.values(OrigenMaterialLunar);
-        var opcionesClasificacion = Object.values(ClasificacionMaterialLunar);
-        var opcionesTextura = Object.values(TexturaMaterialLunar);
-        var origenTexto = document.getElementById("red-origen").value;
-        var clasTexto = document.getElementById("red-clasificacion").value;
-        var texturaTexto = document.getElementById("red-textura").value;
-        var origen = opcionesOrigen.includes(origenTexto)
-            ? origenTexto
-            : opcionesOrigen[0];
-        var clasificacion = opcionesClasificacion.includes(clasTexto)
-            ? clasTexto
-            : opcionesClasificacion[0];
-        var textura = opcionesTextura.includes(texturaTexto)
-            ? texturaTexto
-            : opcionesTextura[0];
-        var id = document.getElementById("red-id").value;
-        var nombre = document.getElementById("red-nombre").value;
-        var dureza = parseFloat(document.getElementById("red-dureza").value);
-        var tamañoGrano = parseFloat(document.getElementById("red-tamano").value);
-        var tamañoCristal = parseFloat(document.getElementById("red-tamanoCristal").value);
-        var temperaturaFormacion = parseFloat(document.getElementById("red-temperatura").value);
-        var estructura = document.getElementById("red-estructura").value;
-        return new Mineral(id, nombre, origen, dureza, tamañoGrano, clasificacion, isNaN(tamañoCristal) ? 0 : tamañoCristal, isNaN(temperaturaFormacion) ? 0 : temperaturaFormacion, estructura, textura);
+        var _a = this.leerCamposSimples("red-id", "red-nombre", "red-origen", "red-clasificacion", "red-textura", "red-dureza", "red-tamano", "red-tamanoCristal", "red-temperatura", "red-estructura"), id = _a[0], nombre = _a[1], origen = _a[2], clasificacion = _a[3], textura = _a[4], dureza = _a[5], tamGrano = _a[6], tamCristal = _a[7], temperatura = _a[8], estructura = _a[9];
+        return new Mineral(id !== null && id !== void 0 ? id : "", nombre !== null && nombre !== void 0 ? nombre : "", origen, parseFloat(dureza !== null && dureza !== void 0 ? dureza : "0"), parseFloat(tamGrano !== null && tamGrano !== void 0 ? tamGrano : "0"), clasificacion, parseFloat(tamCristal !== null && tamCristal !== void 0 ? tamCristal : "0"), parseFloat(temperatura !== null && temperatura !== void 0 ? temperatura : "0"), estructura !== null && estructura !== void 0 ? estructura : "", textura);
+    };
+    IntroduccionReducida.prototype.validarFormulario = function () {
+        var _a, _b, _c;
+        var ids = [
+            "red-id",
+            "red-nombre",
+            "red-origen",
+            "red-clasificacion",
+            "red-textura",
+            "red-dureza",
+            "red-tamano",
+            "red-tamanoCristal",
+            "red-temperatura",
+            "red-estructura"
+        ];
+        var valores = this.leerCamposSimples.apply(this, ids);
+        for (var i = 0; i < ids.length; i++) {
+            if (((_a = valores[i]) !== null && _a !== void 0 ? _a : "").trim() === "") {
+                var nombreCampo = ((_b = ids[i]) !== null && _b !== void 0 ? _b : "").slice(4);
+                return "El campo \"".concat(nombreCampo, "\" es obligatorio.");
+            }
+        }
+        var idValor = (_c = valores[0]) !== null && _c !== void 0 ? _c : "";
+        var regexID = /^[A-Z]{2}[0-9]{4}[A-Z]{2}$/;
+        if (!regexID.test(idValor)) {
+            return "El ID debe seguir el formato LLDDDDLL (ejemplo: AB1234CD).";
+        }
+        return null;
     };
     return IntroduccionReducida;
 }());
@@ -385,12 +435,12 @@ window.onload = function () {
         });
     });
     validarMineralBtn.addEventListener("click", function () {
-        var formElemento = document.querySelector("#mineral-form form");
-        if (!formElemento.checkValidity()) {
-            alert("Valores del mineral incompletos o inválidos. Por favor, revise el formulario.");
+        var mineral = misionActual.entrada.dameMineral();
+        var checkValidity = misionActual.entrada.validarFormulario();
+        if (checkValidity !== null) {
+            alert(checkValidity);
             return;
         }
-        var mineral = misionActual.entrada.dameMineral();
         var esValido = misionActual.criterio.esValido(mineral);
         var formatoEuropeo = new FormatoEuropeo();
         var formatoAmericano = new FormatoAmericano();
