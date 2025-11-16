@@ -136,7 +136,7 @@ class FormatoEuropeo implements ISistemaSalida {
       <p><strong>Tamaño de grano:</strong> ${mineral.dameTamañoGrano()} (${mineral.tamañoGrano} mm)</p>
       <p><strong>Clasificación:</strong> ${mineral.clasificacion}</p>
       <p><strong>Tamaño de cristales:</strong> ${mineral.tamañoCristal}</p>
-      <p><strong>Temperatura de formación:</strong> ${(mineral.temperaturaFormacion - 273.15).toFixed(2)} °C</p>
+      <p><strong>Temperatura de formación:</strong> ${(mineral.temperaturaFormacion).toFixed(2)} °C</p>
       <p><strong>Estructura:</strong> ${mineral.estructura}</p>
       <p><strong>Textura:</strong> ${mineral.textura}</p>
     `;
@@ -154,7 +154,7 @@ class FormatoAmericano implements ISistemaSalida {
       <p><strong>Grain size:</strong> ${mineral.dameTamañoGrano()} (${mineral.tamañoGrano} mm)</p>
       <p><strong>Classification:</strong> ${mineral.clasificacion}</p>
       <p><strong>Crystal size:</strong> ${mineral.tamañoCristal}</p>
-      <p><strong>Formation temperature:</strong> ${((mineral.temperaturaFormacion - 273.15) * 9/5 + 32).toFixed(2)} °F</p>
+      <p><strong>Formation temperature:</strong> ${((mineral.temperaturaFormacion) * 9/5 + 32).toFixed(2)} °F</p>
       <p><strong>Structure:</strong> ${mineral.estructura}</p>
       <p><strong>Texture:</strong> ${mineral.textura}</p>
     `;
@@ -179,8 +179,8 @@ class IntroduccionExtendida implements ISistemaEntrada {
       <h3>Formulario Extendido</h3>
       <form class="form-extendido" id="form-extendido" novalidate>
         <div id="ext-elemento">
-          <label for="ext-id">ID</label>
-          <input id="ext-id" type="text" required />
+          <label for="ext-id">ID (LLDDDDLL)</label>
+          <input id="ext-id" type="text" required pattern="[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}" />
         </div>
 
         <div id="ext-elemento">
@@ -198,12 +198,12 @@ class IntroduccionExtendida implements ISistemaEntrada {
 
         <div id="ext-elemento">
           <label for="ext-dureza">Dureza (1-10)</label>
-          <input id="ext-dureza" type="number" min="1" max="10" required />
+          <input id="ext-dureza" type="number" step="1" min="1" max="10" required />
         </div>
 
         <div id="ext-elemento">
           <label for="ext-tamanoGrano">Tamaño de grano (mm)</label>
-          <input id="ext-tamanoGrano" type="number" step="0.01" required />
+          <input id="ext-tamanoGrano" type="number" step="1" min="1" required />
         </div>
 
         <div id="ext-elemento">
@@ -216,12 +216,12 @@ class IntroduccionExtendida implements ISistemaEntrada {
 
         <div id="ext-elemento">
           <label for="ext-tamanoCristal">Tamaño de cristales</label>
-          <input id="ext-tamanoCristal" type="number" min="0" max="10" required />
+          <input id="ext-tamanoCristal" type="number" step="1" min="0" max="10" required />
         </div>
 
         <div id="ext-elemento" >
           <label for="ext-temperatura">Temperatura (K)</label>
-          <input id="ext-temperatura" type="number" min="-100" max="100" required />
+          <input id="ext-temperatura" type="number" step="1" min="-100" max="100" required />
         </div>
 
         <div id="ext-elemento">
@@ -286,7 +286,7 @@ class IntroduccionReducida implements ISistemaEntrada {
       <h3>Formulario Reducido</h3>
       <form class="form-reducido" id="form-reducido" novalidate>
 
-        <input id="red-id" type="text" placeholder="ID del mineral (LLDDDDLL)" required />
+        <input id="red-id" type="text" placeholder="ID (LLDDDDLL)" required pattern="[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}" />
 
         <input id="red-nombre" type="text" placeholder="Nombre del mineral" required />
 
@@ -305,12 +305,12 @@ class IntroduccionReducida implements ISistemaEntrada {
           ${opcionesTextura.map(t => `<option value="${t}"></option>`).join('')}
         </datalist>
 
-        <input id="red-dureza" type="number" step="0.1" min="1" max="10" placeholder="Dureza (1-10)" required />
+        <input id="red-dureza" type="number" step="1" min="1" max="10" placeholder="Dureza (1-10)" required />
 
-        <input id="red-tamano" type="number" step="0.1" placeholder="Tamaño del grano (mm)" required />
+        <input id="red-tamano" type="number" step="1" min="0" placeholder="Tamaño del grano (mm)" required />
 
-        <input id="red-tamanoCristal" type="number" step="0.1" placeholder="Tamaño de cristal" required />
-
+        <input id="red-tamanoCristal" type="number" step="1" min="0" max="10" placeholder="Tamaño de cristal" required />
+    
         <input id="red-temperatura" type="number" step="1" min="-100" max="100" placeholder="Temperatura de formación (K)" required />
 
         <input id="red-estructura" type="text" placeholder="Estructura" required />
@@ -493,8 +493,6 @@ window.onload = () => {
   const validarMineralBtn = document.getElementById("validar-mineral")!;
   const formAstro = document.getElementById("form-astronauta")!;
   const lienzo = document.createElement("canvas");
-  const formExtendido = document.getElementById("form-extendido") as HTMLFormElement;
-  const formReducido = document.getElementById("form-reducido") as HTMLFormElement;
 
   // Animación de fondo
   lienzo.id = "canvas-fondo";
@@ -543,6 +541,7 @@ window.onload = () => {
   mineralFormDiv.style.display = "none";
   botonNuevaMision.style.display = "none";
 
+  // Lógica de la mision
   let misionActual: Mision;
 
   inicio.addEventListener("click", (e) => {
