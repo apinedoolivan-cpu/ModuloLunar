@@ -161,20 +161,140 @@ class FormatoAmericano implements ISistemaSalida {
     `;
   }
 }
-class IntroduccionExtendida implements ISistemaEntrada {
-  private contenedor: HTMLElement;
+abstract class BaseFormularioMineral implements ISistemaEntrada {
+  
+  protected contenedor: HTMLElement;
+  protected campos: string[] = [];
+  protected opcionesOrigen: string[];
+  protected opcionesClasificacion: string[];
+  protected opcionesTextura: string[];
 
   constructor(idContenedor: string) {
-    const cont = document.getElementById(idContenedor);
-    if (!cont) throw new Error("No se encontró el contenedor del formulario extendido");
-    this.contenedor = cont;
+    const c = document.getElementById(idContenedor);
+    if (!c) throw new Error("No existe el contenedor del formulario");
+    this.contenedor = c;
+
+    this.opcionesOrigen = Object.values(OrigenMaterialLunar) as string[];
+    this.opcionesClasificacion = Object.values(ClasificacionMaterialLunar) as string[];
+    this.opcionesTextura = Object.values(TexturaMaterialLunar) as string[];
+
     this.render();
   }
 
-  private render(): void {
-    const opcionesOrigen = Object.values(OrigenMaterialLunar) as string[];
-    const opcionesClasificacion = Object.values(ClasificacionMaterialLunar) as string[];
-    const opcionesTextura = Object.values(TexturaMaterialLunar) as string[];
+  protected abstract render(): void;
+
+  protected leerCamposSimples(...ids: string[]): string[] {
+    return ids.map(id => {
+      const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement | null;
+      if (!el) throw new Error(`No existe el elemento con id ${id}`);
+      return (el.value ?? "").trim();
+    });
+  }
+
+  validarFormulario(): string | null {
+
+    const valores = this.leerCamposSimples(...this.campos);
+
+    for (let i = 0; i < valores.length; i++) {
+      if ((valores[i] ?? "").trim() === "") {
+        const nombreCampo = (this.campos[i] ?? "").slice(4); 
+        return `El campo "${nombreCampo}" es obligatorio.`;
+      }
+    }
+
+    const idValor = valores[0] ?? ""; 
+    const regexID = /^[A-Z]{2}[0-9]{4}[A-Z]{2}$/;
+    const idxDureza = this.campos.findIndex(id => id.toLowerCase().includes("dureza"));
+    const dureza = parseFloat(valores[idxDureza] ?? "0");
+
+    const idxTam = this.campos.findIndex(id =>
+    id.toLowerCase().includes("tamano") || id.toLowerCase().includes("tamaño"));
+    const tamano = parseFloat(valores[idxTam] ?? "0");
+
+    const idxTemp = this.campos.findIndex(id =>id.toLowerCase().includes("temperatura"));
+    const temperatura = parseFloat(valores[idxTemp] ?? "0");
+
+    if (!regexID.test(idValor)) {
+      return "El ID debe seguir el formato LLDDDDLL (ejemplo: AB1234CD).";
+    } 
+    if (dureza < 1 || dureza > 10) return "La dureza debe estar entre 1 y 10.";
+    if (tamano < 0 || tamano > 10) return "El tamaño de cristal debe estar entre 0 y 10.";
+    if (temperatura < -100 || temperatura > 100) return "La temperatura debe estar entre -100 y 100 K.";
+
+    return null;
+  }
+
+  dameMineral(): Mineral {
+    const valores = this.leerCamposSimples(...this.campos);
+
+    return new Mineral(
+      valores[0] ?? "",
+      valores[1] ?? "",
+      valores[2] as OrigenMaterialLunar,
+      parseFloat(valores[3] ?? "0"),
+      parseFloat(valores[4] ?? "0"),
+      valores[5] as ClasificacionMaterialLunar,
+      parseFloat(valores[6] ?? "0"),
+      parseFloat(valores[7] ?? "0"),
+      valores[8] ?? "",
+      valores[9] as TexturaMaterialLunar
+    );
+  }
+}
+class IntroduccionReducida extends BaseFormularioMineral {
+
+  protected render(): void {
+
+    this.campos = [
+      "red-id", "red-nombre", "red-origen", "red-clasificacion",
+      "red-textura", "red-dureza", "red-tamano", "red-tamanoCristal",
+      "red-temperatura", "red-estructura"
+    ];
+
+    this.contenedor.innerHTML = `
+      <h3>Formulario Reducido</h3>
+      <form class="form-reducido" id="form-reducido" novalidate>
+
+        <input id="red-id" type="text" placeholder="ID (LLDDDDLL)" required pattern="[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}" />
+
+        <input id="red-nombre" type="text" placeholder="Nombre del mineral" required />
+
+        <input id="red-origen" list="lista-origen" type="text" placeholder="Origen" required />
+        <datalist id="lista-origen">
+          ${this.opcionesOrigen.map(o => `<option value="${o}"></option>`).join('')}
+        </datalist>
+
+        <input id="red-clasificacion" list="lista-clasificacion" type="text" placeholder="Clasificación" required />
+        <datalist id="lista-clasificacion">
+          ${this.opcionesClasificacion.map(c => `<option value="${c}"></option>`).join('')}
+        </datalist>
+
+        <input id="red-textura" list="lista-textura" type="text" placeholder="Textura" required />
+        <datalist id="lista-textura">
+          ${this.opcionesTextura.map(t => `<option value="${t}"></option>`).join('')}
+        </datalist>
+
+        <input id="red-dureza" type="number" step="1" min="1" max="10" placeholder="Dureza (1-10)" required />
+
+        <input id="red-tamano" type="number" step="1" min="0" placeholder="Tamaño del grano (mm)" required />
+
+        <input id="red-tamanoCristal" type="number" step="1" min="0" max="10" placeholder="Tamaño de cristal" required />
+    
+        <input id="red-temperatura" type="number" step="1" min="-100" max="100" placeholder="Temperatura de formación (K)" required />
+
+        <input id="red-estructura" type="text" placeholder="Estructura" required />
+      </form>
+    `;
+  }
+}
+class IntroduccionExtendida extends BaseFormularioMineral {
+
+  protected render(): void {
+    this.campos = [
+      "ext-id", "ext-nombre", "ext-origen", "ext-dureza",
+      "ext-tamanoGrano", "ext-clasificacion", "ext-tamanoCristal",
+      "ext-temperatura", "ext-estructura", "ext-textura"
+    ];
 
     this.contenedor.innerHTML = `
       <h3>Formulario Extendido</h3>
@@ -193,7 +313,7 @@ class IntroduccionExtendida implements ISistemaEntrada {
           <label for="ext-origen">Origen</label>
           <select id="ext-origen" required>
             <option value="">Seleccione</option>
-            ${opcionesOrigen.map(o => `<option value="${o}">${o}</option>`).join('')}
+            ${this.opcionesOrigen.map(o => `<option value="${o}">${o}</option>`).join('')}
           </select>
         </div>
 
@@ -211,7 +331,7 @@ class IntroduccionExtendida implements ISistemaEntrada {
           <label for="ext-clasificacion">Clasificación</label>
           <select id="ext-clasificacion" required>
             <option value="">Seleccione</option>
-            ${opcionesClasificacion.map(c => `<option value="${c}">${c}</option>`).join('')}
+            ${this.opcionesClasificacion.map(c => `<option value="${c}">${c}</option>`).join('')}
           </select>
         </div>
 
@@ -229,7 +349,7 @@ class IntroduccionExtendida implements ISistemaEntrada {
           <label for="ext-textura">Textura</label>
           <select id="ext-textura" required>
             <option value="">Seleccione</option>
-            ${opcionesTextura.map(t => `<option value="${t}">${t}</option>`).join('')}
+            ${this.opcionesTextura.map(t => `<option value="${t}">${t}</option>`).join('')}
           </select>
         </div>
 
@@ -240,213 +360,6 @@ class IntroduccionExtendida implements ISistemaEntrada {
       </form>
     `;
   }
-  leerCamposSimples(...ids: string[]): string[] {
-    return ids.map(id => {
-      const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement;
-      if (!el) throw new Error(`No existe el elemento con id ${id}`);
-      return el.value;
-    });
-  }
-  dameMineral(): Mineral {
-    const [
-      id, nombre, origen, dureza, tamGrano,
-      clasificacion, tamCristal, temperatura,
-      estructura, textura
-    ] = this.leerCamposSimples(
-      "ext-id", "ext-nombre", "ext-origen", "ext-dureza",
-      "ext-tamanoGrano", "ext-clasificacion", "ext-tamanoCristal",
-      "ext-temperatura", "ext-estructura", "ext-textura"
-    );
-
-    return new Mineral(
-      id ?? "",
-      nombre ?? "",
-      origen as OrigenMaterialLunar,
-      parseFloat(dureza ?? "0"),
-      parseFloat(tamGrano ?? "0"),
-      clasificacion as ClasificacionMaterialLunar,
-      parseFloat(tamCristal ?? "0"),
-      parseFloat(temperatura ?? "0"),
-      estructura ?? "",
-      textura as TexturaMaterialLunar
-    );
-  }
-  validarFormulario(): string | null {
-    const ids = [
-      "ext-id",
-      "ext-nombre",
-      "ext-origen",
-      "ext-dureza",
-      "ext-tamanoGrano",
-      "ext-clasificacion",
-      "ext-tamanoCristal",
-      "ext-temperatura",
-      "ext-estructura",
-      "ext-textura"
-    ];
-
-    const valores = this.leerCamposSimples(...ids);
-
-    for (let i = 0; i < ids.length; i++) {
-      if ((valores[i] ?? "").trim() === "") {
-        const nombreCampo = (ids[i] ?? "").slice(4); 
-        return `El campo "${nombreCampo}" es obligatorio.`;
-      }
-    }
-    const idValor = valores[0] ?? ""; 
-    const regexID = /^[A-Z]{2}[0-9]{4}[A-Z]{2}$/;
-    const dureza = parseFloat(valores[5] ?? "0");        
-    const tamCristal = parseFloat(valores[7] ?? "0");   
-    const temperatura = parseFloat(valores[8] ?? "0"); 
-    
-      
-    if (!regexID.test(idValor)) {
-      return "El ID debe seguir el formato LLDDDDLL (ejemplo: AB1234CD).";
-    }
-
-    if (dureza < 1 || dureza > 10) {
-      return `La dureza debe estar entre 1 y 10 (Escala de Mohs).`;
-    }
-
-    if (tamCristal < 0 || tamCristal > 10) {
-      return `El tamaño de cristales debe estar entre 0 y 10 mm.`;
-    }
-
-    if (temperatura < -100 || temperatura > 100) {
-      return `La temperatura debe estar entre -100 y 100 Kelvin.`;
-    }
-      return null;
-  }
-}
-class IntroduccionReducida implements ISistemaEntrada {
-  private contenedor: HTMLElement;
-
-  constructor(idContenedor: string) {
-    const cont = document.getElementById(idContenedor);
-    if (!cont) throw new Error("No se encontró el contenedor del formulario reducido");
-    this.contenedor = cont;
-    this.render();
-  }
-
-  private render(): void {
-    const opcionesOrigen = Object.values(OrigenMaterialLunar) as string[];
-    const opcionesClasificacion = Object.values(ClasificacionMaterialLunar) as string[];
-    const opcionesTextura = Object.values(TexturaMaterialLunar) as string[];
-
-    this.contenedor.innerHTML = `
-      <h3>Formulario Reducido</h3>
-      <form class="form-reducido" id="form-reducido" novalidate>
-
-        <input id="red-id" type="text" placeholder="ID (LLDDDDLL)" required pattern="[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}" />
-
-        <input id="red-nombre" type="text" placeholder="Nombre del mineral" required />
-
-        <input id="red-origen" list="lista-origen" type="text" placeholder="Origen" required />
-        <datalist id="lista-origen">
-          ${opcionesOrigen.map(o => `<option value="${o}"></option>`).join('')}
-        </datalist>
-
-        <input id="red-clasificacion" list="lista-clasificacion" type="text" placeholder="Clasificación" required />
-        <datalist id="lista-clasificacion">
-          ${opcionesClasificacion.map(c => `<option value="${c}"></option>`).join('')}
-        </datalist>
-
-        <input id="red-textura" list="lista-textura" type="text" placeholder="Textura" required />
-        <datalist id="lista-textura">
-          ${opcionesTextura.map(t => `<option value="${t}"></option>`).join('')}
-        </datalist>
-
-        <input id="red-dureza" type="number" step="1" min="1" max="10" placeholder="Dureza (1-10)" required />
-
-        <input id="red-tamano" type="number" step="1" min="0" placeholder="Tamaño del grano (mm)" required />
-
-        <input id="red-tamanoCristal" type="number" step="1" min="0" max="10" placeholder="Tamaño de cristal" required />
-    
-        <input id="red-temperatura" type="number" step="1" min="-100" max="100" placeholder="Temperatura de formación (K)" required />
-
-        <input id="red-estructura" type="text" placeholder="Estructura" required />
-      </form>
-    `;
-  }
-  leerCamposSimples(...ids: string[]): string[] {
-    return ids.map(id => {
-      const el = document.getElementById(id) as (HTMLInputElement | HTMLSelectElement) | null;
-      if (!el) throw new Error(`No existe el elemento con id ${id}`);
-      const v: string = (el as HTMLInputElement).value ?? "";
-      return v;
-    });
-  }
-  dameMineral(): Mineral {
-    const [
-      id, nombre, origen, clasificacion, textura,
-      dureza, tamGrano, tamCristal, temperatura, estructura
-    ] = this.leerCamposSimples(
-      "red-id", "red-nombre", "red-origen", "red-clasificacion",
-      "red-textura", "red-dureza", "red-tamano", "red-tamanoCristal",
-      "red-temperatura", "red-estructura"
-    );
-
-    return new Mineral(
-      id ?? "",
-      nombre ?? "",
-      origen as OrigenMaterialLunar,
-      parseFloat(dureza ?? "0"),
-      parseFloat(tamGrano ?? "0"),
-      clasificacion as ClasificacionMaterialLunar,
-      parseFloat(tamCristal ?? "0"),
-      parseFloat(temperatura ?? "0"),
-      estructura ?? "",
-      textura as TexturaMaterialLunar
-    );
-  }
-  validarFormulario(): string | null {
-
-    const ids = [
-      "red-id",
-      "red-nombre",
-      "red-origen",
-      "red-clasificacion",
-      "red-textura",
-      "red-dureza",
-      "red-tamano",
-      "red-tamanoCristal",
-      "red-temperatura",
-      "red-estructura"
-    ];
-
-    const valores = this.leerCamposSimples(...ids);
-
-
-    for (let i = 0; i < ids.length; i++) {
-      if ((valores[i] ?? "").trim() === "") {
-        const nombreCampo = (ids[i] ?? "").slice(4); 
-        return `El campo "${nombreCampo}" es obligatorio.`;
-      }
-    }
-    const idValor = valores[0] ?? ""; 
-    const regexID = /^[A-Z]{2}[0-9]{4}[A-Z]{2}$/;
-    const dureza = parseFloat(valores[5] ?? "0");        
-    const tamCristal = parseFloat(valores[7] ?? "0");   
-    const temperatura = parseFloat(valores[8] ?? "0"); 
-    
-      
-    if (!regexID.test(idValor)) {
-      return "El ID debe seguir el formato LLDDDDLL (ejemplo: AB1234CD).";
-    }
-
-    if (dureza < 1 || dureza > 10) {
-      return `La dureza debe estar entre 1 y 10 (Escala de Mohs).`;
-    }
-
-    if (tamCristal < 0 || tamCristal > 10) {
-      return `El tamaño de cristales debe estar entre 0 y 10 mm.`;
-    }
-
-    if (temperatura < -100 || temperatura > 100) {
-      return `La temperatura debe estar entre -100 y 100 Kelvin.`;
-    }
-      return null;
-    }
 }
 class Astronauta implements IPilotable {
   constructor(
