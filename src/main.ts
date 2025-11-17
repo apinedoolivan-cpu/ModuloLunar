@@ -192,38 +192,47 @@ abstract class BaseFormularioMineral implements ISistemaEntrada {
   }
 
   validarFormulario(): string | null {
-
     const valores = this.leerCamposSimples(...this.campos);
 
     for (let i = 0; i < valores.length; i++) {
-      if ((valores[i] ?? "").trim() === "") {
-        const nombreCampo = (this.campos[i] ?? "").slice(4); 
+      const campo = this.campos[i] ?? "";
+      if ((valores[i] ?? "").trim() === "" && !campo.toLowerCase().includes("estructura")) {
+        const nombreCampo = campo.slice(4); 
         return `El campo "${nombreCampo}" es obligatorio.`;
       }
     }
 
     const idValor = valores[0] ?? ""; 
     const regexID = /^[A-Z]{2}[0-9]{4}[A-Z]{2}$/;
+
     const idxDureza = this.campos.findIndex(id => id.toLowerCase().includes("dureza"));
     const dureza = parseFloat(valores[idxDureza] ?? "0");
 
     const idxTam = this.campos.findIndex(id =>
-    id.toLowerCase().includes("tamano") || id.toLowerCase().includes("tamaño"));
+      id.toLowerCase().includes("tamanoGrano") || id.toLowerCase().includes("tamañoCristal"));
     const tamano = parseFloat(valores[idxTam] ?? "0");
 
-    const idxTemp = this.campos.findIndex(id =>id.toLowerCase().includes("temperatura"));
+    const idxTemp = this.campos.findIndex(id => id.toLowerCase().includes("temperatura"));
     const temperatura = parseFloat(valores[idxTemp] ?? "0");
 
     if (!regexID.test(idValor)) {
       return "El ID debe seguir el formato LLDDDDLL (ejemplo: AB1234CD).";
     } 
-    if (dureza < 1 || dureza > 10) return "La dureza debe estar entre 1 y 10.";
-    if (tamano < 0 || tamano > 10) return "El tamaño de cristal debe estar entre 0 y 10.";
-    if (temperatura < -100 || temperatura > 100) return "La temperatura debe estar entre -100 y 100 K.";
+    if (dureza < 1 || dureza > 10) {
+      return "La dureza debe estar entre 1 y 10.";
+    }
+    if (tamano <= 0) {
+      return "El tamaño de grano debe ser mayor que 0.";
+    }
+    if (tamano > 10) {
+      return "El tamaño de cristales debe estar entre 0 y 10.";
+    }
+    if (temperatura < -100 || temperatura > 100) {
+      return "La temperatura debe estar entre -100 y 100 K.";
+    }
 
     return null;
   }
-
   dameMineral(): Mineral {
     const valores = this.leerCamposSimples(...this.campos);
 
@@ -282,7 +291,7 @@ class IntroduccionReducida extends BaseFormularioMineral {
     
         <input id="red-temperatura" type="number" step="1" min="-100" max="100" placeholder="Temperatura de formación (K)" required />
 
-        <input id="red-estructura" type="text" placeholder="Estructura" required />
+        <input id="red-estructura" type="text" placeholder="Estructura (Opcional)"/>
       </form>
     `;
   }
@@ -355,7 +364,7 @@ class IntroduccionExtendida extends BaseFormularioMineral {
 
         <div id="ext-elemento-estructura">
           <label for="ext-estructura">Estructura</label>
-          <input id="ext-estructura" class="campo-estructura" type="text" required />
+          <input id="ext-estructura" class="campo-estructura" type="text" placeholder="(Opcional)" />
         </div>
       </form>
     `;
