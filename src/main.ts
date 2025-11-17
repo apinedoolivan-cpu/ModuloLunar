@@ -293,15 +293,29 @@ class IntroduccionExtendida implements ISistemaEntrada {
         return `El campo "${nombreCampo}" es obligatorio.`;
       }
     }
-
-    const idValor = valores[0] ?? "";
+    const idValor = valores[0] ?? ""; 
     const regexID = /^[A-Z]{2}[0-9]{4}[A-Z]{2}$/;
-
+    const dureza = parseFloat(valores[5] ?? "0");        
+    const tamCristal = parseFloat(valores[7] ?? "0");   
+    const temperatura = parseFloat(valores[8] ?? "0"); 
+    
+      
     if (!regexID.test(idValor)) {
-      return "El ID debe tener el formato LLDDDDLL (ejemplo: AB1234CD).";
+      return "El ID debe seguir el formato LLDDDDLL (ejemplo: AB1234CD).";
     }
 
-    return null;
+    if (dureza < 1 || dureza > 10) {
+      return `La dureza debe estar entre 1 y 10 (Escala de Mohs).`;
+    }
+
+    if (tamCristal < 0 || tamCristal > 10) {
+      return `El tamaño de cristales debe estar entre 0 y 10 mm.`;
+    }
+
+    if (temperatura < -100 || temperatura > 100) {
+      return `La temperatura debe estar entre -100 y 100 Kelvin.`;
+    }
+      return null;
   }
 }
 class IntroduccionReducida implements ISistemaEntrada {
@@ -356,9 +370,10 @@ class IntroduccionReducida implements ISistemaEntrada {
   }
   leerCamposSimples(...ids: string[]): string[] {
     return ids.map(id => {
-      const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement;
+      const el = document.getElementById(id) as (HTMLInputElement | HTMLSelectElement) | null;
       if (!el) throw new Error(`No existe el elemento con id ${id}`);
-      return el.value;
+      const v: string = (el as HTMLInputElement).value ?? "";
+      return v;
     });
   }
   dameMineral(): Mineral {
@@ -410,12 +425,28 @@ class IntroduccionReducida implements ISistemaEntrada {
     }
     const idValor = valores[0] ?? ""; 
     const regexID = /^[A-Z]{2}[0-9]{4}[A-Z]{2}$/;
-
+    const dureza = parseFloat(valores[5] ?? "0");        
+    const tamCristal = parseFloat(valores[7] ?? "0");   
+    const temperatura = parseFloat(valores[8] ?? "0"); 
+    
+      
     if (!regexID.test(idValor)) {
       return "El ID debe seguir el formato LLDDDDLL (ejemplo: AB1234CD).";
     }
-    return null;
-  }
+
+    if (dureza < 1 || dureza > 10) {
+      return `La dureza debe estar entre 1 y 10 (Escala de Mohs).`;
+    }
+
+    if (tamCristal < 0 || tamCristal > 10) {
+      return `El tamaño de cristales debe estar entre 0 y 10 mm.`;
+    }
+
+    if (temperatura < -100 || temperatura > 100) {
+      return `La temperatura debe estar entre -100 y 100 Kelvin.`;
+    }
+      return null;
+    }
 }
 class Astronauta implements IPilotable {
   constructor(
