@@ -1,3 +1,18 @@
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var OrigenMaterialLunar;
 (function (OrigenMaterialLunar) {
     OrigenMaterialLunar["Igneas"] = "\u00CDgneas";
@@ -106,126 +121,105 @@ var FormatoAmericano = /** @class */ (function () {
     };
     return FormatoAmericano;
 }());
-var IntroduccionExtendida = /** @class */ (function () {
-    function IntroduccionExtendida(idContenedor) {
-        var cont = document.getElementById(idContenedor);
-        if (!cont)
-            throw new Error("No se encontró el contenedor del formulario extendido");
-        this.contenedor = cont;
+var BaseFormularioMineral = /** @class */ (function () {
+    function BaseFormularioMineral(idContenedor) {
+        this.campos = [];
+        var c = document.getElementById(idContenedor);
+        if (!c)
+            throw new Error("No existe el contenedor del formulario");
+        this.contenedor = c;
+        this.opcionesOrigen = Object.values(OrigenMaterialLunar);
+        this.opcionesClasificacion = Object.values(ClasificacionMaterialLunar);
+        this.opcionesTextura = Object.values(TexturaMaterialLunar);
         this.render();
     }
-    IntroduccionExtendida.prototype.render = function () {
-        var opcionesOrigen = Object.values(OrigenMaterialLunar);
-        var opcionesClasificacion = Object.values(ClasificacionMaterialLunar);
-        var opcionesTextura = Object.values(TexturaMaterialLunar);
-        this.contenedor.innerHTML = "\n      <h3>Formulario Extendido</h3>\n      <form class=\"form-extendido\" id=\"form-extendido\" novalidate>\n        <div id=\"ext-elemento\">\n          <label for=\"ext-id\">ID (LLDDDDLL)</label>\n          <input id=\"ext-id\" type=\"text\" required pattern=\"[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}\" />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-nombre\">Nombre</label>\n          <input id=\"ext-nombre\" type=\"text\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-origen\">Origen</label>\n          <select id=\"ext-origen\" required>\n            <option value=\"\">Seleccione</option>\n            ".concat(opcionesOrigen.map(function (o) { return "<option value=\"".concat(o, "\">").concat(o, "</option>"); }).join(''), "\n          </select>\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-dureza\">Dureza (1-10)</label>\n          <input id=\"ext-dureza\" type=\"number\" step=\"1\" min=\"1\" max=\"10\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-tamanoGrano\">Tama\u00F1o de grano (mm)</label>\n          <input id=\"ext-tamanoGrano\" type=\"number\" step=\"1\" min=\"1\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-clasificacion\">Clasificaci\u00F3n</label>\n          <select id=\"ext-clasificacion\" required>\n            <option value=\"\">Seleccione</option>\n            ").concat(opcionesClasificacion.map(function (c) { return "<option value=\"".concat(c, "\">").concat(c, "</option>"); }).join(''), "\n          </select>\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-tamanoCristal\">Tama\u00F1o de cristales</label>\n          <input id=\"ext-tamanoCristal\" type=\"number\" step=\"1\" min=\"0\" max=\"10\" required />\n        </div>\n\n        <div id=\"ext-elemento\" >\n          <label for=\"ext-temperatura\">Temperatura (K)</label>\n          <input id=\"ext-temperatura\" type=\"number\" step=\"1\" min=\"-100\" max=\"100\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-textura\">Textura</label>\n          <select id=\"ext-textura\" required>\n            <option value=\"\">Seleccione</option>\n            ").concat(opcionesTextura.map(function (t) { return "<option value=\"".concat(t, "\">").concat(t, "</option>"); }).join(''), "\n          </select>\n        </div>\n\n        <div id=\"ext-elemento-estructura\">\n          <label for=\"ext-estructura\">Estructura</label>\n          <input id=\"ext-estructura\" class=\"campo-estructura\" type=\"text\" required />\n        </div>\n      </form>\n    ");
-    };
-    IntroduccionExtendida.prototype.leerCamposSimples = function () {
+    BaseFormularioMineral.prototype.leerCamposSimples = function () {
         var ids = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             ids[_i] = arguments[_i];
         }
         return ids.map(function (id) {
+            var _a;
             var el = document.getElementById(id);
             if (!el)
                 throw new Error("No existe el elemento con id ".concat(id));
-            return el.value;
+            return ((_a = el.value) !== null && _a !== void 0 ? _a : "").trim();
         });
     };
-    IntroduccionExtendida.prototype.dameMineral = function () {
-        var _a = this.leerCamposSimples("ext-id", "ext-nombre", "ext-origen", "ext-dureza", "ext-tamanoGrano", "ext-clasificacion", "ext-tamanoCristal", "ext-temperatura", "ext-estructura", "ext-textura"), id = _a[0], nombre = _a[1], origen = _a[2], dureza = _a[3], tamGrano = _a[4], clasificacion = _a[5], tamCristal = _a[6], temperatura = _a[7], estructura = _a[8], textura = _a[9];
-        return new Mineral(id !== null && id !== void 0 ? id : "", nombre !== null && nombre !== void 0 ? nombre : "", origen, parseFloat(dureza !== null && dureza !== void 0 ? dureza : "0"), parseFloat(tamGrano !== null && tamGrano !== void 0 ? tamGrano : "0"), clasificacion, parseFloat(tamCristal !== null && tamCristal !== void 0 ? tamCristal : "0"), parseFloat(temperatura !== null && temperatura !== void 0 ? temperatura : "0"), estructura !== null && estructura !== void 0 ? estructura : "", textura);
-    };
-    IntroduccionExtendida.prototype.validarFormulario = function () {
-        var _a, _b, _c;
-        var ids = [
-            "ext-id",
-            "ext-nombre",
-            "ext-origen",
-            "ext-dureza",
-            "ext-tamanoGrano",
-            "ext-clasificacion",
-            "ext-tamanoCristal",
-            "ext-temperatura",
-            "ext-estructura",
-            "ext-textura"
-        ];
-        var valores = this.leerCamposSimples.apply(this, ids);
-        for (var i = 0; i < ids.length; i++) {
-            if (((_a = valores[i]) !== null && _a !== void 0 ? _a : "").trim() === "") {
-                var nombreCampo = ((_b = ids[i]) !== null && _b !== void 0 ? _b : "").slice(4);
+    BaseFormularioMineral.prototype.validarFormulario = function () {
+        var _a, _b, _c, _d, _e, _f;
+        var valores = this.leerCamposSimples.apply(this, this.campos);
+        for (var i = 0; i < valores.length; i++) {
+            var campo = (_a = this.campos[i]) !== null && _a !== void 0 ? _a : "";
+            if (((_b = valores[i]) !== null && _b !== void 0 ? _b : "").trim() === "" && !campo.toLowerCase().includes("estructura")) {
+                var nombreCampo = campo.slice(4);
                 return "El campo \"".concat(nombreCampo, "\" es obligatorio.");
             }
         }
         var idValor = (_c = valores[0]) !== null && _c !== void 0 ? _c : "";
         var regexID = /^[A-Z]{2}[0-9]{4}[A-Z]{2}$/;
-        if (!regexID.test(idValor)) {
-            return "El ID debe tener el formato LLDDDDLL (ejemplo: AB1234CD).";
-        }
-        return null;
-    };
-    return IntroduccionExtendida;
-}());
-var IntroduccionReducida = /** @class */ (function () {
-    function IntroduccionReducida(idContenedor) {
-        var cont = document.getElementById(idContenedor);
-        if (!cont)
-            throw new Error("No se encontró el contenedor del formulario reducido");
-        this.contenedor = cont;
-        this.render();
-    }
-    IntroduccionReducida.prototype.render = function () {
-        var opcionesOrigen = Object.values(OrigenMaterialLunar);
-        var opcionesClasificacion = Object.values(ClasificacionMaterialLunar);
-        var opcionesTextura = Object.values(TexturaMaterialLunar);
-        this.contenedor.innerHTML = "\n      <h3>Formulario Reducido</h3>\n      <form class=\"form-reducido\" id=\"form-reducido\" novalidate>\n\n        <input id=\"red-id\" type=\"text\" placeholder=\"ID (LLDDDDLL)\" required pattern=\"[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}\" />\n\n        <input id=\"red-nombre\" type=\"text\" placeholder=\"Nombre del mineral\" required />\n\n        <input id=\"red-origen\" list=\"lista-origen\" type=\"text\" placeholder=\"Origen\" required />\n        <datalist id=\"lista-origen\">\n          ".concat(opcionesOrigen.map(function (o) { return "<option value=\"".concat(o, "\"></option>"); }).join(''), "\n        </datalist>\n\n        <input id=\"red-clasificacion\" list=\"lista-clasificacion\" type=\"text\" placeholder=\"Clasificaci\u00F3n\" required />\n        <datalist id=\"lista-clasificacion\">\n          ").concat(opcionesClasificacion.map(function (c) { return "<option value=\"".concat(c, "\"></option>"); }).join(''), "\n        </datalist>\n\n        <input id=\"red-textura\" list=\"lista-textura\" type=\"text\" placeholder=\"Textura\" required />\n        <datalist id=\"lista-textura\">\n          ").concat(opcionesTextura.map(function (t) { return "<option value=\"".concat(t, "\"></option>"); }).join(''), "\n        </datalist>\n\n        <input id=\"red-dureza\" type=\"number\" step=\"1\" min=\"1\" max=\"10\" placeholder=\"Dureza (1-10)\" required />\n\n        <input id=\"red-tamano\" type=\"number\" step=\"1\" min=\"0\" placeholder=\"Tama\u00F1o del grano (mm)\" required />\n\n        <input id=\"red-tamanoCristal\" type=\"number\" step=\"1\" min=\"0\" max=\"10\" placeholder=\"Tama\u00F1o de cristal\" required />\n    \n        <input id=\"red-temperatura\" type=\"number\" step=\"1\" min=\"-100\" max=\"100\" placeholder=\"Temperatura de formaci\u00F3n (K)\" required />\n\n        <input id=\"red-estructura\" type=\"text\" placeholder=\"Estructura\" required />\n      </form>\n    ");
-    };
-    IntroduccionReducida.prototype.leerCamposSimples = function () {
-        var ids = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            ids[_i] = arguments[_i];
-        }
-        return ids.map(function (id) {
-            var el = document.getElementById(id);
-            if (!el)
-                throw new Error("No existe el elemento con id ".concat(id));
-            return el.value;
+        var idxDureza = this.campos.findIndex(function (id) { return id.toLowerCase().includes("dureza"); });
+        var dureza = parseFloat((_d = valores[idxDureza]) !== null && _d !== void 0 ? _d : "0");
+        var idxTam = this.campos.findIndex(function (id) {
+            return id.toLowerCase().includes("tamanoGrano") || id.toLowerCase().includes("tamañoCristal");
         });
-    };
-    IntroduccionReducida.prototype.dameMineral = function () {
-        var _a = this.leerCamposSimples("red-id", "red-nombre", "red-origen", "red-clasificacion", "red-textura", "red-dureza", "red-tamano", "red-tamanoCristal", "red-temperatura", "red-estructura"), id = _a[0], nombre = _a[1], origen = _a[2], clasificacion = _a[3], textura = _a[4], dureza = _a[5], tamGrano = _a[6], tamCristal = _a[7], temperatura = _a[8], estructura = _a[9];
-        return new Mineral(id !== null && id !== void 0 ? id : "", nombre !== null && nombre !== void 0 ? nombre : "", origen, parseFloat(dureza !== null && dureza !== void 0 ? dureza : "0"), parseFloat(tamGrano !== null && tamGrano !== void 0 ? tamGrano : "0"), clasificacion, parseFloat(tamCristal !== null && tamCristal !== void 0 ? tamCristal : "0"), parseFloat(temperatura !== null && temperatura !== void 0 ? temperatura : "0"), estructura !== null && estructura !== void 0 ? estructura : "", textura);
-    };
-    IntroduccionReducida.prototype.validarFormulario = function () {
-        var _a, _b, _c;
-        var ids = [
-            "red-id",
-            "red-nombre",
-            "red-origen",
-            "red-clasificacion",
-            "red-textura",
-            "red-dureza",
-            "red-tamano",
-            "red-tamanoCristal",
-            "red-temperatura",
-            "red-estructura"
-        ];
-        var valores = this.leerCamposSimples.apply(this, ids);
-        for (var i = 0; i < ids.length; i++) {
-            if (((_a = valores[i]) !== null && _a !== void 0 ? _a : "").trim() === "") {
-                var nombreCampo = ((_b = ids[i]) !== null && _b !== void 0 ? _b : "").slice(4);
-                return "El campo \"".concat(nombreCampo, "\" es obligatorio.");
-            }
-        }
-        var idValor = (_c = valores[0]) !== null && _c !== void 0 ? _c : "";
-        var regexID = /^[A-Z]{2}[0-9]{4}[A-Z]{2}$/;
+        var tamano = parseFloat((_e = valores[idxTam]) !== null && _e !== void 0 ? _e : "0");
+        var idxTemp = this.campos.findIndex(function (id) { return id.toLowerCase().includes("temperatura"); });
+        var temperatura = parseFloat((_f = valores[idxTemp]) !== null && _f !== void 0 ? _f : "0");
         if (!regexID.test(idValor)) {
             return "El ID debe seguir el formato LLDDDDLL (ejemplo: AB1234CD).";
         }
+        if (dureza < 1 || dureza > 10) {
+            return "La dureza debe estar entre 1 y 10.";
+        }
+        if (tamano <= 0) {
+            return "El tamaño de grano debe ser mayor que 0.";
+        }
+        if (tamano > 10) {
+            return "El tamaño de cristales debe estar entre 0 y 10.";
+        }
+        if (temperatura < -100 || temperatura > 100) {
+            return "La temperatura debe estar entre -100 y 100 K.";
+        }
         return null;
     };
-    return IntroduccionReducida;
+    BaseFormularioMineral.prototype.dameMineral = function () {
+        var _a, _b, _c, _d, _e, _f, _g;
+        var valores = this.leerCamposSimples.apply(this, this.campos);
+        return new Mineral((_a = valores[0]) !== null && _a !== void 0 ? _a : "", (_b = valores[1]) !== null && _b !== void 0 ? _b : "", valores[2], parseFloat((_c = valores[3]) !== null && _c !== void 0 ? _c : "0"), parseFloat((_d = valores[4]) !== null && _d !== void 0 ? _d : "0"), valores[5], parseFloat((_e = valores[6]) !== null && _e !== void 0 ? _e : "0"), parseFloat((_f = valores[7]) !== null && _f !== void 0 ? _f : "0"), (_g = valores[8]) !== null && _g !== void 0 ? _g : "", valores[9]);
+    };
+    return BaseFormularioMineral;
 }());
+var IntroduccionReducida = /** @class */ (function (_super) {
+    __extends(IntroduccionReducida, _super);
+    function IntroduccionReducida() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    IntroduccionReducida.prototype.render = function () {
+        this.campos = [
+            "red-id", "red-nombre", "red-origen", "red-clasificacion",
+            "red-textura", "red-dureza", "red-tamano", "red-tamanoCristal",
+            "red-temperatura", "red-estructura"
+        ];
+        this.contenedor.innerHTML = "\n      <h3>Formulario Reducido</h3>\n      <form class=\"form-reducido\" id=\"form-reducido\" novalidate>\n\n        <input id=\"red-id\" type=\"text\" placeholder=\"ID (LLDDDDLL)\" required pattern=\"[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}\" />\n\n        <input id=\"red-nombre\" type=\"text\" placeholder=\"Nombre del mineral\" required />\n\n        <input id=\"red-origen\" list=\"lista-origen\" type=\"text\" placeholder=\"Origen\" required />\n        <datalist id=\"lista-origen\">\n          ".concat(this.opcionesOrigen.map(function (o) { return "<option value=\"".concat(o, "\"></option>"); }).join(''), "\n        </datalist>\n\n        <input id=\"red-clasificacion\" list=\"lista-clasificacion\" type=\"text\" placeholder=\"Clasificaci\u00F3n\" required />\n        <datalist id=\"lista-clasificacion\">\n          ").concat(this.opcionesClasificacion.map(function (c) { return "<option value=\"".concat(c, "\"></option>"); }).join(''), "\n        </datalist>\n\n        <input id=\"red-textura\" list=\"lista-textura\" type=\"text\" placeholder=\"Textura\" required />\n        <datalist id=\"lista-textura\">\n          ").concat(this.opcionesTextura.map(function (t) { return "<option value=\"".concat(t, "\"></option>"); }).join(''), "\n        </datalist>\n\n        <input id=\"red-dureza\" type=\"number\" step=\"1\" min=\"1\" max=\"10\" placeholder=\"Dureza (1-10)\" required />\n\n        <input id=\"red-tamano\" type=\"number\" step=\"1\" min=\"0\" placeholder=\"Tama\u00F1o del grano (mm)\" required />\n\n        <input id=\"red-tamanoCristal\" type=\"number\" step=\"1\" min=\"0\" max=\"10\" placeholder=\"Tama\u00F1o de cristal\" required />\n    \n        <input id=\"red-temperatura\" type=\"number\" step=\"1\" min=\"-100\" max=\"100\" placeholder=\"Temperatura de formaci\u00F3n (K)\" required />\n\n        <input id=\"red-estructura\" type=\"text\" placeholder=\"Estructura (Opcional)\"/>\n      </form>\n    ");
+    };
+    return IntroduccionReducida;
+}(BaseFormularioMineral));
+var IntroduccionExtendida = /** @class */ (function (_super) {
+    __extends(IntroduccionExtendida, _super);
+    function IntroduccionExtendida() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    IntroduccionExtendida.prototype.render = function () {
+        this.campos = [
+            "ext-id", "ext-nombre", "ext-origen", "ext-dureza",
+            "ext-tamanoGrano", "ext-clasificacion", "ext-tamanoCristal",
+            "ext-temperatura", "ext-estructura", "ext-textura"
+        ];
+        this.contenedor.innerHTML = "\n      <h3>Formulario Extendido</h3>\n      <form class=\"form-extendido\" id=\"form-extendido\" novalidate>\n        <div id=\"ext-elemento\">\n          <label for=\"ext-id\">ID (LLDDDDLL)</label>\n          <input id=\"ext-id\" type=\"text\" required pattern=\"[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}\" />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-nombre\">Nombre</label>\n          <input id=\"ext-nombre\" type=\"text\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-origen\">Origen</label>\n          <select id=\"ext-origen\" required>\n            <option value=\"\">Seleccione</option>\n            ".concat(this.opcionesOrigen.map(function (o) { return "<option value=\"".concat(o, "\">").concat(o, "</option>"); }).join(''), "\n          </select>\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-dureza\">Dureza (1-10)</label>\n          <input id=\"ext-dureza\" type=\"number\" step=\"1\" min=\"1\" max=\"10\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-tamanoGrano\">Tama\u00F1o de grano (mm)</label>\n          <input id=\"ext-tamanoGrano\" type=\"number\" step=\"1\" min=\"1\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-clasificacion\">Clasificaci\u00F3n</label>\n          <select id=\"ext-clasificacion\" required>\n            <option value=\"\">Seleccione</option>\n            ").concat(this.opcionesClasificacion.map(function (c) { return "<option value=\"".concat(c, "\">").concat(c, "</option>"); }).join(''), "\n          </select>\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-tamanoCristal\">Tama\u00F1o de cristales</label>\n          <input id=\"ext-tamanoCristal\" type=\"number\" step=\"1\" min=\"0\" max=\"10\" required />\n        </div>\n\n        <div id=\"ext-elemento\" >\n          <label for=\"ext-temperatura\">Temperatura (K)</label>\n          <input id=\"ext-temperatura\" type=\"number\" step=\"1\" min=\"-100\" max=\"100\" required />\n        </div>\n\n        <div id=\"ext-elemento\">\n          <label for=\"ext-textura\">Textura</label>\n          <select id=\"ext-textura\" required>\n            <option value=\"\">Seleccione</option>\n            ").concat(this.opcionesTextura.map(function (t) { return "<option value=\"".concat(t, "\">").concat(t, "</option>"); }).join(''), "\n          </select>\n        </div>\n\n        <div id=\"ext-elemento-estructura\">\n          <label for=\"ext-estructura\">Estructura</label>\n          <input id=\"ext-estructura\" class=\"campo-estructura\" type=\"text\" placeholder=\"(Opcional)\" />\n        </div>\n      </form>\n    ");
+    };
+    return IntroduccionExtendida;
+}(BaseFormularioMineral));
 var Astronauta = /** @class */ (function () {
     function Astronauta(identificador, nombreCompleto, edad) {
         this.identificador = identificador;
