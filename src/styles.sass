@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
-$primary-color: #0ff
-$secondary-color: #00f
-$text-color: #f0f0f0
-$bg-dark: #1a1a2e
-$form-bg: rgba(0, 0, 30, 0.85)
+$primary-color: #0ff;
+$secondary-color: #00f;
+$text-color: #f0f0f0;
+$bg-dark: #1a1a2e;
+$form-bg: rgba(0, 0, 30, 0.85);
 
 body
   margin: 0
@@ -20,15 +20,15 @@ body
   justify-content: flex-start
   color: $text-color
 
+p
+  text-align: center
+  margin: 10px 0
+
 h1, h2, h3
   text-align: center
   color: #ffeedd
   text-shadow: 0 0 15px #fff, 0 0 30px $secondary-color
   margin: 20px 0
-
-p
-  text-align: center
-  margin: 10px 0
 
 button
   background: linear-gradient(145deg, #2222aa, #5555ff)
@@ -43,11 +43,12 @@ button
   transition: all 0.3s ease
   margin: 10px
 
-  &:hover
-    transform: scale(1.08)
-    box-shadow: 0 0 30px $primary-color, 0 0 50px $secondary-color, 0 0 70px $primary-color inset
+.emojis
+  text-align: center
+  font-size: 2em
+  margin-top: 15px
 
-form, #form-astronauta, #datos-mision, #mineral-form, #resultado, #info-programa
+form, #form-astronauta, #datos-mision, #mineral-form, #resultado, #info-programa, #aviso-form
   background: $form-bg
   padding: 25px
   border-radius: 20px
@@ -60,25 +61,6 @@ form, #form-astronauta, #datos-mision, #mineral-form, #resultado, #info-programa
   flex-direction: column
   align-items: center
   justify-content: flex-start
-
-#form-astronauta input,
-form input,
-form select,
-form button
-  width: 90%
-  margin: 8px 0
-  padding: 10px
-  border-radius: 10px
-  border: 1px solid #888
-  background: rgba(255, 255, 255, 0.05)
-  color: #fff
-  font-size: 1rem
-  box-shadow: 0 0 5px $primary-color
-
-  &:focus
-    outline: none
-    box-shadow: 0 0 10px $primary-color, 0 0 20px $secondary-color
-    background: rgba(0, 0, 50, 0.5)
 
 #inicio-mision,
 #forma-entrada
@@ -112,15 +94,14 @@ form button
   border: none
   box-shadow: none
 
-#form-reducido input,
-#form-reducido select,
-#form-extendido input,
-#form-extendido select
-  flex: 1 1 calc(33% - 15px)
-  margin: 5px 0
-  padding: 10px
-  box-sizing: border-box
-    
+#canvas-bg
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: -1
+
 #ext-elemento
   display: flex
   flex-direction: column
@@ -132,15 +113,37 @@ form button
   min-height: 80px
   width: 100%
 
-.emojis
-  text-align: center
-  font-size: 2em
-  margin-top: 15px
+#aviso-form
+  color: red
 
-#canvas-bg
-  position: fixed
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
-  z-index: -1
+#form-astronauta input,
+form input,
+form select,
+form button
+  width: 90%
+  margin: 8px 0
+  padding: 10px
+  border-radius: 10px
+  border: 1px solid #888
+  background: rgba(255, 255, 255, 0.05)
+  color: #fff
+  font-size: 1rem
+  box-shadow: 0 0 5px $primary-color
+
+  &:focus
+    outline: none
+    box-shadow: 0 0 10px $primary-color, 0 0 20px $secondary-color
+    background: rgba(0, 0, 50, 0.5)
+
+#form-reducido input,
+#form-reducido select,
+#form-extendido input,
+#form-extendido select
+  flex: 1 1 calc(33% - 15px)
+  margin: 5px 0
+  padding: 10px
+  box-sizing: border-box
+
+button:hover
+  transform: scale(1.08)
+  box-shadow: 0 0 30px $primary-color, 0 0 50px $secondary-color, 0 0 70px $primary-color inset

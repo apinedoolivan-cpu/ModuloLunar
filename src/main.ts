@@ -497,6 +497,7 @@ window.onload = () => {
   const mineralFormDiv = document.getElementById("mineral-form")!;
   const botonNuevaMision = document.getElementById("nueva-mision")!;
   const resultadoDiv = document.getElementById("resultado")!;
+  const avisoFormDiv = document.getElementById("aviso-form")!;
   const validarMineralBtn = document.getElementById("validar-mineral")!;
   const formAstro = document.getElementById("form-astronauta")!;
   const lienzo = document.createElement("canvas");
@@ -544,9 +545,11 @@ window.onload = () => {
   formaEntradaDiv.style.display = "none";
   validarMineralBtn.style.display = "none";
   resultadoDiv.style.display = "none";
+  avisoFormDiv.style.display = "none";
   datosMisionDiv.style.display = "none";
   mineralFormDiv.style.display = "none";
   botonNuevaMision.style.display = "none";
+  
 
   // Lógica de la mision
   let misionActual: Mision;
@@ -632,10 +635,13 @@ window.onload = () => {
     const mineral = misionActual.entrada.dameMineral();
     const checkValidity = misionActual.entrada.validarFormulario();
 
+    avisoFormDiv.innerHTML = `<p>Error al introducir datos: ${checkValidity}</p>`
+
     if (checkValidity !== null) {
-      alert(checkValidity);
+      avisoFormDiv.style.display = "flex";
       return;
     }
+    else{avisoFormDiv.style.display = "none"}
     
     const esValido = misionActual.criterio.esValido(mineral);
     const formatoEuropeo = new FormatoEuropeo();
