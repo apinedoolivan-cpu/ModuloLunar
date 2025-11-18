@@ -138,7 +138,7 @@ class FormatoEuropeo implements ISistemaSalida {
       <p><strong>Clasificación:</strong> ${mineral.clasificacion}</p>
       <p><strong>Tamaño de cristales:</strong> ${mineral.tamañoCristal}</p>
       <p><strong>Temperatura de formación:</strong> ${(mineral.temperaturaFormacion).toFixed(2)} °C</p>
-      <p><strong>Estructura:</strong> ${mineral.estructura}</p>
+      ${mineral.estructura.trim() ? `<p><strong>Estructura:</strong> ${mineral.estructura}</p>` : ""}
       <p><strong>Textura:</strong> ${mineral.textura}</p>
     `;
   }
@@ -156,7 +156,7 @@ class FormatoAmericano implements ISistemaSalida {
       <p><strong>Classification:</strong> ${mineral.clasificacion}</p>
       <p><strong>Crystal size:</strong> ${mineral.tamañoCristal}</p>
       <p><strong>Formation temperature:</strong> ${((mineral.temperaturaFormacion) * 9/5 + 32).toFixed(2)} °F</p>
-      <p><strong>Structure:</strong> ${mineral.estructura}</p>
+      ${mineral.estructura.trim() ? `<p><strong>Structure:</strong> ${mineral.estructura}</p>` : ""}
       <p><strong>Texture:</strong> ${mineral.textura}</p>
     `;
   }
@@ -208,9 +208,11 @@ abstract class BaseFormularioMineral implements ISistemaEntrada {
     const idxDureza = this.campos.findIndex(id => id.toLowerCase().includes("dureza"));
     const dureza = parseFloat(valores[idxDureza] ?? "0");
 
-    const idxTam = this.campos.findIndex(id =>
-      id.toLowerCase().includes("tamanoGrano") || id.toLowerCase().includes("tamañoCristal"));
-    const tamano = parseFloat(valores[idxTam] ?? "0");
+    const idxTamGrano = this.campos.findIndex(id =>id.toLowerCase().includes("tamañograno"));
+    const tamanoGrano = parseFloat(valores[idxTamGrano] ?? "0");
+
+    const idxTamCristal = this.campos.findIndex(id =>id.toLowerCase().includes("tamañocristal"));
+    const tamanoCristal = parseFloat(valores[idxTamCristal] ?? "0");
 
     const idxTemp = this.campos.findIndex(id => id.toLowerCase().includes("temperatura"));
     const temperatura = parseFloat(valores[idxTemp] ?? "0");
@@ -221,10 +223,10 @@ abstract class BaseFormularioMineral implements ISistemaEntrada {
     if (dureza < 1 || dureza > 10) {
       return "La dureza debe estar entre 1 y 10.";
     }
-    if (tamano <= 0) {
+    if (tamanoGrano <= 0) {
       return "El tamaño de grano debe ser mayor que 0.";
     }
-    if (tamano > 10) {
+    if (tamanoCristal < 0 || tamanoCristal > 10) {
       return "El tamaño de cristales debe estar entre 0 y 10.";
     }
     if (temperatura < -100 || temperatura > 100) {
@@ -256,7 +258,7 @@ class IntroduccionReducida extends BaseFormularioMineral {
 
     this.campos = [
       "red-id", "red-nombre", "red-origen", "red-clasificacion",
-      "red-textura", "red-dureza", "red-tamano", "red-tamanoCristal",
+      "red-textura", "red-dureza", "red-tamañoGrano", "red-tamañoCristal",
       "red-temperatura", "red-estructura"
     ];
 
@@ -285,9 +287,9 @@ class IntroduccionReducida extends BaseFormularioMineral {
 
         <input id="red-dureza" type="number" step="1" min="1" max="10" placeholder="Dureza (1-10)" required />
 
-        <input id="red-tamano" type="number" step="1" min="0" placeholder="Tamaño del grano (mm)" required />
+        <input id="red-tamañoGrano" type="number" step="1" min="0" placeholder="Tamaño del grano (mm)" required />
 
-        <input id="red-tamanoCristal" type="number" step="1" min="0" max="10" placeholder="Tamaño de cristal" required />
+        <input id="red-tamañoCristal" type="number" step="1" min="0" max="10" placeholder="Tamaño de cristal" required />
     
         <input id="red-temperatura" type="number" step="1" min="-100" max="100" placeholder="Temperatura de formación (K)" required />
 
@@ -301,7 +303,7 @@ class IntroduccionExtendida extends BaseFormularioMineral {
   protected render(): void {
     this.campos = [
       "ext-id", "ext-nombre", "ext-origen", "ext-dureza",
-      "ext-tamanoGrano", "ext-clasificacion", "ext-tamanoCristal",
+      "ext-tamañoGrano", "ext-clasificacion", "ext-tamañoCristal",
       "ext-temperatura", "ext-estructura", "ext-textura"
     ];
 
@@ -332,8 +334,8 @@ class IntroduccionExtendida extends BaseFormularioMineral {
         </div>
 
         <div id="ext-elemento">
-          <label for="ext-tamanoGrano">Tamaño de grano (mm)</label>
-          <input id="ext-tamanoGrano" type="number" step="1" min="1" required />
+          <label for="ext-tamañoGrano">Tamaño de grano (mm)</label>
+          <input id="ext-tamañoGrano" type="number" step="1" min="1" required />
         </div>
 
         <div id="ext-elemento">
@@ -345,8 +347,8 @@ class IntroduccionExtendida extends BaseFormularioMineral {
         </div>
 
         <div id="ext-elemento">
-          <label for="ext-tamanoCristal">Tamaño de cristales</label>
-          <input id="ext-tamanoCristal" type="number" step="1" min="0" max="10" required />
+          <label for="ext-tamañoCristal">Tamaño de cristales</label>
+          <input id="ext-tamañoCristal" type="number" step="1" min="0" max="10" required />
         </div>
 
         <div id="ext-elemento" >
