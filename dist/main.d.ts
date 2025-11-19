@@ -71,6 +71,10 @@ declare class CriterioSedimentarias implements ICriterioValidacion {
     descripcion(): string;
     esValido(mineral: Mineral): boolean;
 }
+declare class CriterioFactoria {
+    criterio: ICriterioValidacion;
+    constructor(mineral: Mineral);
+}
 declare class FormatoEuropeo implements ISistemaSalida {
     muestra(mineral: Mineral): string;
 }
@@ -106,10 +110,10 @@ declare class Astronauta implements IPilotable {
 }
 declare class Mision implements IMisionable {
     piloto: IPilotable;
-    criterio: ICriterioValidacion;
     entrada: ISistemaEntrada;
     salida: ISistemaSalida;
-    constructor(piloto: IPilotable, criterio: ICriterioValidacion, entrada: ISistemaEntrada, salida: ISistemaSalida);
+    criterio: ICriterioValidacion;
+    constructor(piloto: IPilotable, entrada: ISistemaEntrada, salida: ISistemaSalida);
     analiza(): boolean;
 }
 declare class Estrella {

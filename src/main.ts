@@ -126,6 +126,26 @@ class CriterioSedimentarias implements ICriterioValidacion {
   }
 }
 
+class CriterioFactoria {
+  criterio: ICriterioValidacion;
+
+  constructor(mineral: Mineral) {
+    switch (mineral.origen) {
+      case OrigenMaterialLunar.Igneas:
+        this.criterio = new CriterioIgneas();
+        break;
+      case OrigenMaterialLunar.Metamoficas:
+        this.criterio = new CriterioMetamorficas();
+        break;
+      case OrigenMaterialLunar.Sedimentarias:
+        this.criterio = new CriterioSedimentarias();
+        break;
+      default:
+        throw new Error("Origen de material lunar no reconocido");
+    }
+  }
+}
+
 class FormatoEuropeo implements ISistemaSalida {
   muestra(mineral: Mineral): string {
     return `
@@ -384,12 +404,16 @@ class Astronauta implements IPilotable {
   dameEdad(): number { return this.edad; }
 }
 class Mision implements IMisionable {
+  criterio: ICriterioValidacion;
+
   constructor(
     public piloto: IPilotable,
-    public criterio: ICriterioValidacion,
     public entrada: ISistemaEntrada,
     public salida: ISistemaSalida
-  ) {}
+  ) {
+    const mineral = this.entrada.dameMineral();
+    this.criterio = new CriterioFactoria(mineral).criterio;
+  }
 
   analiza(): boolean {
     const mineral = this.entrada.dameMineral();
@@ -403,6 +427,7 @@ class Mision implements IMisionable {
       <div>${this.salida.muestra(mineral)}</div>
       <div style="font-size:2em;">${esValido ? "😄" : "😠"}</div>
     `;
+
     return esValido;
   }
 }
@@ -550,20 +575,22 @@ window.onload = () => {
   mineralFormDiv.style.display = "none";
   botonNuevaMision.style.display = "none";
   
-
-  // Lógica de la mision
-  let misionActual: Mision;
+  //Logica de mision
+  let criterioSeleccionado: string | null = null;
+  let astronautaActual: Astronauta | null = null;
+  let entradaSistemaActual: ISistemaEntrada | null = null;
+  let misionActual: Mision | null = null;
 
   inicio.addEventListener("click", (e) => {
     const target = e.target as HTMLButtonElement;
     if (target.tagName !== "BUTTON") return;
-
     inicio.style.display = "none";
     formAstro.style.display = "flex";
-    (formAstro as any).criterioElegido = target.dataset.criterio;
+    criterioSeleccionado = target.dataset.criterio ?? null;
   });
 
-  document.getElementById("aceptar-astro")!.addEventListener("click", () => {
+  document.getElementById("aceptar-astro")!.addEventListener("click", (ev) => {
+    ev.preventDefault();
     formAstro.style.display = "none";
     formaEntradaDiv.style.display = "flex";
     botonNuevaMision.style.display = "flex";
@@ -571,85 +598,76 @@ window.onload = () => {
     const id = (document.getElementById("astro-id") as HTMLInputElement).value || "AGM001";
     const nombre = (document.getElementById("astro-nombre") as HTMLInputElement).value || "Agmunsen";
     const edad = parseInt((document.getElementById("astro-edad") as HTMLInputElement).value) || 40;
-    const astronauta = new Astronauta(id, nombre, edad);
-
-    let criterio: ICriterioValidacion;
-    let tipoMaterial: string;
-
-    switch ((formAstro as any).criterioElegido) {
-      case "igneas":
-        criterio = new CriterioIgneas();
-        tipoMaterial = "Ígneas";
-        break;
-      case "metamorfica":
-        criterio = new CriterioMetamorficas();
-        tipoMaterial = "Metamórficas";
-        break;
-      case "sedimentaria":
-        criterio = new CriterioSedimentarias();
-        tipoMaterial = "Sedimentaria";
-        break;
-      default:
-        return;
-    }
+    astronautaActual = new Astronauta(id, nombre, edad);
 
     datosMisionDiv.innerHTML = `
       <h2>Datos de la Misión</h2>
-      <p><strong>Astronauta:</strong> ${astronauta.dameNombre()}</p>
-      <p><strong>Identificador:</strong> ${astronauta.dameId()}</p>
-      <p><strong>Edad:</strong> ${astronauta.dameEdad()}</p>
+      <p><strong>Astronauta:</strong> ${astronautaActual.dameNombre()}</p>
+      <p><strong>Identificador:</strong> ${astronautaActual.dameId()}</p>
+      <p><strong>Edad:</strong> ${astronautaActual.dameEdad()}</p>
       <p><strong>Fecha inicio:</strong> ${new Date().toLocaleString()}</p>
-      <p><strong>Tipo de material a recolectar:</strong> ${tipoMaterial}</p>
+      <p><strong>Tipo de material a recolectar:</strong> ${criterioSeleccionado ?? ""}</p>
     `;
     datosMisionDiv.style.display = "flex";
 
-    formaEntradaDiv.innerHTML = `
-      <button id="extendida">Forma Extendida</button>
-      <button id="reducida">Forma Reducida</button>
-    `;
+    formaEntradaDiv.innerHTML = "";
+    const btnExt = document.createElement("button");
+    btnExt.id = "extendida";
+    btnExt.type = "button";
+    btnExt.textContent = "Forma Extendida";
+    const btnRed = document.createElement("button");
+    btnRed.id = "reducida";
+    btnRed.type = "button";
+    btnRed.textContent = "Forma Reducida";
+    formaEntradaDiv.appendChild(btnExt);
+    formaEntradaDiv.appendChild(btnRed);
 
-    formaEntradaDiv.addEventListener("click", (e) => {
-      const targetEntrada = e.target as HTMLButtonElement;
-
-      if (!targetEntrada.id) return;
-
-      let entradaSistema: ISistemaEntrada;
-      if (targetEntrada.id === "extendida") {
-        entradaSistema = new IntroduccionExtendida("mineral-form");
-      } else {
-        entradaSistema = new IntroduccionReducida("mineral-form");
-      }
-
-      misionActual = new Mision(
-        astronauta,
-        criterio,
-        entradaSistema,
-        new FormatoEuropeo()
-      );
+    btnExt.addEventListener("click", (e) => {
+      e.preventDefault();
+      entradaSistemaActual = new IntroduccionExtendida("mineral-form");
       validarMineralBtn.style.display = "flex";
       mineralFormDiv.style.display = "flex";
+      avisoFormDiv.style.display = "none";
+    });
+
+    btnRed.addEventListener("click", (e) => {
+      e.preventDefault();
+      entradaSistemaActual = new IntroduccionReducida("mineral-form");
+      validarMineralBtn.style.display = "flex";
+      mineralFormDiv.style.display = "flex";
+      avisoFormDiv.style.display = "none";
     });
   });
 
-  validarMineralBtn.addEventListener("click", () => {
-    const mineral = misionActual.entrada.dameMineral();
-    const checkValidity = misionActual.entrada.validarFormulario();
-
-    avisoFormDiv.innerHTML = `<p>Error al introducir datos: ${checkValidity}</p>`
-
-    if (checkValidity !== null) {
+  validarMineralBtn.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    if (!entradaSistemaActual || !astronautaActual) {
+      avisoFormDiv.innerHTML = `<p>Primero selecciona la forma de entrada y rellena los datos del astronauta.</p>`;
       avisoFormDiv.style.display = "flex";
       return;
     }
-    else{avisoFormDiv.style.display = "none"}
-    
+
+    const error = entradaSistemaActual.validarFormulario();
+    if (error) {
+      avisoFormDiv.innerHTML = `<p>Error al introducir datos: ${error}</p>`;
+      avisoFormDiv.style.display = "flex";
+      return;
+    }
+
+    avisoFormDiv.style.display = "none";
+
+    const mineral = entradaSistemaActual.dameMineral();
+
+    misionActual = new Mision(astronautaActual, entradaSistemaActual, new FormatoEuropeo());
+    misionActual.criterio = new CriterioFactoria(mineral).criterio;
+
     const esValido = misionActual.criterio.esValido(mineral);
     const formatoEuropeo = new FormatoEuropeo();
     const formatoAmericano = new FormatoAmericano();
 
     resultadoDiv.innerHTML = `
       <h2>Misión de ${misionActual.piloto.dameNombre()}</h2>
-      <p> ${misionActual.criterio.descripcion()}</p>
+      <p>${misionActual.criterio.descripcion()}</p>
       <p><strong>Resultado:</strong> ${esValido ? "✅ Válido" : "❌ No válido"}</p>
       <div style="display:flex; gap:30px; flex-wrap:wrap;">
         <div style="border:1px solid #ccc; padding:10px; width:45%;">${formatoEuropeo.muestra(mineral)}</div>
@@ -661,4 +679,6 @@ window.onload = () => {
   });
 
   botonNuevaMision.addEventListener("click", () => location.reload());
+
+
 };
