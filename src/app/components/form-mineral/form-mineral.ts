@@ -22,11 +22,11 @@ export class FormMineralComponent {
       id: ['', Validators.required],
       nombre: ['', Validators.required],
       origen: ['', Validators.required],
-      dureza: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
+      dureza: [1, [Validators.required]],
       tamañoGrano: [1, Validators.required],
       clasificacion: ['', Validators.required],
-      tamañoCristal: [0, Validators.required],
-      temperaturaFormacion: [25, Validators.required],
+      tamañoCristal: [1, Validators.required],
+      temperaturaFormacion: [1, Validators.required],
       estructura: [''],
       textura: ['', Validators.required]
     });
@@ -50,7 +50,7 @@ export class FormMineralComponent {
       this.form.value.textura
     );
 
-    const error = this.mineralValidation.validar(form);
+    const error = this.mineralValidation.validar(this.form);
     if (error) {
       this.error = error;
       return;

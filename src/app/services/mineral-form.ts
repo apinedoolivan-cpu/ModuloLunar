@@ -26,7 +26,7 @@ export class MineralValidationService {
       if (tamañoCristal < 0 || tamañoCristal > 10) errores.push('El tamaño de cristal debe estar entre 0 y 10.');
       if (temperatura < -100 || temperatura > 100) errores.push('La temperatura debe estar entre -100 y 100 K.');
 
-      return errores.length > 0 ? errores.join(', ') : null;
+      return errores.length > 0 ? "Error: "+errores.join(', ') : null;
     }
     return null;
   }
