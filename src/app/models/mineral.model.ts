@@ -11,10 +11,10 @@ export class Mineral implements ICapturable {
     public nombre: string,
     public origen: OrigenMaterialLunar,
     public dureza: number,
-    public tamañoGrano: number,
+    public tamanoGrano: number,
     public clasificacion: ClasificacionMaterialLunar,
-    public tamañoCristal: number,
-    public temperaturaFormacion: number,
+    public tamanoCristal: number,
+    public temperatura: number,
     public estructura: string,
     public textura: TexturaMaterialLunar
   ) {}
@@ -23,11 +23,11 @@ export class Mineral implements ICapturable {
     return this;
   }
 
-  dameTamañoGrano(): string {
-    if (this.tamañoGrano > 30) return 'Grano muy grueso';
-    if (this.tamañoGrano >= 5 && this.tamañoGrano <= 30) return 'Grano grueso';
-    if (this.tamañoGrano >= 2 && this.tamañoGrano < 5) return 'Grano medio';
-    if (this.tamañoGrano < 2) return 'Grano fino';
+  dametamanoGrano(): string {
+    if (this.tamanoGrano > 30) return 'Grano muy grueso';
+    if (this.tamanoGrano >= 5 && this.tamanoGrano <= 30) return 'Grano grueso';
+    if (this.tamanoGrano >= 2 && this.tamanoGrano < 5) return 'Grano medio';
+    if (this.tamanoGrano < 2) return 'Grano fino';
     return 'Indefinido';
   }
 }

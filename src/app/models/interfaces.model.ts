@@ -7,9 +7,6 @@ export interface ICriterioValidacion {
   descripcion(): string;
   esValido(mineral: Mineral): boolean;
 }
-export interface ISistemaEntrada {
-  tipoFormulario: 'extendido' | 'reducido';
-}
 export interface ISistemaSalida {
   muestra(): Mineral;
 }

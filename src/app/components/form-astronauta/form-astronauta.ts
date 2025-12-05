@@ -19,7 +19,9 @@ export class FormularioAstronautaComponent implements OnInit{
   criterio: OrigenMaterialLunar | null = null;
   visible = true;
 
-  constructor(private fb: FormBuilder, private misionService: InicioMisionService, 
+  constructor(
+    private fb: FormBuilder, 
+    private misionService: InicioMisionService, 
     private astronautaService: AstronautaValidationService) {
     this.form = this.fb.group({
       id: ['', [Validators.pattern(/^[A-Z]{3}[0-9]{3}$/)]],

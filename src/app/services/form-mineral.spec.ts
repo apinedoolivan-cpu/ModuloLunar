@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MineralValidationService } from './mineral-form';
+import { MineralValidationService } from './form-mineral';
 
 describe('MineralForm', () => {
   let service: MineralValidationService;

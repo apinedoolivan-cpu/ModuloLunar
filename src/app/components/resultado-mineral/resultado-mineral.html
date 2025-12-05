@@ -1,1 +1,15 @@
-<p>resultado-mineral works!</p>
+@if(mineral){
+  <h2>Mineral Actual</h2>
+  <ul>
+    <li><strong>ID:</strong> {{ mineral.id }}</li>
+    <li><strong>Nombre:</strong> {{ mineral.nombre }}</li>
+    <li><strong>Origen:</strong> {{ mineral.origen }}</li>
+    <li><strong>Dureza:</strong> {{ mineral.dureza }}</li>
+    <li><strong>Tamaño Grano:</strong> {{ mineral.tamanoGrano }}</li>
+    <li><strong>Clasificación:</strong> {{ mineral.clasificacion }}</li>
+    <li><strong>Tamaño Cristal:</strong> {{ mineral.tamanoCristal }}</li>
+    <li><strong>Temperatura:</strong> {{ mineral.temperatura }} K</li>
+    <li><strong>Textura:</strong> {{ mineral.textura }}</li>
+    <li><strong>Estructura:</strong> {{ mineral.estructura || 'N/A' }}</li>
+  </ul>
+}

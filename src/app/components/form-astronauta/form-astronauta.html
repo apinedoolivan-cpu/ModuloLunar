@@ -1,17 +1,15 @@
 @if(visible && criterio){
-    <form [formGroup]="form" (ngSubmit)="aceptarAstronauta()">
-    <label for="astro-id">ID</label>
-    <input id="astro-id" type="text" formControlName="id" />
+    <form [formGroup]="form">
+        <label for="astro-id">ID</label>
+        <input id="astro-id" type="text" formControlName="id" />
 
-    <label for="astro-nombre">Nombre</label>
-    <input id="astro-nombre" type="text" formControlName="nombre" />
+        <label for="astro-nombre">Nombre</label>
+        <input id="astro-nombre" type="text" formControlName="nombre" />
 
-    <label for="astro-edad">Edad</label>
-    <input id="astro-edad" type="number" formControlName="edad" />
-
-    <button type="submit">Aceptar</button>
+        <label for="astro-edad">Edad</label>
+        <input id="astro-edad" type="number" formControlName="edad" />
     </form>
-
+    <button (click)="aceptarAstronauta()">Aceptar</button>
     @if (formError) {
     <div class="error">{{formError}}</div>
     }

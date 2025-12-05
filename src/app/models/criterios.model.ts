@@ -8,7 +8,7 @@ export class CriterioIgneas implements ICriterioValidacion {
   }
   esValido(mineral: Mineral): boolean {
     return mineral.origen === OrigenMaterialLunar.Igneas &&
-           mineral.dameTamañoGrano() === 'Grano muy grueso';
+           mineral.dametamanoGrano() === 'Grano muy grueso';
   }
 }
 
@@ -17,7 +17,7 @@ export class CriterioMetamorficas implements ICriterioValidacion {
     return 'Criterio Metamórficas: Origen metamórfico, grano medio/fino y textura vítrea.';
   }
   esValido(mineral: Mineral): boolean {
-    const grano = mineral.dameTamañoGrano();
+    const grano = mineral.dametamanoGrano();
     return mineral.origen === OrigenMaterialLunar.Metamoficas &&
            (grano === 'Grano fino' || grano === 'Grano medio') &&
            mineral.textura === TexturaMaterialLunar.Vitrea;

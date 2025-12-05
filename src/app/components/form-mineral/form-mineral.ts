@@ -1,62 +1,84 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Mineral } from '../../models/mineral.model';
-import { MineralValidationService } from '../../services/mineral-form';
-//import { MineralService } from '../services/mineral.service';
+import { OrigenMaterialLunar, ClasificacionMaterialLunar, TexturaMaterialLunar } from '../../models/enums.model';
+import { Astronauta } from '../../models/astronauta.model';
+import { InicioMisionService } from '../../services/inicio-mision.service';
+import { MineralValidationService } from '../../services/form-mineral';
+import { MineralService } from '../../services/mineral';
+
 
 @Component({
   selector: 'app-form-mineral',
-  templateUrl: './form-mineral.html'
+  imports: [ReactiveFormsModule],
+  templateUrl: './form-mineral.html',
+  styleUrls: ['./form-mineral.scss']
 })
 export class FormMineralComponent {
-  form: FormGroup;
   tipoFormulario: 'extendido' | 'reducido' | null = null;
-  error: string | null = null;
+  form!: FormGroup;
+  error: string[] | null = null;
+  criterio: OrigenMaterialLunar | null = null;
+  astronauta: Astronauta | null = null;
+
+  opcionesOrigen = Object.values(OrigenMaterialLunar);
+  opcionesClasificacion = Object.values(ClasificacionMaterialLunar);
+  opcionesTextura = Object.values(TexturaMaterialLunar);
 
   constructor(
     private fb: FormBuilder,
-    private mineralValidation: MineralValidationService,
-    //private mineralService: MineralService
-  ) {
-    this.form = this.fb.group({
-      id: ['', Validators.required],
-      nombre: ['', Validators.required],
-      origen: ['', Validators.required],
-      dureza: [1, [Validators.required]],
-      tamañoGrano: [1, Validators.required],
-      clasificacion: ['', Validators.required],
-      tamañoCristal: [1, Validators.required],
-      temperaturaFormacion: [1, Validators.required],
-      estructura: [''],
-      textura: ['', Validators.required]
-    });
+    private misionService: InicioMisionService,
+    private mineralValidationService: MineralValidationService,
+    private mineralService: MineralService
+  ) {}
+
+  ngOnInit() {
+    this.misionService.astronauta$.subscribe(a => this.astronauta = a);
+    this.misionService.criterio$.subscribe(c => this.criterio = c);
   }
 
   seleccionarTipo(tipo: 'extendido' | 'reducido') {
     this.tipoFormulario = tipo;
+    this.crearFormulario();
+    this.error = null;
   }
 
-  enviarMineral() {
+  private crearFormulario() {
+    this.form = this.fb.group({
+      id: ['', Validators.required],
+      nombre: ['', Validators.required],
+      origen: ['', Validators.required],
+      dureza: [null, [Validators.required, Validators.min(1), Validators.max(10)]],
+      tamanoGrano: [null, [Validators.required, Validators.min(0.1)]],
+      clasificacion: ['', Validators.required],
+      tamanoCristal: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
+      temperatura: [null, [Validators.required]],
+      textura: ['', Validators.required], 
+      estructura: ['']
+    });
+  }
+
+  enviar() {
     const mineral = new Mineral(
       this.form.value.id,
       this.form.value.nombre,
       this.form.value.origen,
       this.form.value.dureza,
-      this.form.value.tamañoGrano,
+      this.form.value.tamanoGrano,
       this.form.value.clasificacion,
-      this.form.value.tamañoCristal,
-      this.form.value.temperaturaFormacion,
+      this.form.value.tamanoCristal,
+      this.form.value.temperatura,
       this.form.value.estructura,
       this.form.value.textura
     );
-
-    const error = this.mineralValidation.validar(this.form);
-    if (error) {
+    console.log(mineral);
+    const error = this.mineralValidationService.validar(this.form);
+    console.log(error)
+    if (error === null) {
       this.error = error;
       return;
     }
-
-//    this.mineralService.setMineral(mineral);
+    this.mineralService.establecerMineral(mineral);
     this.error = null;
   }
 }

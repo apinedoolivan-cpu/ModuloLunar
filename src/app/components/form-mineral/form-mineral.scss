@@ -1,0 +1,11 @@
+.error {
+  color: red;
+  white-space: pre-line;
+}
+.form-reducido select,
+.form-extendido select {
+  width: 150px;        
+  white-space: nowrap;  
+  overflow: hidden;     
+  text-overflow: ellipsis; 
+}
