@@ -14,14 +14,12 @@ export class MineralViewerComponent implements OnInit, OnDestroy {
   constructor(private mineralService: MineralService) {}
 
   ngOnInit(): void {
-    // Suscribirse al Observable del MineralService
     this.sub = this.mineralService.mineral$.subscribe(mineral => {
       this.mineral = mineral;
     });
   }
 
   ngOnDestroy(): void {
-    // Limpiar la suscripción para evitar memory leaks
     this.sub.unsubscribe();
   }
 }

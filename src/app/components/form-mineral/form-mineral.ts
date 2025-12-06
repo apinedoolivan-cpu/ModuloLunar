@@ -74,7 +74,7 @@ export class FormMineralComponent {
     console.log(mineral);
     const error = this.mineralValidationService.validar(this.form);
     console.log(error)
-    if (error === null) {
+    if (error && error.length > 0) {
       this.error = error;
       return;
     }
