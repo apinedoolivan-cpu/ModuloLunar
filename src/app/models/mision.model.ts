@@ -4,12 +4,11 @@ import { Mineral } from './mineral.model';
 
 export class Mision implements IMisionable {
   criterio: ICriterioValidacion;
-  mineral: Mineral
   constructor(
     public piloto: IPilotable,
-    public salida: ISistemaSalida
+    public salida: ISistemaSalida,
+    public mineral : Mineral
   ) {
-    this.mineral = this.salida.muestra();
     this.criterio = new CriterioFactoria(this.mineral).criterio;
   }
 

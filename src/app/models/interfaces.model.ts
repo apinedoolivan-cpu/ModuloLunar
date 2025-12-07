@@ -8,7 +8,8 @@ export interface ICriterioValidacion {
   esValido(mineral: Mineral): boolean;
 }
 export interface ISistemaSalida {
-  muestra(): Mineral;
+  tipo: "europeo" | "americano";
+  procesar(mineral: Mineral): void;
 }
 export interface IPilotable {
   dameId(): string;

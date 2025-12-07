@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Mision } from '../models/mision.model';
-import { InicioMisionService } from './inicio-mision.service';
 import { ISistemaSalida } from '../models/interfaces.model';
+import { InicioMisionService } from './inicio-mision.service';
+import { MineralService } from './mineral';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,20 @@ export class MisionService {
   private _mision = new BehaviorSubject<Mision | null>(null);
   public mision$ = this._mision.asObservable();
 
-  constructor(private inicioService: InicioMisionService) {}
+  constructor(private inicioService: InicioMisionService, private mineralService: MineralService) {}
 
   crearMision(salida: ISistemaSalida): void {
 
     const piloto = this.inicioService.obtenerAstronauta();
+    const mineral = this.mineralService.obtenerMineralActual();
     if (!piloto) {
-      console.error('No se pudo crear misión: no hay piloto definido');
-      return;
+      throw new Error("No hay piloto seleccionado para la misión");
+    }
+    if (!mineral) {
+      throw new Error("No hay mineral seleccionado para la misión");
     }
 
-    const mision = new Mision(piloto, salida);
+    const mision = new Mision(piloto, salida, mineral);
 
     this._mision.next(mision);
   }

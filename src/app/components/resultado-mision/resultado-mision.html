@@ -1,0 +1,22 @@
+<div class="container">
+
+    @if (misionService.obtenerMision()){
+        <div>
+            <p>Eliga un sistema de salida</p>
+            <button (click)="seleccionarSistemaEuropa()">Sistema Europeo</button>
+            <button (click)="seleccionarSistemaAmerica()">Sistema Americano</button>
+        </div>
+    }
+    @if (mision && mision.salida) {
+        <p><strong>ID:</strong> {{ mision.mineral.id }}</p>
+        <p><strong>Name:</strong> {{ mision.mineral.nombre }}</p>
+        <p><strong>Origin:</strong> {{ mision.mineral.origen }}</p>
+        <p><strong>Hardness:</strong> {{ mision.mineral.dureza }} / 10</p>
+        <p><strong>Grain size:</strong> {{ mision.mineral.dametamanoGrano() }} </p>
+        <p><strong>Classification:</strong> {{ mision.mineral.clasificacion }}</p>
+        <p><strong>Crystal size:</strong> {{ mision.mineral.tamanoCristal }}</p>
+        <p><strong>Formation temperature:</strong>{{ mision.mineral.temperatura }}</p>
+        <p><strong>Structure:</strong> {{ mision.mineral.estructura }}</p>
+        <p><strong>Texture:</strong> {{ mision.mineral.textura }}</p>
+    }
+</div>

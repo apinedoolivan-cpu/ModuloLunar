@@ -71,14 +71,12 @@ export class FormMineralComponent {
       this.form.value.estructura,
       this.form.value.textura
     );
-    console.log(mineral);
     const error = this.mineralValidationService.validar(this.form);
-    console.log(error)
     if (error && error.length > 0) {
       this.error = error;
       return;
     }
-    this.mineralService.establecerMineral(mineral);
+    this.mineralService.establecerMineral(mineral.capturar());
     this.error = null;
   }
 }
