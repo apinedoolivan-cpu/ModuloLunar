@@ -4,10 +4,11 @@ import { Astronauta } from './models/astronauta.model';
 import { FormularioAstronautaComponent } from "./components/form-astronauta/form-astronauta";
 import { DatosMisionComponent } from "./components/datos-mision/datos-mision";
 import { FormMineralComponent } from "./components/form-mineral/form-mineral";
+import { ResultadoMisionComponent } from "./components/resultado-mision/resultado-mision";
 
 @Component({
   selector: 'app-root',
-  imports: [SeleccionCriterioComponent, FormularioAstronautaComponent, DatosMisionComponent, FormMineralComponent],
+  imports: [SeleccionCriterioComponent, FormularioAstronautaComponent, DatosMisionComponent, FormMineralComponent, ResultadoMisionComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

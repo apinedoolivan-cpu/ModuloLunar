@@ -13,7 +13,11 @@ export class MisionService {
   private _mision = new BehaviorSubject<Mision | null>(null);
   public mision$ = this._mision.asObservable();
 
-  constructor(private inicioService: InicioMisionService, private mineralService: MineralService) {}
+  constructor(private inicioService: InicioMisionService, private mineralService: MineralService) {
+    this.mineralService.mineral$.subscribe(() => {
+      this.reset();
+    });
+  }
 
   crearMision(salida: ISistemaSalida): void {
 
@@ -27,7 +31,6 @@ export class MisionService {
     }
 
     const mision = new Mision(piloto, salida, mineral);
-
     this._mision.next(mision);
   }
 
