@@ -15,7 +15,7 @@ export class SeleccionCriterioComponent {
     OrigenMaterialLunar.Sedimentarias
   ];
 
-  constructor(private misionService: InicioMisionService) {}
+  constructor(public misionService: InicioMisionService) {}
 
   seleccionar(criterio: OrigenMaterialLunar) {
     this.misionService.establecerCriterio(criterio);

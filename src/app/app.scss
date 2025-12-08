@@ -1,0 +1,14 @@
+#info-programa {
+  background: rgba(0, 0, 30, 0.85);
+  padding: 25px;
+  border-radius: 20px;
+  margin: 15px auto;
+  max-width: 800px;
+  width: 90%;
+  box-shadow: 0 0 25px #0ff, 0 0 50px #00f inset;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}

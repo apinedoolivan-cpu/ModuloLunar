@@ -1,0 +1,46 @@
+#astronauta{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#form-astronauta{
+  background: rgba(0, 0, 30, 0.85);
+  padding: 25px;
+  border-radius: 20px;
+  margin: 15px auto;
+  max-width: 800px;
+  width: 90%;
+  box-shadow: 0 0 25px #0ff, 0 0 50px #00f inset;
+  display: flex;
+  flex-direction: column;
+
+  input {
+    width: 90%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #888;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    box-shadow: 0 0 5px #0ff;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 10px #0ff, 0 0 20px #00f;
+      background: rgba(0, 0, 50, 0.5);
+    }
+  }
+}
+#error{
+  background: rgba(0, 0, 30, 0.85);
+  padding: 25px;
+  color: red;
+  border-radius: 20px;
+  margin: 15px auto;
+  max-width: 800px;
+  width: 90%;
+  box-shadow: 0 0 25px #0ff, 0 0 50px #00f inset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

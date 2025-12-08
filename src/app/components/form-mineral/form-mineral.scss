@@ -1,11 +1,80 @@
-.error {
-  color: red;
-  white-space: pre-line;
+#forma-entrada{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.form-reducido select,
-.form-extendido select {
-  width: 150px;        
-  white-space: nowrap;  
-  overflow: hidden;     
-  text-overflow: ellipsis; 
+#mineral-form {
+  background: rgba(0, 0, 30, 0.85);
+  padding: 25px;
+  border-radius: 20px;
+  margin: 15px auto;
+  max-width: 800px;
+  width: 90%;
+  box-shadow: 0 0 25px #0ff, 0 0 50px #00f inset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#form-reducido {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+}
+#form-extendido {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+#form-extendido > div {
+  display: flex;
+  flex-direction: column;
+}
+#form-extendido select {
+  height: 35px;    
+  font-size: 0.9rem;
+  padding: 5px 8px;
+  max-height: 35px;
+}
+#form-extendido select option {
+  font-size: 0.85rem;
+  max-height: 150px;  
+  overflow-y: auto;
+}
+#form-reducido input,
+#form-reducido select,
+#form-extendido input,
+#form-extendido select {
+  flex: 1 1 calc(33% - 15px);
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  color: white;
+  border: 1px solid #888;
+}
+#ext-element{
+  display: flex;
+  flex-direction: column;
+}
+#ext-elemento-estructura {
+  grid-column: 1 / 4;
+}
+#ext-estructura {
+  min-height: 80px;
+  width: 100%;
+}
+#error{
+  background: rgba(0, 0, 30, 0.85);
+  padding: 25px;
+  color: red;
+  border-radius: 20px;
+  margin: 15px auto;
+  max-width: 800px;
+  width: 90%;
+  box-shadow: 0 0 25px #0ff, 0 0 50px #00f inset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

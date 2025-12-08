@@ -1,16 +1,19 @@
 @if(mostrar()){
-    <form [formGroup]="form">
-        <label for="astro-id">ID</label>
-        <input id="astro-id" type="text" formControlName="id" />
+    <div id="astronauta">
+        <h3>Datos del Astronauta</h3>
+        <form [formGroup]="form" id="form-astronauta">
+            <label for="astro-id">ID: </label>
+            <input id="astro-id" type="text" formControlName="id" />
 
-        <label for="astro-nombre">Nombre</label>
-        <input id="astro-nombre" type="text" formControlName="nombre" />
+            <label for="astro-nombre">Nombre: </label>
+            <input id="astro-nombre" type="text" formControlName="nombre" />
 
-        <label for="astro-edad">Edad</label>
-        <input id="astro-edad" type="number" formControlName="edad" />
-    </form>
-    <button (click)="aceptarAstronauta()">Aceptar</button>
-    @if (formError) {
-    <div class="error">{{formError}}</div>
-    }
+            <label for="astro-edad">Edad: </label>
+            <input id="astro-edad" type="number" formControlName="edad" />
+        </form>
+            @if (formError) {
+        <div id="error">{{formError}}</div>
+        }
+        <button (click)="aceptarAstronauta()">Aceptar</button>
+    </div>
 }

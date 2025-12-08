@@ -1,1 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Orbitron', sans-serif;
+  background: url('../public/FondoLunar.jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #f0f0f0;
+}
+
+h1, h2, h3 {
+  text-align: center;
+  color: #ffeedd;
+  text-shadow: 0 0 15px #fff, 0 0 30px #00f;
+  margin: 20px 0;
+}
+
+p {
+  text-align: center;
+  margin: 10px 0;
+}
+
+button {
+  background: linear-gradient(145deg, #2222aa, #5555ff);
+  border: none;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  padding: 12px 25px;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00f, 0 0 30px #0ff;
+  transition: all 0.3s ease;
+  margin: 10px;
+
+  &:hover {
+    transform: scale(1.08);
+  }
+}
