@@ -15,12 +15,15 @@ export class SeleccionCriterioComponent {
     OrigenMaterialLunar.Sedimentarias
   ];
 
-  visible = true;
-
   constructor(private misionService: InicioMisionService) {}
 
   seleccionar(criterio: OrigenMaterialLunar) {
     this.misionService.establecerCriterio(criterio);
-    this.visible = false;
+  }
+  mostrar(): boolean {
+    if(this.misionService.obtenerAstronauta()){
+      return false;
+    } 
+    return true;
   }
 }

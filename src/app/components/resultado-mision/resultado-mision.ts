@@ -43,9 +43,4 @@ export class ResultadoMisionComponent {
     }
     this.mineral = null;
   }
-
-  resetMision(): void {
-    this.misionService.reset();
-  }
-
 }

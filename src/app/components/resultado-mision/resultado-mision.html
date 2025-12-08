@@ -22,8 +22,8 @@
             <p><strong>Tamaño de Grano:</strong> {{ mision.mineral.dametamanoGrano() }} </p>
             <p><strong>Clasificacion:</strong> {{ mision.mineral.clasificacion }}</p>
             <p><strong>Tamaño de cristal:</strong> {{ mision.mineral.tamanoCristal }}</p>
-            <p><strong>Temperatura de formacion:</strong>{{ mision.mineral.temperatura }}</p>
-            @if(mineral?.estructura){<p><strong>Estructura:</strong> {{ mision.mineral.estructura }} Cº</p>}
+            <p><strong>Temperatura de formacion:</strong> {{ mision.mineral.temperatura }} Cº</p>
+            @if(mineral?.estructura){<p><strong>Estructura:</strong> {{ mision.mineral.estructura }}</p>}
             <p><strong>Textura:</strong> {{ mision.mineral.textura }}</p>
         }
         @if(tipo == "americano"){
@@ -34,9 +34,12 @@
             <p><strong>Grain size:</strong> {{ mision.mineral.dametamanoGrano() }} </p>
             <p><strong>Classification:</strong> {{ mision.mineral.clasificacion }}</p>
             <p><strong>Crystal size:</strong> {{ mision.mineral.tamanoCristal }}</p>
-            <p><strong>Formation temperature:</strong>{{ mision.mineral.temperatura }}</p>
-            @if(mineral?.estructura){<p><strong>Structure:</strong> {{ mision.mineral.estructura }} Fº</p>}
+            <p><strong>Formation temperature:</strong> {{ mision.mineral.temperatura }} Fº</p>
+            @if(mineral?.estructura){<p><strong>Structure:</strong> {{ mision.mineral.estructura }}</p>}
             <p><strong>Texture:</strong> {{ mision.mineral.textura }}</p>
         }
     }
+
+    <button (click)="misionService.resetearTodo()">Reiniciar Mision</button>
+
 </div>

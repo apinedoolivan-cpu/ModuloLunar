@@ -17,7 +17,7 @@ export class FormularioAstronautaComponent implements OnInit{
   formError: string | null = null;
   astronautaActual: Astronauta | null = null;
   criterio: OrigenMaterialLunar | null = null;
-  visible = true;
+
 
   constructor(
     private fb: FormBuilder, 
@@ -46,7 +46,10 @@ export class FormularioAstronautaComponent implements OnInit{
     const edad = this.form.get('edad')?.value || 40;
 
     this.astronautaActual = new Astronauta(id, nombre, edad);
-    this.visible = false;
     this.misionService.establecerAstronauta(this.astronautaActual);
+  }
+  mostrar(): boolean {
+    if(this.misionService.obtenerCriterio() && !this.misionService.obtenerAstronauta()) return true;
+    return false;
   }
 }

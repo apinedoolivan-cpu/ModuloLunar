@@ -20,7 +20,7 @@ export class MineralService {
     return this.mineral.value;
   }
 
-  limpiarMineral(): void {
+  resetMineral(): void {
     this.mineral.next(null);
   }
 }

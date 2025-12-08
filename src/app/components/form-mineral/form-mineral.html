@@ -5,147 +5,148 @@
     <button (click)="seleccionarTipo('reducido')">Formulario Reducido</button>
     <button (click)="seleccionarTipo('extendido')">Formulario Extendido</button>
   </div>
-}
-@if (tipoFormulario === 'reducido') {
 
-  <h3>Formulario Reducido</h3>
+  @if (tipoFormulario === 'reducido') {
 
-  <form [formGroup]="form" class="form-reducido">
+    <h3>Formulario Reducido</h3>
 
-    <input id="red-id" type="text" placeholder="ID (LLDDDDLL)"
-           formControlName="id" required pattern="[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}" />
+    <form [formGroup]="form" class="form-reducido">
 
-    <input id="red-nombre" type="text" placeholder="Nombre del mineral"
-           formControlName="nombre" required />
+      <input id="red-id" type="text" placeholder="ID (LLDDDDLL)"
+            formControlName="id" required pattern="[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}" />
 
-    <input id="red-origen" list="lista-origen" type="text" placeholder="Origen"
-           formControlName="origen" required />
+      <input id="red-nombre" type="text" placeholder="Nombre del mineral"
+            formControlName="nombre" required />
 
-    <datalist id="lista-origen">
-      @for (o of opcionesOrigen; track $index) {
-        <option [value]="o"></option>
-      }
-    </datalist>
+      <input id="red-origen" list="lista-origen" type="text" placeholder="Origen"
+            formControlName="origen" required />
 
-    <input id="red-clasificacion" list="lista-clasificacion" type="text"
-           placeholder="Clasificación" required formControlName="clasificacion" />
-
-    <datalist id="lista-clasificacion">
-      @for (c of opcionesClasificacion; track $index) {
-        <option [value]="c"></option>
-      }
-    </datalist>
-
-    <input id="red-textura" list="lista-textura" type="text" placeholder="Textura"
-           formControlName="textura" required />
-
-    <datalist id="lista-textura">
-      @for (t of opcionesTextura; track $index) {
-        <option [value]="t"></option>
-      }
-    </datalist>
-
-    <input id="red-dureza" type="number" step="1" min="1" max="10"
-           placeholder="Dureza (1-10)" formControlName="dureza" required />
-
-    <input id="red-tamanoGrano" type="number" step="1" min="0"
-           placeholder="Tamaño del grano (mm)" formControlName="tamanoGrano" required />
-
-    <input id="red-tamanoCristal" type="number" step="1" min="0" max="10"
-           placeholder="Tamaño de cristal" formControlName="tamanoCristal" required />
-
-    <input id="red-temperatura" type="number" step="1" min="-100" max="100"
-           placeholder="Temperatura de formación (K)" formControlName="temperatura" required />
-
-    <input id="red-estructura" type="text"
-           placeholder="Estructura (Opcional)" formControlName="estructura" />
-
-  </form>
-  <button (click)="enviar()">Validar</button>
-  @if (error) {
-    <p class="error" [innerHTML]="error.join('<br>')">{{ error}}</p>
-  }
-}
-@if (tipoFormulario === 'extendido') {
-
-  <h3>Formulario Extendido</h3>
-
-  <form [formGroup]="form" class="form-extendido">
-
-    <div>
-      <label for="ext-id">ID (LLDDDDLL)</label>
-      <input id="ext-id" type="text" formControlName="id"
-             required pattern="[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}" />
-    </div>
-
-    <div>
-      <label for="ext-nombre">Nombre</label>
-      <input id="ext-nombre" type="text" formControlName="nombre" required />
-    </div>
-
-    <div>
-      <label for="ext-origen">Origen</label>
-      <select id="ext-origen" formControlName="origen" required>
-        <option value="">Seleccione</option>
+      <datalist id="lista-origen">
         @for (o of opcionesOrigen; track $index) {
-          <option [value]="o">{{ o }}</option>
+          <option [value]="o"></option>
         }
-      </select>
-    </div>
+      </datalist>
 
-    <div>
-      <label for="ext-dureza">Dureza (1-10)</label>
-      <input id="ext-dureza" type="number" step="1" min="1" max="10"
-             formControlName="dureza" required />
-    </div>
+      <input id="red-clasificacion" list="lista-clasificacion" type="text"
+            placeholder="Clasificación" required formControlName="clasificacion" />
 
-    <div>
-      <label for="ext-tamanoGrano">Tamaño de grano (mm)</label>
-      <input id="ext-tamanoGrano" type="number" step="1" min="1"
-             formControlName="tamanoGrano" required />
-    </div>
-
-    <div>
-      <label for="ext-clasificacion">Clasificación</label>
-      <select id="ext-clasificacion" formControlName="clasificacion" required>
-        <option value="">Seleccione</option>
+      <datalist id="lista-clasificacion">
         @for (c of opcionesClasificacion; track $index) {
-          <option [value]="c">{{ c }}</option>
+          <option [value]="c"></option>
         }
-      </select>
-    </div>
+      </datalist>
 
-    <div>
-      <label for="ext-tamanoCristal">Tamaño de cristales</label>
-      <input id="ext-tamanoCristal" type="number" step="1" min="0" max="10"
-             formControlName="tamanoCristal" required />
-    </div>
+      <input id="red-textura" list="lista-textura" type="text" placeholder="Textura"
+            formControlName="textura" required />
 
-    <div>
-      <label for="ext-temperatura">Temperatura (Cº)</label>
-      <input id="ext-temperatura" type="number" step="1" min="-100" max="100"
-             formControlName="temperatura" required />
-    </div>
-
-    <div>
-      <label for="ext-textura">Textura</label>
-      <select id="ext-textura" formControlName="textura" required>
-        <option value="">Seleccione</option>
+      <datalist id="lista-textura">
         @for (t of opcionesTextura; track $index) {
-          <option [value]="t">{{ t }}</option>
+          <option [value]="t"></option>
         }
-      </select>
-    </div>
+      </datalist>
 
-    <div>
-      <label for="ext-estructura">Estructura</label>
-      <input id="ext-estructura" type="text"
-             placeholder="(Opcional)" formControlName="estructura" />
-    </div>
+      <input id="red-dureza" type="number" step="1" min="1" max="10"
+            placeholder="Dureza (1-10)" formControlName="dureza" required />
 
-  </form>
+      <input id="red-tamanoGrano" type="number" step="1" min="0"
+            placeholder="Tamaño del grano (mm)" formControlName="tamanoGrano" required />
+
+      <input id="red-tamanoCristal" type="number" step="1" min="0" max="10"
+            placeholder="Tamaño de cristal" formControlName="tamanoCristal" required />
+
+      <input id="red-temperatura" type="number" step="1" min="-100" max="100"
+            placeholder="Temperatura de formación (K)" formControlName="temperatura" required />
+
+      <input id="red-estructura" type="text"
+            placeholder="Estructura (Opcional)" formControlName="estructura" />
+
+    </form>
     <button (click)="enviar()">Validar</button>
-  @if (error) {
-    <p class="error" [innerHTML]="error.join('<br>')">{{ error }}</p>
+    @if (error) {
+      <p class="error" [innerHTML]="error.join('<br>')">{{ error}}</p>
+    }
+  }
+  @if (tipoFormulario === 'extendido') {
+
+    <h3>Formulario Extendido</h3>
+
+    <form [formGroup]="form" class="form-extendido">
+
+      <div>
+        <label for="ext-id">ID (LLDDDDLL)</label>
+        <input id="ext-id" type="text" formControlName="id"
+              required pattern="[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}" />
+      </div>
+
+      <div>
+        <label for="ext-nombre">Nombre</label>
+        <input id="ext-nombre" type="text" formControlName="nombre" required />
+      </div>
+
+      <div>
+        <label for="ext-origen">Origen</label>
+        <select id="ext-origen" formControlName="origen" required>
+          <option value="">Seleccione</option>
+          @for (o of opcionesOrigen; track $index) {
+            <option [value]="o">{{ o }}</option>
+          }
+        </select>
+      </div>
+
+      <div>
+        <label for="ext-dureza">Dureza (1-10)</label>
+        <input id="ext-dureza" type="number" step="1" min="1" max="10"
+              formControlName="dureza" required />
+      </div>
+
+      <div>
+        <label for="ext-tamanoGrano">Tamaño de grano (mm)</label>
+        <input id="ext-tamanoGrano" type="number" step="1" min="1"
+              formControlName="tamanoGrano" required />
+      </div>
+
+      <div>
+        <label for="ext-clasificacion">Clasificación</label>
+        <select id="ext-clasificacion" formControlName="clasificacion" required>
+          <option value="">Seleccione</option>
+          @for (c of opcionesClasificacion; track $index) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
+      </div>
+
+      <div>
+        <label for="ext-tamanoCristal">Tamaño de cristales</label>
+        <input id="ext-tamanoCristal" type="number" step="1" min="0" max="10"
+              formControlName="tamanoCristal" required />
+      </div>
+
+      <div>
+        <label for="ext-temperatura">Temperatura (Cº)</label>
+        <input id="ext-temperatura" type="number" step="1" min="-100" max="100"
+              formControlName="temperatura" required />
+      </div>
+
+      <div>
+        <label for="ext-textura">Textura</label>
+        <select id="ext-textura" formControlName="textura" required>
+          <option value="">Seleccione</option>
+          @for (t of opcionesTextura; track $index) {
+            <option [value]="t">{{ t }}</option>
+          }
+        </select>
+      </div>
+
+      <div>
+        <label for="ext-estructura">Estructura</label>
+        <input id="ext-estructura" type="text"
+              placeholder="(Opcional)" formControlName="estructura" />
+      </div>
+
+    </form>
+      <button (click)="enviar()">Validar</button>
+    @if (error) {
+      <p class="error" [innerHTML]="error.join('<br>')">{{ error }}</p>
+    }
   }
 }

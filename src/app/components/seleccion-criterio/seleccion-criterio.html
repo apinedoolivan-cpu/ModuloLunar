@@ -1,4 +1,4 @@
-@if(visible){
+@if(mostrar()){
     @for (criterio of criterios; track criterio) {
     <button type="button" (click)="seleccionar(criterio)">
         {{ criterio }}

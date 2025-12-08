@@ -41,4 +41,13 @@ export class MisionService {
   reset(): void {
     this._mision.next(null);
   }
+  resetearTodo(): void {
+    this.reset();        
+    this.mineralService.resetMineral();         
+    this.inicioService.reset();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
 }

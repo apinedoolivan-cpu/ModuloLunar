@@ -25,10 +25,8 @@ export class InicioMisionService {
   obtenerCriterio(): OrigenMaterialLunar | null {
     return this.criterioSubject.value;
   }
-  resetearCriterio(){
+  reset(){
     this.criterioSubject.next(null);
-  }
-  resetearAstronauta() {
     this.astronautaSubject.next(null);
   }
   puedeIniciarMineral(): boolean {
