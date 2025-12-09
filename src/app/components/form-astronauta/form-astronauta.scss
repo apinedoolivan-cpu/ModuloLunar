@@ -1,46 +1,91 @@
-#astronauta{
+@use '../../estilos/variables' as *;
+
+@mixin caja-form($extra-color: null) {
+  background: $form-bg;
+  padding: $padding;
+  border-radius: $border-radius;
+  max-width: $max-width-form;
+  width: 90%;
+  box-shadow: 0 0 25px $primary-color, 0 0 50px $secondary-color inset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @if $extra-color != null {
+    color: $extra-color;
+  }
+
+  margin: 15px auto;
+}
+
+@mixin input-estilo {
+  width: 90%;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #888;
+  background: $input-bg;
+  color: $text-color;
+  box-shadow: 0 0 5px $primary-color;
+  font-size: 1rem;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 10px $primary-color, 0 0 20px $secondary-color;
+    background: rgba(0, 0, 50, 0.5);
+  }
+}
+
+#astronauta {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-#form-astronauta{
-  background: rgba(0, 0, 30, 0.85);
-  padding: 25px;
-  border-radius: 20px;
-  margin: 15px auto;
-  max-width: 800px;
-  width: 90%;
-  box-shadow: 0 0 25px #0ff, 0 0 50px #00f inset;
-  display: flex;
-  flex-direction: column;
+
+#form-astronauta {
+  @include caja-form();
 
   input {
-    width: 90%;
-    margin: 8px 0;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #888;
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-    box-shadow: 0 0 5px #0ff;
+    @include input-estilo();
+  }
 
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 10px #0ff, 0 0 20px #00f;
-      background: rgba(0, 0, 50, 0.5);
+  select {
+    @include input-estilo();
+    appearance: none;
+  }
+
+  button {
+    background: linear-gradient(145deg, #2222aa, #5555ff);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 25px;
+    color: $text-color;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem;
+    box-shadow: 0 0 15px $secondary-color, 0 0 30px $primary-color;
+    transition: all 0.3s ease;
+    margin: 10px;
+
+    &:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 30px $primary-color, 0 0 50px $secondary-color, 0 0 70px $primary-color inset;
     }
   }
 }
-#error{
-  background: rgba(0, 0, 30, 0.85);
-  padding: 25px;
-  color: red;
-  border-radius: 20px;
-  margin: 15px auto;
-  max-width: 800px;
-  width: 90%;
-  box-shadow: 0 0 25px #0ff, 0 0 50px #00f inset;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+#error {
+  @include caja-form(red);
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  #form-astronauta {
+    width: 95%;
+    padding: 15px;
+
+    input, select {
+      width: 100%;
+    }
+  }
 }

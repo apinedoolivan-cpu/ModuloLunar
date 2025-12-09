@@ -1,9 +1,11 @@
+@use '../../estilos/variables' as *;
+
 #datos-mision {
-  background: rgba(0, 0, 30, 0.85);
+  background: $form-bg;
   padding: 25px;
   border-radius: 20px;
   width: 90%;
   max-width: 800px;
   margin: 15px auto;
-  box-shadow: 0 0 25px #0ff, 0 0 50px #00f inset;
+  box-shadow: 0 0 25px $primary-color, 0 0 50px $secondary-color inset;
 }

@@ -1,27 +1,38 @@
-#entrada-sistema{
+@use '../../estilos/variables' as *;
+
+@mixin caja-form {
+  background: $form-bg;
+  padding: $padding;
+  border-radius: $border-radius;
+  max-width: $max-width-form;
+  width: 90%;
+  margin: 15px auto;
+  box-shadow: 0 0 25px $primary-color, 0 0 50px $secondary-color inset;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-#sistema-salida {
+
+#entrada-sistema {
   display: flex;
   flex-direction: column;
-  background: rgba(0, 0, 30, 0.85);
-  padding: 25px;
-  border-radius: 20px;
-  max-width: 800px;
-  width: 90%;
-  margin: 15px auto;
-  box-shadow: 0 0 25px #0ff, 0 0 50px #00f inset;
+  align-items: center;
 }
-#botones-sistema{
+
+#sistema-salida {
+  @include caja-form();
+}
+
+#botones-sistema {
   display: flex;
   flex-direction: column;
+  gap: 10px;
+
   @media (min-width: 600px) {
-    flex-direction: row ;
-    
+    flex-direction: row;
   }
 }
+
 #emoji {
   text-align: center;
   font-size: 2.5rem;

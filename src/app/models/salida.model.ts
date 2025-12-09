@@ -15,8 +15,8 @@ export class SistemaSalidaAmericano implements ISistemaSalida {
   tipo: "americano" = "americano";
 
   procesar(mineral: Mineral): void {
-    mineral.tamanoGrano = parseFloat((mineral.tamanoGrano / 25.4).toFixed(2));
+    mineral.tamanoGrano = parseFloat(mineral.tamanoGrano.toFixed(2));
     mineral.temperatura = parseFloat(((mineral.temperatura * 9/5) + 32).toFixed(2));
-    mineral.tamanoCristal = parseFloat(mineral.tamanoCristal.toFixed(2));
+    mineral.tamanoCristal = parseFloat((mineral.tamanoCristal / 25.4).toFixed(2));
   }
 }

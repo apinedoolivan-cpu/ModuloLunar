@@ -1,97 +1,126 @@
-#forma-entrada{
+@use '../../estilos/variables' as *;
+
+@mixin caja-form($extra-color: null) {
+  background: $form-bg;
+  padding: $padding;
+  border-radius: $border-radius;
+  max-width: $max-width-form;
+  width: 90%;
+  box-shadow: 0 0 25px $primary-color, 0 0 50px $secondary-color inset;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-#botones-entrada{
-  display: flex;
-  flex-direction: column;
-  @media (min-width: 600px) {
-     flex-direction: row;
+  margin: 15px auto;
+
+  @if $extra-color != null {
+    color: $extra-color;
   }
 }
-#mineral-form {
-  background: rgba(0, 0, 30, 0.85);
-  padding: 25px;
-  border-radius: 20px;
-  margin: 15px auto;
-  max-width: 800px;
-  width: 90%;
-  box-shadow: 0 0 25px #0ff, 0 0 50px #00f inset;
+
+@mixin input-estilo {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #888;
+  background: $input-bg;
+  color: $text-color;
+  font-size: 1rem;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 10px $primary-color, 0 0 20px $secondary-color;
+    background: rgba(0, 0, 50, 0.5);
+  }
+}
+
+#forma-entrada {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+#botones-entrada {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+  }
+}
+
+#mineral-form {
+  @include caja-form();
+}
+
 #form-reducido {
   display: flex;
   flex-direction: column;
   gap: 15px;
   width: 100%;
   max-width: 600px;
+
   @media (min-width: 600px) {
-    flex-direction: row ;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
   }
-}
-#form-extendido {
-  display: flex;
-  flex-direction: column ;
-  @media (min-width: 750px) {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+
+  input,
+  select {
+    flex: 1 1 calc(33% - 15px);
+    @include input-estilo();
   }
 }
-#form-extendido > div {
+
+#form-extendido {
   display: flex;
   flex-direction: column;
-  max-width: 300px;
+  gap: 12px;
+
+  @media (min-width: 816px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+  }
+
+  input,
+  select {
+    flex: 1 1 calc(33% - 15px);
+    @include input-estilo();
+  }
+
+  select {
+    height: 35px;
+    font-size: 0.9rem;
+    padding: 5px 8px;
+  }
+
+  select option {
+    background: rgba(0, 0, 0, 0.4);
+    color: $text-color;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    padding: 8px;
+  }
 }
-#form-extendido select {
-  height: 35px;    
-  font-size: 0.9rem;
-  padding: 5px 8px;
-  max-height: 35px;
-}
-#form-extendido select option {
-  background: rgba(0, 0, 0, 0.4);  
-  color: #fff;                
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  padding: 8px;
-}
-#form-reducido input,
-#form-reducido select,
-#form-extendido input,
-#form-extendido select {
-  flex: 1 1 calc(33% - 15px);
-  padding: 10px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.05);
-  color: white;
-  border: 1px solid #888;
-}
-#ext-element{
+
+#ext-element {
   display: flex;
   flex-direction: column;
 }
+
 #form-extendido #ext-elemento-estructura {
   grid-column: 1 / 4;
-  max-width: none !important;
-  width: 100%;
+  max-width: 100%;
   height: 100px;
 }
-#error{
-  background: rgba(0, 0, 30, 0.85);
-  padding: 25px;
-  color: red;
-  border-radius: 20px;
-  margin: 15px auto;
-  max-width: 800px;
-  width: 90%;
-  box-shadow: 0 0 25px #0ff, 0 0 50px #00f inset;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+#error {
+  @include caja-form(red);
+  text-align: center;
 }

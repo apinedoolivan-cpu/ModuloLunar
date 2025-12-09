@@ -5,12 +5,13 @@ import { FormularioAstronautaComponent } from "./components/form-astronauta/form
 import { DatosMisionComponent } from "./components/datos-mision/datos-mision";
 import { FormMineralComponent } from "./components/form-mineral/form-mineral";
 import { ResultadoMisionComponent } from "./components/resultado-mision/resultado-mision";
+import { FondoEstrellasComponent } from "./components/fondo-estrellas/fondo-estrellas";
 
 @Component({
   selector: 'app-root',
-  imports: [SeleccionCriterioComponent, FormularioAstronautaComponent, DatosMisionComponent, FormMineralComponent, ResultadoMisionComponent],
+  imports: [SeleccionCriterioComponent, FormularioAstronautaComponent, DatosMisionComponent, FormMineralComponent, ResultadoMisionComponent, FondoEstrellasComponent],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './estilos/app.scss'
 })
 export class App {
   astronautaActual: Astronauta | null = null;
