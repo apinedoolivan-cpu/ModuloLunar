@@ -5,6 +5,7 @@ import { AstronautaValidationService } from '../../services/form-astronauta';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { Astronauta } from '../../models/astronauta.model';
 import { OrigenMaterialLunar } from '../../models/enums.model';
+import { ICriterioValidacion } from '../../models/interfaces.model';
 
 @Component({
   selector: 'app-form-astronauta',
@@ -16,7 +17,7 @@ export class FormularioAstronautaComponent implements OnInit{
   form: FormGroup;
   formError: string | null = null;
   astronautaActual: Astronauta | null = null;
-  criterio: OrigenMaterialLunar | null = null;
+  criterio: ICriterioValidacion| null = null;
 
 
   constructor(

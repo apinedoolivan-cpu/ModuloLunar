@@ -23,14 +23,18 @@ export class MisionService {
 
     const piloto = this.inicioService.obtenerAstronauta();
     const mineral = this.mineralService.obtenerMineralActual();
+    const criterio = this.inicioService.obtenerCriterio();
     if (!piloto) {
       throw new Error("No hay piloto seleccionado para la misión");
     }
     if (!mineral) {
       throw new Error("No hay mineral seleccionado para la misión");
     }
+    if (!criterio) {
+      throw new Error("No hay criterio seleccionado para la misión");
+    }
 
-    const mision = new Mision(piloto, salida, mineral);
+    const mision = new Mision(criterio, piloto, salida, mineral);
     this._mision.next(mision);
   }
 

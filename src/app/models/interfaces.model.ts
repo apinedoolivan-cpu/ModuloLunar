@@ -1,3 +1,4 @@
+import { OrigenMaterialLunar } from './enums.model';
 import { Mineral } from './mineral.model';
 
 export interface ICapturable {
@@ -6,6 +7,7 @@ export interface ICapturable {
 export interface ICriterioValidacion {
   descripcion(): string;
   esValido(mineral: Mineral): boolean;
+  dameCriterio(): OrigenMaterialLunar
 }
 export interface ISistemaSalida {
   tipo: "europeo" | "americano";

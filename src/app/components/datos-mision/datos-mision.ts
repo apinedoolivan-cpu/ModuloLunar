@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { Astronauta } from '../../models/astronauta.model';
 import { OrigenMaterialLunar } from '../../models/enums.model';
+import { ICriterioValidacion } from '../../models/interfaces.model';
 
 @Component({
   selector: 'app-datos-mision',
@@ -13,7 +14,7 @@ import { OrigenMaterialLunar } from '../../models/enums.model';
 
 export class DatosMisionComponent implements OnInit {
   astronauta: Astronauta | null = null;
-  criterio: OrigenMaterialLunar | null = null;
+  criterio: ICriterioValidacion | null = null;
   fechaInicio = new Date();
 
   constructor(private misionService: InicioMisionService) {}
@@ -21,5 +22,7 @@ export class DatosMisionComponent implements OnInit {
   ngOnInit() {
     this.misionService.astronauta$.subscribe(a => this.astronauta = a);
     this.misionService.criterio$.subscribe(c => this.criterio = c);
+    
   }
+  
 }

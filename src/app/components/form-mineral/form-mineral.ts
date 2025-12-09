@@ -6,6 +6,7 @@ import { Astronauta } from '../../models/astronauta.model';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { MineralValidationService } from '../../services/form-mineral';
 import { MineralService } from '../../services/mineral';
+import { ICriterioValidacion } from '../../models/interfaces.model';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class FormMineralComponent {
   tipoFormulario: 'extendido' | 'reducido' | null = null;
   form!: FormGroup;
   error: string[] | null = null;
-  criterio: OrigenMaterialLunar | null = null;
+  criterio: ICriterioValidacion | null = null;
   astronauta: Astronauta | null = null;
 
   opcionesOrigen = Object.values(OrigenMaterialLunar);

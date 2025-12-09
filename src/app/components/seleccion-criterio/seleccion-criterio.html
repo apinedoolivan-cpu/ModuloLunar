@@ -6,5 +6,7 @@
         </button>
         }
     </div>
-    @if(misionService.obtenerCriterio()){<p>Criterio seleccionado: {{misionService.obtenerCriterio()}}</p>}
+    @if(misionService.obtenerCriterio()){
+        <p>Criterio seleccionado: {{misionService.obtenerCriterio()?.dameCriterio()}}</p>
+    }
 }

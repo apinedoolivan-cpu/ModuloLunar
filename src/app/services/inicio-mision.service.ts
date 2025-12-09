@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Astronauta } from '../models/astronauta.model';
-import { OrigenMaterialLunar } from '../models/enums.model';
+import { CriterioFactoria } from '../models/criterios.model';
+import { ICriterioValidacion } from '../models/interfaces.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InicioMisionService {
-  private criterioSubject = new BehaviorSubject<OrigenMaterialLunar | null>(null);
+  private criterioSubject = new BehaviorSubject<ICriterioValidacion | null>(null);
   private astronautaSubject = new BehaviorSubject<Astronauta | null>(null);
 
   criterio$ = this.criterioSubject.asObservable();
   astronauta$ = this.astronautaSubject.asObservable();
 
-  establecerCriterio(criterio: OrigenMaterialLunar) {
+  establecerCriterio(criterio: ICriterioValidacion) {
     this.criterioSubject.next(criterio);
   }
   establecerAstronauta(astronauta: Astronauta) {
@@ -22,7 +23,7 @@ export class InicioMisionService {
   obtenerAstronauta(): Astronauta | null {
     return this.astronautaSubject.value;
   }
-  obtenerCriterio(): OrigenMaterialLunar | null {
+  obtenerCriterio(): ICriterioValidacion | null {
     return this.criterioSubject.value;
   }
   reset(){
