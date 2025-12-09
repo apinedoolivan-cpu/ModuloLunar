@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FondoEstrellas } from './fondo-estrellas';
+import { FondoEstrellasComponent } from './fondo-estrellas';
 
 describe('FondoEstrellas', () => {
-  let component: FondoEstrellas;
-  let fixture: ComponentFixture<FondoEstrellas>;
+  let component: FondoEstrellasComponent;
+  let fixture: ComponentFixture<FondoEstrellasComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FondoEstrellas]
+      imports: [FondoEstrellasComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FondoEstrellas);
+    fixture = TestBed.createComponent(FondoEstrellasComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { Astronauta } from '../../models/astronauta.model';
-import { OrigenMaterialLunar } from '../../models/enums.model';
 import { ICriterioValidacion } from '../../models/interfaces.model';
 
 @Component({

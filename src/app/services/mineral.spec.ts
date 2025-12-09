@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Mineral } from './mineral';
+import { MineralService } from './mineral';
 
 describe('Mineral', () => {
-  let service: Mineral;
+  let service: MineralService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(Mineral);
+    service = TestBed.inject(MineralService);
   });
 
   it('should be created', () => {

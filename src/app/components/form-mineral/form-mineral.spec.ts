@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormMineral } from './form-mineral';
+import { FormMineralComponent } from './form-mineral';
 
 describe('FormMineral', () => {
-  let component: FormMineral;
-  let fixture: ComponentFixture<FormMineral>;
+  let component: FormMineralComponent;
+  let fixture: ComponentFixture<FormMineralComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormMineral]
+      imports: [FormMineralComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FormMineral);
+    fixture = TestBed.createComponent(FormMineralComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
