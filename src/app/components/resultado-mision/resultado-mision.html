@@ -1,45 +1,51 @@
 <div>
     @if(mineral){
-        <div>
-            <p>Eliga un sistema de salida</p>
-            <button (click)="seleccionarSistemaEuropa()">Sistema Europeo</button>
-            <button (click)="seleccionarSistemaAmerica()">Sistema Americano</button>
+        <div id="entrada-sistema">
+            <h2>Eliga un sistema de salida</h2>
+            <div id="botones-sistema">
+                <button (click)="seleccionarSistemaEuropa()">Sistema Europeo</button>
+                <button (click)="seleccionarSistemaAmerica()">Sistema Americano</button>
+            </div>
         </div>
     }
     @if (mision) {
-        <h2>Misión de {{mision.piloto.dameNombre()}}</h2>
-        <p> {{mision.criterio.descripcion()}}</p>
-         @if (mision.analiza()) {
-            <p>😊 El mineral es válido</p>
-        } @else {
-            <p>😡 El mineral NO es válido</p>
-        }
-        @if(tipo == "europeo"){
-            <p><strong>ID:</strong> {{ mision.mineral.id }}</p>
-            <p><strong>Nombre:</strong> {{ mision.mineral.nombre }}</p>
-            <p><strong>Origen:</strong> {{ mision.mineral.origen }}</p>
-            <p><strong>Dureza:</strong> {{ mision.mineral.dureza }} / 10</p>
-            <p><strong>Tamaño de Grano:</strong> {{ mision.mineral.dametamanoGrano() }} </p>
-            <p><strong>Clasificacion:</strong> {{ mision.mineral.clasificacion }}</p>
-            <p><strong>Tamaño de cristal:</strong> {{ mision.mineral.tamanoCristal }}</p>
-            <p><strong>Temperatura de formacion:</strong> {{ mision.mineral.temperatura }} Cº</p>
-            @if(mineral?.estructura){<p><strong>Estructura:</strong> {{ mision.mineral.estructura }}</p>}
-            <p><strong>Textura:</strong> {{ mision.mineral.textura }}</p>
-        }
-        @if(tipo == "americano"){
-            <p><strong>ID:</strong> {{ mision.mineral.id }}</p>
-            <p><strong>Name:</strong> {{ mision.mineral.nombre }}</p>
-            <p><strong>Origin:</strong> {{ mision.mineral.origen }}</p>
-            <p><strong>Hardness:</strong> {{ mision.mineral.dureza }} / 10</p>
-            <p><strong>Grain size:</strong> {{ mision.mineral.dametamanoGrano() }} </p>
-            <p><strong>Classification:</strong> {{ mision.mineral.clasificacion }}</p>
-            <p><strong>Crystal size:</strong> {{ mision.mineral.tamanoCristal }}</p>
-            <p><strong>Formation temperature:</strong> {{ mision.mineral.temperatura }} Fº</p>
-            @if(mineral?.estructura){<p><strong>Structure:</strong> {{ mision.mineral.estructura }}</p>}
-            <p><strong>Texture:</strong> {{ mision.mineral.textura }}</p>
-        }
+        <div id="sistema-salida">
+            <h2>Misión de {{mision.piloto.dameNombre()}}</h2>
+            <p> {{mision.criterio.descripcion()}}</p>
+            @if (mision.analiza()) {
+                <div id="emoji">😊</div>
+                <p> El mineral es válido</p>
+            } @else {
+                <div id="emoji">😡</div>
+                <p> El mineral NO es válido</p>
+            }
+            @if(tipo == "europeo"){
+                <p><strong>ID:</strong> {{ mision.mineral.id }}</p>
+                <p><strong>Nombre:</strong> {{ mision.mineral.nombre }}</p>
+                <p><strong>Origen:</strong> {{ mision.mineral.origen }}</p>
+                <p><strong>Dureza:</strong> {{ mision.mineral.dureza }} / 10</p>
+                <p><strong>Tamaño de Grano:</strong> {{ mision.mineral.dametamanoGrano() }} </p>
+                <p><strong>Clasificacion:</strong> {{ mision.mineral.clasificacion }}</p>
+                <p><strong>Tamaño de cristal:</strong> {{ mision.mineral.tamanoCristal }} mm</p>
+                <p><strong>Temperatura de formacion:</strong> {{ mision.mineral.temperatura }} Cº</p>
+                @if(mineral?.estructura){<p><strong>Estructura:</strong> {{ mision.mineral.estructura }}</p>}
+                <p><strong>Textura:</strong> {{ mision.mineral.textura }}</p>
+            }
+            @if(tipo == "americano"){
+                <p><strong>ID:</strong> {{ mision.mineral.id }}</p>
+                <p><strong>Name:</strong> {{ mision.mineral.nombre }}</p>
+                <p><strong>Origin:</strong> {{ mision.mineral.origen }}</p>
+                <p><strong>Hardness:</strong> {{ mision.mineral.dureza }} / 10</p>
+                <p><strong>Grain size:</strong> {{ mision.mineral.dametamanoGrano() }} </p>
+                <p><strong>Classification:</strong> {{ mision.mineral.clasificacion }}</p>
+                <p><strong>Crystal size:</strong> {{ mision.mineral.tamanoCristal }} mm</p>
+                <p><strong>Formation temperature:</strong> {{ mision.mineral.temperatura }} Fº</p>
+                @if(mineral?.estructura){<p><strong>Structure:</strong> {{ mision.mineral.estructura }}</p>}
+                <p><strong>Texture:</strong> {{ mision.mineral.textura }}</p>
+            }
+        </div>
     }
 
-    <button (click)="misionService.resetearTodo()">Reiniciar Mision</button>
+    <button (click)="misionService.resetearTodo()" id="reiniciar-boton">Reiniciar Mision</button>
 
 </div>
