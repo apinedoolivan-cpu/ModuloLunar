@@ -1,6 +1,8 @@
-import { ISistemaSalida } from "./interfaces.model";
 import { Mineral } from "./mineral.model";
-
+export interface ISistemaSalida {
+  tipo: string;
+  procesar(mineral: Mineral): void;
+}
 export class SistemaSalidaEuropeo implements ISistemaSalida {
   tipo: "europeo" = "europeo";
 

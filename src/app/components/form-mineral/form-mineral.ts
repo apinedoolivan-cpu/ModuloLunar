@@ -6,7 +6,7 @@ import { Astronauta } from '../../models/astronauta.model';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { MineralValidationService } from '../../services/form-mineral';
 import { MineralService } from '../../services/mineral';
-import { ICriterioValidacion } from '../../models/interfaces.model';
+import { ICriterioValidacion } from '../../models/criterios.model';
 
 
 @Component({

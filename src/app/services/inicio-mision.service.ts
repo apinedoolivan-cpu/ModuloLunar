@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Astronauta } from '../models/astronauta.model';
-import { ICriterioValidacion } from '../models/interfaces.model';
+import { ICriterioValidacion } from '../models/criterios.model';
 
 @Injectable({
   providedIn: 'root'

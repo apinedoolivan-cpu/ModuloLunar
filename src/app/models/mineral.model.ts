@@ -3,8 +3,9 @@ import {
   ClasificacionMaterialLunar,
   TexturaMaterialLunar
 } from './enums.model';
-import { ICapturable } from './interfaces.model';
-
+export interface ICapturable {
+  capturar(): Mineral;
+}
 export class Mineral implements ICapturable {
   constructor(
     public id: string,

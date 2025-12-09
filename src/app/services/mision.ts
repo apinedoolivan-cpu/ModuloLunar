@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Mision } from '../models/mision.model';
-import { ISistemaSalida } from '../models/interfaces.model';
+import { ISistemaSalida } from '../models/salida.model';
 import { InicioMisionService } from './inicio-mision.service';
 import { MineralService } from './mineral';
 

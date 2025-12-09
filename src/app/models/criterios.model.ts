@@ -1,7 +1,10 @@
-import { ICriterioValidacion } from './interfaces.model';
 import { Mineral } from './mineral.model';
 import { OrigenMaterialLunar, TexturaMaterialLunar } from './enums.model';
-
+export interface ICriterioValidacion {
+  descripcion(): string;
+  esValido(mineral: Mineral): boolean;
+  dameCriterio(): OrigenMaterialLunar
+}
 export class CriterioIgneas implements ICriterioValidacion {
   constructor(public origen: OrigenMaterialLunar) {}
   descripcion(): string {

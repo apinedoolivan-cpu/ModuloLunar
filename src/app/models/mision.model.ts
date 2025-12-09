@@ -1,6 +1,11 @@
-import { IMisionable, IPilotable, ISistemaSalida, ICriterioValidacion} from './interfaces.model';
+import { IPilotable } from './astronauta.model';
+import { ICriterioValidacion } from './criterios.model';
+import { ISistemaSalida } from './salida.model';
 import { Mineral } from './mineral.model';
 
+export interface IMisionable {
+  analiza(): boolean;
+}
 export class Mision implements IMisionable {
   constructor(
 

@@ -1,4 +1,8 @@
-import { IPilotable } from './interfaces.model';
+export interface IPilotable {
+  dameId(): string;
+  dameNombre(): string;
+  dameEdad(): number;
+}
 
 export class Astronauta implements IPilotable {
   constructor(

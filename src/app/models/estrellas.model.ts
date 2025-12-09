@@ -2,12 +2,10 @@ export interface Punto {
   x: number;
   y: number;
 }
-
 export interface EntornoEstrella {
   ancho: number;
   alto: number;
 }
-
 export class Estrella {
   esMeteoro: boolean;
   x = 0;
