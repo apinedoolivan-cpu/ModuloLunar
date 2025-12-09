@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AstronautaValidationService } from '../../services/form-astronauta';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { Astronauta } from '../../models/astronauta.model';
-import { OrigenMaterialLunar } from '../../models/enums.model';
 import { ICriterioValidacion } from '../../models/interfaces.model';
 
 @Component({

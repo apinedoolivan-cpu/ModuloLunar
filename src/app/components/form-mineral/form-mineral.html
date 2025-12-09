@@ -65,7 +65,7 @@
       <button (click)="enviar()">Validar</button>
     </div>
     @if (error) {
-      <p id="error" [innerHTML]="error.join('<br>')">{{ error}}</p>
+      <p id="error" [innerHTML]="error.join('<br>')">{{error}}</p>
     }
   }
   @if (tipoFormulario === 'extendido') {

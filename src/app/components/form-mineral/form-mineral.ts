@@ -36,6 +36,9 @@ export class FormMineralComponent {
   ngOnInit() {
     this.misionService.astronauta$.subscribe(a => this.astronauta = a);
     this.misionService.criterio$.subscribe(c => this.criterio = c);
+    this.misionService.reiniciar$.subscribe(() => {
+    this.reiniciarFormulario();
+  });
   }
 
   seleccionarTipo(tipo: 'extendido' | 'reducido') {
@@ -78,6 +81,11 @@ export class FormMineralComponent {
       return;
     }
     this.mineralService.establecerMineral(mineral.capturar());
+    this.error = null;
+  }
+  reiniciarFormulario() {
+    this.form.reset();
+    this.tipoFormulario = null;
     this.error = null;
   }
 }

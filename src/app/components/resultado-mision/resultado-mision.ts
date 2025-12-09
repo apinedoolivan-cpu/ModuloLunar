@@ -30,6 +30,7 @@ export class ResultadoMisionComponent {
     this.misionService.crearMision(salida);
     if (this.mision && this.mision.mineral) {
       salida.procesar(this.mision.mineral);
+      console.log(this.mision.mineral.estructura)
     } 
     this.mineral = null;
   }

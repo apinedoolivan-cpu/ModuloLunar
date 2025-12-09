@@ -10,7 +10,7 @@ export interface ICriterioValidacion {
   dameCriterio(): OrigenMaterialLunar
 }
 export interface ISistemaSalida {
-  tipo: "europeo" | "americano";
+  tipo: string;
   procesar(mineral: Mineral): void;
 }
 export interface IPilotable {

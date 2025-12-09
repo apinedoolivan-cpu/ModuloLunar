@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { Astronauta } from '../models/astronauta.model';
-import { CriterioFactoria } from '../models/criterios.model';
 import { ICriterioValidacion } from '../models/interfaces.model';
 
 @Injectable({
@@ -10,9 +9,11 @@ import { ICriterioValidacion } from '../models/interfaces.model';
 export class InicioMisionService {
   private criterioSubject = new BehaviorSubject<ICriterioValidacion | null>(null);
   private astronautaSubject = new BehaviorSubject<Astronauta | null>(null);
+  private reiniciarSubject = new Subject<void>();
 
   criterio$ = this.criterioSubject.asObservable();
   astronauta$ = this.astronautaSubject.asObservable();
+  reiniciar$ = this.reiniciarSubject.asObservable();
 
   establecerCriterio(criterio: ICriterioValidacion) {
     this.criterioSubject.next(criterio);
@@ -29,6 +30,7 @@ export class InicioMisionService {
   reset(){
     this.criterioSubject.next(null);
     this.astronautaSubject.next(null);
+    this.reiniciarSubject.next();
   }
   puedeIniciarMineral(): boolean {
     return this.astronautaSubject.value !== null && this.criterioSubject.value !== null;

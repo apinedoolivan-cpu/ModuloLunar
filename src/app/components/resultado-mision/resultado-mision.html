@@ -28,7 +28,7 @@
                 <p><strong>Clasificacion:</strong> {{ mision.mineral.clasificacion }}</p>
                 <p><strong>Tamaño de cristal:</strong> {{ mision.mineral.tamanoCristal }} mm</p>
                 <p><strong>Temperatura de formacion:</strong> {{ mision.mineral.temperatura }} Cº</p>
-                @if(mineral?.estructura){<p><strong>Estructura:</strong> {{ mision.mineral.estructura }}</p>}
+                @if(mision.mineral.estructura){<p><strong>Estructura:</strong> {{ mision.mineral.estructura }}</p>}
                 <p><strong>Textura:</strong> {{ mision.mineral.textura }}</p>
             }
             @if(tipo == "americano"){
@@ -40,7 +40,7 @@
                 <p><strong>Classification:</strong> {{ mision.mineral.clasificacion }}</p>
                 <p><strong>Crystal size:</strong> {{ mision.mineral.tamanoCristal }} inches</p>
                 <p><strong>Formation temperature:</strong> {{ mision.mineral.temperatura }} Fº</p>
-                @if(mineral?.estructura){<p><strong>Structure:</strong> {{ mision.mineral.estructura }}</p>}
+                @if(mision.mineral.estructura){<p><strong>Structure:</strong> {{ mision.mineral.estructura }}</p>}
                 <p><strong>Texture:</strong> {{ mision.mineral.textura }}</p>
             }
         </div>
