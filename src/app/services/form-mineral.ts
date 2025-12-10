@@ -13,14 +13,24 @@ export class MineralValidationService {
     const valores = form.value;
 
     for (const campo of Object.keys(controles)) {
+
       if (campo.toLowerCase().includes('estructura')) {
-        continue; 
+        continue;
       }
+
       const valor = (controles[campo].value ?? '').toString().trim();
 
       if (valor === '') {
+
+        const nombresEspeciales: Record<string, string> = {
+          tamanoGrano: 'Tamaño de grano',   
+          tamanoCristal: 'Tamaño de cristal'
+        };
+
         const nombreVisible =
+          nombresEspeciales[campo] ??
           campo.charAt(0).toUpperCase() + campo.slice(1);
+
         errores.push(`El campo "${nombreVisible}" es obligatorio.`);
       }
     }

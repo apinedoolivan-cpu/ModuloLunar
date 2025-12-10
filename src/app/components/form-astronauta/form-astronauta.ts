@@ -47,6 +47,7 @@ export class FormularioAstronautaComponent implements OnInit{
 
     this.astronautaActual = new Astronauta(id, nombre, edad);
     this.misionService.establecerAstronauta(this.astronautaActual);
+    this.formError = null;
   }
   mostrar(): boolean {
     if(this.misionService.obtenerCriterio() && !this.misionService.obtenerAstronauta()) return true;
