@@ -93,7 +93,7 @@ export class FormMineralComponent {
     if (error && error.length > 0) {
       this.error = error;
        setTimeout(() => {
-      if (this.errorDiv) {
+        if (this.errorDiv) {
           this.scrollService.scrollToElement(this.errorDiv.nativeElement);
         }
       }, 0);
@@ -101,7 +101,9 @@ export class FormMineralComponent {
     }
     this.mineralService.establecerMineral(mineral.capturar());
     this.error = null;
-    this.scrollService.scrollToAnchor('sistema-entrada')
+    setTimeout(() => {
+      this.scrollService.scrollToAnchor('entrada-sistema');
+    }, 0);
   }
   reiniciarFormulario() {
     this.form.reset();
