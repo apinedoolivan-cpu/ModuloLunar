@@ -8,7 +8,7 @@
   </div>
 
   @if (tipoFormulario === 'reducido') {
-    <div id="mineral-form">
+    <div id="mineral-form" #formReducidoDiv>
       <h3>Formulario Reducido</h3>
 
       <form [formGroup]="form" id="form-reducido">
@@ -65,11 +65,11 @@
       <button (click)="enviar()">Validar</button>
     </div>
     @if (error) {
-      <p id="error" [innerHTML]="error.join('<br>')">{{error}}</p>
+      <p #errorDiv id="error" [innerHTML]="error.join('<br>')">{{error}}</p>
     }
   }
   @if (tipoFormulario === 'extendido') {
-    <div id="mineral-form">
+    <div id="mineral-form" #formExtendidoDiv>
       <h3>Formulario Extendido</h3>
 
       <form [formGroup]="form" id="form-extendido">
@@ -150,7 +150,7 @@
         <button (click)="enviar()">Validar</button>
     </div>
     @if (error) {
-      <p id="error" [innerHTML]="error.join('<br>')">{{ error }}</p>
+      <p #errorDiv id="error" [innerHTML]="error.join('<br>')">{{ error }}</p>
     }
   }
 }

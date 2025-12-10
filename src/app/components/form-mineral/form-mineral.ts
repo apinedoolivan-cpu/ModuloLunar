@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Mineral } from '../../models/mineral.model';
 import { OrigenMaterialLunar, ClasificacionMaterialLunar, TexturaMaterialLunar } from '../../models/enums.model';
@@ -7,6 +7,7 @@ import { InicioMisionService } from '../../services/inicio-mision.service';
 import { MineralValidationService } from '../../services/form-mineral';
 import { MineralService } from '../../services/mineral';
 import { ICriterioValidacion } from '../../models/criterios.model';
+import { ScrollService } from '../../services/scroll';
 
 
 @Component({
@@ -26,11 +27,16 @@ export class FormMineralComponent {
   opcionesClasificacion = Object.values(ClasificacionMaterialLunar);
   opcionesTextura = Object.values(TexturaMaterialLunar);
 
+  @ViewChild('formReducidoDiv') formReducidoDiv!: ElementRef<HTMLDivElement>;
+  @ViewChild('formExtendidoDiv') formExtendidoDiv!: ElementRef<HTMLDivElement>;
+  @ViewChild('errorDiv') errorDiv!: ElementRef<HTMLParagraphElement>;
+
   constructor(
     private fb: FormBuilder,
     private misionService: InicioMisionService,
     private mineralValidationService: MineralValidationService,
-    private mineralService: MineralService
+    private mineralService: MineralService,
+    private scrollService: ScrollService
   ) {}
 
   ngOnInit() {
@@ -38,13 +44,21 @@ export class FormMineralComponent {
     this.misionService.criterio$.subscribe(c => this.criterio = c);
     this.misionService.reiniciar$.subscribe(() => {
     this.reiniciarFormulario();
-  });
+    });
   }
-
+  
   seleccionarTipo(tipo: 'extendido' | 'reducido') {
     this.tipoFormulario = tipo;
     this.crearFormulario();
     this.error = null;
+
+    setTimeout(() => {
+      if (tipo === 'reducido' && this.formReducidoDiv) {
+        this.scrollService.scrollToElement(this.formReducidoDiv.nativeElement);
+      } else if (tipo === 'extendido' && this.formExtendidoDiv) {
+        this.scrollService.scrollToElement(this.formExtendidoDiv.nativeElement);
+      }
+    }, 0);
   }
 
   private crearFormulario() {
@@ -78,10 +92,16 @@ export class FormMineralComponent {
     const error = this.mineralValidationService.validar(this.form);
     if (error && error.length > 0) {
       this.error = error;
+       setTimeout(() => {
+      if (this.errorDiv) {
+          this.scrollService.scrollToElement(this.errorDiv.nativeElement);
+        }
+      }, 0);
       return;
     }
     this.mineralService.establecerMineral(mineral.capturar());
     this.error = null;
+    this.scrollService.scrollToAnchor('sistema-entrada')
   }
   reiniciarFormulario() {
     this.form.reset();

@@ -49,9 +49,5 @@ export class MisionService {
     this.reset();        
     this.mineralService.resetMineral();         
     this.inicioService.reset();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
   }
 }
