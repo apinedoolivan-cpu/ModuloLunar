@@ -1,12 +1,15 @@
-@if(mostrar()){
-    <div id="inicio-mision">
-        @for (criterio of criterios; track criterio) {
-        <button type="button" (click)="seleccionar(criterio)">
-            {{ criterio }}
-        </button>
-        }
-    </div>
-    @if(misionService.obtenerCriterio()){
-        <p>Criterio seleccionado: {{misionService.obtenerCriterio()?.dameCriterio()}}</p>
+@if (mostrar()) {
+  <div id="inicio-mision">
+    @for (criterio of criterios; track criterio) {
+      <button type="button" (click)="seleccionar(criterio)">
+        {{ criterio }}
+      </button>
     }
+  </div>
+
+  @if (misionService.criterio()) {
+    <p>
+      Criterio seleccionado: {{ misionService.criterio()?.dameCriterio() }}
+    </p>
+  }
 }

@@ -1,4 +1,4 @@
-@if(mostrar()){
+@if(mostrarForm()){
     <div id="astronauta">
         <h3>Datos del Astronauta</h3>
         <form [formGroup]="form" id="form-astronauta">
@@ -12,7 +12,7 @@
             <input id="astro-edad" type="number" formControlName="edad" />
         </form>
             @if (formError) {
-        <div id="error">{{formError}}</div>
+        <div #errorDiv id="error">{{formError}}</div>
         }
         <button (click)="aceptarAstronauta()">Aceptar</button>
     </div>

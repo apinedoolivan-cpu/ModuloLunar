@@ -1,43 +1,60 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, ViewChild, ElementRef, inject, computed, effect } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ScrollService } from '../../services/scroll';
 import { AstronautaValidationService } from '../../services/form-astronauta';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { Astronauta } from '../../models/astronauta.model';
-import { ICriterioValidacion } from '../../models/criterios.model';
 
 @Component({
   selector: 'app-form-astronauta',
-  imports: [ ReactiveFormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule],
   templateUrl: './form-astronauta.html',
-  styleUrl: './form-astronauta.scss',
+  styleUrls: ['./form-astronauta.scss'],
 })
-export class FormularioAstronautaComponent implements OnInit{
-  form: FormGroup;
+export class FormularioAstronautaComponent {
+
+  private fb = inject(FormBuilder);
+  private misionService = inject(InicioMisionService);
+  private astronautaService = inject(AstronautaValidationService);
+  private scrollService = inject(ScrollService);
+
+  criterio = this.misionService.criterio;
+  astronauta = this.misionService.astronauta;
+  reiniciar = this.misionService.reiniciar;
+
+  form: FormGroup = this.fb.group({
+    id: ['', [Validators.pattern(/^[A-Z]{3}[0-9]{3}$/)]],
+    nombre: [''],
+    edad: [null, [Validators.min(18), Validators.max(80)]]
+  });
+
   formError: string | null = null;
-  astronautaActual: Astronauta | null = null;
-  criterio: ICriterioValidacion| null = null;
 
+  mostrarForm = computed(() =>
+    this.criterio() !== null && this.astronauta() === null
+  );
 
-  constructor(
-    private fb: FormBuilder, 
-    private misionService: InicioMisionService, 
-    private astronautaService: AstronautaValidationService) {
-    this.form = this.fb.group({
-      id: ['', [Validators.pattern(/^[A-Z]{3}[0-9]{3}$/)]],
-      nombre: [''],
-      edad: [null, [Validators.min(18), Validators.max(80)]]
+  @ViewChild('errorDiv') errorDiv!: ElementRef<HTMLParagraphElement>;
+
+  constructor() {
+    effect(() => {
+      this.reiniciar();
+      this.reiniciarFormulario();
     });
-  }
-
-  ngOnInit() {
-    this.misionService.criterio$.subscribe(c => this.criterio = c);
   }
 
   aceptarAstronauta() {
     const error = this.astronautaService.validar(this.form);
+
     if (error) {
       this.formError = error;
+
+      setTimeout(() => {
+        if (this.errorDiv) {
+          this.scrollService.scrollToElement(this.errorDiv.nativeElement);
+        }
+      });
       return;
     }
 
@@ -45,12 +62,13 @@ export class FormularioAstronautaComponent implements OnInit{
     const nombre = this.form.get('nombre')?.value?.trim() || 'Agmunsen';
     const edad = this.form.get('edad')?.value || 40;
 
-    this.astronautaActual = new Astronauta(id, nombre, edad);
-    this.misionService.establecerAstronauta(this.astronautaActual);
-    this.formError = null;
+    const nuevo = new Astronauta(id, nombre, edad);
+
+    this.misionService.establecerAstronauta(nuevo);
+    this.reiniciarFormulario();
   }
-  mostrar(): boolean {
-    if(this.misionService.obtenerCriterio() && !this.misionService.obtenerAstronauta()) return true;
-    return false;
+  reiniciarFormulario() {
+    if (this.form) this.form.reset();
+    this.formError = null;
   }
 }

@@ -1,9 +1,7 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, inject, effect } from '@angular/core';
 import { MisionService } from '../../services/mision';
-import { Mineral } from '../../models/mineral.model';
 import { MineralService } from '../../services/mineral';
 import { SistemaSalidaAmericano, SistemaSalidaEuropeo } from '../../models/salida.model';
-import { Mision } from '../../models/mision.model';
 import { ScrollService } from '../../services/scroll';
 
 @Component({
@@ -13,30 +11,31 @@ import { ScrollService } from '../../services/scroll';
   standalone: true
 })
 export class ResultadoMisionComponent {
+  public misionService = inject(MisionService);
+  private mineralService = inject(MineralService);
+  private scrollService = inject(ScrollService);
 
-  mision: Mision | null = null;
-  mineral : Mineral | null = null; 
-  tipo: String = "";
   @ViewChild('resultadoDiv') resultadoDiv!: ElementRef<HTMLDivElement>;
 
-  constructor(public misionService: MisionService, public mineralService: MineralService, 
-    public scrollService: ScrollService) {}
+  tipo: string = "";
 
-  ngOnInit() {
-    this.misionService.mision$.subscribe(c => this.mision = c);
-    this.mineralService.mineral$.subscribe(m => this.mineral = m)
-  }
-  
+  mision = this.misionService.mision;   
+  mineral = this.mineralService.mineral;
+
+  constructor() {}
+
   seleccionarSistemaEuropa(): void {
     const salida = new SistemaSalidaEuropeo();
     this.tipo = salida.tipo;
     this.misionService.crearMision(salida);
-    if (this.mision && this.mision.mineral) {
-      salida.procesar(this.mision.mineral);
-    } 
-    this.mineral = null;
+
+    const m = this.mision();
+    if (m?.mineral) salida.procesar(m.mineral);
+
+    this.mineralService.resetMineral();
+
     setTimeout(() => {
-      if (this.resultadoDiv) {
+      if (this.resultadoDiv?.nativeElement) {
         this.scrollService.scrollToElement(this.resultadoDiv.nativeElement);
       }
     });
@@ -46,12 +45,14 @@ export class ResultadoMisionComponent {
     const salida = new SistemaSalidaAmericano();
     this.tipo = salida.tipo;
     this.misionService.crearMision(salida);
-    if (this.mision && this.mision.mineral) {
-      salida.procesar(this.mision.mineral);
-    }
-    this.mineral = null;
+
+    const m = this.mision();
+    if (m?.mineral) salida.procesar(m.mineral);
+
+    this.mineralService.resetMineral();
+
     setTimeout(() => {
-      if (this.resultadoDiv) {
+      if (this.resultadoDiv?.nativeElement) {
         this.scrollService.scrollToElement(this.resultadoDiv.nativeElement);
       }
     });

@@ -1,26 +1,24 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { Mineral } from '../models/mineral.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MineralService {
-  private mineral = new BehaviorSubject<Mineral | null>(null);
-
-  mineral$: Observable<Mineral | null> = this.mineral.asObservable();
+  private mineralSignal = signal<Mineral | null>(null);
+  mineral = this.mineralSignal.asReadonly();
 
   constructor() {}
 
   establecerMineral(mineral: Mineral): void {
-    this.mineral.next(mineral);
+    this.mineralSignal.set(mineral);
   }
 
   obtenerMineralActual(): Mineral | null {
-    return this.mineral.value;
+    return this.mineralSignal();
   }
 
   resetMineral(): void {
-    this.mineral.next(null);
+    this.mineralSignal.set(null);
   }
 }

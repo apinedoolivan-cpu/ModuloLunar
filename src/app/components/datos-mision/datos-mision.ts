@@ -1,27 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InicioMisionService } from '../../services/inicio-mision.service';
-import { Astronauta } from '../../models/astronauta.model';
-import { ICriterioValidacion } from '../../models/criterios.model';
 
 @Component({
   selector: 'app-datos-mision',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './datos-mision.html',
-  styleUrl: './datos-mision.scss',
+  styleUrls: ['./datos-mision.scss'],
 })
+export class DatosMisionComponent {
 
-export class DatosMisionComponent implements OnInit {
-  astronauta: Astronauta | null = null;
-  criterio: ICriterioValidacion | null = null;
+  private misionService = inject(InicioMisionService);
+
+  astronauta = this.misionService.astronauta;
+  criterio = this.misionService.criterio;
   fechaInicio = new Date();
-
-  constructor(private misionService: InicioMisionService) {}
-
-  ngOnInit() {
-    this.misionService.astronauta$.subscribe(a => this.astronauta = a);
-    this.misionService.criterio$.subscribe(c => this.criterio = c);
-    
-  }
-  
 }

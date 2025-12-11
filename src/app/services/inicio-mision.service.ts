@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Injectable, signal, computed } from '@angular/core';
 import { Astronauta } from '../models/astronauta.model';
 import { ICriterioValidacion } from '../models/criterios.model';
 
@@ -7,32 +6,38 @@ import { ICriterioValidacion } from '../models/criterios.model';
   providedIn: 'root'
 })
 export class InicioMisionService {
-  private criterioSubject = new BehaviorSubject<ICriterioValidacion | null>(null);
-  private astronautaSubject = new BehaviorSubject<Astronauta | null>(null);
-  private reiniciarSubject = new Subject<void>();
 
-  criterio$ = this.criterioSubject.asObservable();
-  astronauta$ = this.astronautaSubject.asObservable();
-  reiniciar$ = this.reiniciarSubject.asObservable();
+  private criterioSignal = signal<ICriterioValidacion | null>(null);
+  private astronautaSignal = signal<Astronauta | null>(null);
+  private reiniciarSignal = signal<number>(0);
+
+  criterio = this.criterioSignal.asReadonly();
+  astronauta = this.astronautaSignal.asReadonly();
+  reiniciar = this.reiniciarSignal.asReadonly();
 
   establecerCriterio(criterio: ICriterioValidacion) {
-    this.criterioSubject.next(criterio);
+    this.criterioSignal.set(criterio);
   }
+
   establecerAstronauta(astronauta: Astronauta) {
-    this.astronautaSubject.next(astronauta);
+    this.astronautaSignal.set(astronauta);
   }
+
   obtenerAstronauta(): Astronauta | null {
-    return this.astronautaSubject.value;
+    return this.astronautaSignal();
   }
+
   obtenerCriterio(): ICriterioValidacion | null {
-    return this.criterioSubject.value;
+    return this.criterioSignal();
   }
-  reset(){
-    this.criterioSubject.next(null);
-    this.astronautaSubject.next(null);
-    this.reiniciarSubject.next();
+
+  reset() {
+    this.criterioSignal.set(null);
+    this.astronautaSignal.set(null);
+    this.reiniciarSignal.update(v => v + 1);
   }
-  puedeIniciarMineral(): boolean {
-    return this.astronautaSubject.value !== null && this.criterioSubject.value !== null;
-  }
+  puedeIniciarMineral = computed(() =>
+    this.astronautaSignal() !== null &&
+    this.criterioSignal() !== null
+  );
 }

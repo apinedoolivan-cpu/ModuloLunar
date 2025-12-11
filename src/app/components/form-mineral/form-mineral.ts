@@ -1,27 +1,36 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, inject, computed, effect } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Mineral } from '../../models/mineral.model';
 import { OrigenMaterialLunar, ClasificacionMaterialLunar, TexturaMaterialLunar } from '../../models/enums.model';
-import { Astronauta } from '../../models/astronauta.model';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { MineralValidationService } from '../../services/form-mineral';
 import { MineralService } from '../../services/mineral';
-import { ICriterioValidacion } from '../../models/criterios.model';
 import { ScrollService } from '../../services/scroll';
-
 
 @Component({
   selector: 'app-form-mineral',
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './form-mineral.html',
   styleUrls: ['./form-mineral.scss']
 })
 export class FormMineralComponent {
-  tipoFormulario: 'extendido' | 'reducido' | null = null;
+
+  private fb = inject(FormBuilder);
+  private misionService = inject(InicioMisionService);
+  private mineralValidationService = inject(MineralValidationService);
+  private mineralService = inject(MineralService);
+  private scrollService = inject(ScrollService);
+
   form!: FormGroup;
   error: string[] | null = null;
-  criterio: ICriterioValidacion | null = null;
-  astronauta: Astronauta | null = null;
+  tipoFormulario: 'extendido' | 'reducido' | null = null;
+
+  astronauta = this.misionService.astronauta;
+  criterio = this.misionService.criterio;
+  reiniciar = this.misionService.reiniciar;
+
+  mostrarFormulario = computed(() => this.criterio() !== null && this.astronauta() !== null);
 
   opcionesOrigen = Object.values(OrigenMaterialLunar);
   opcionesClasificacion = Object.values(ClasificacionMaterialLunar);
@@ -31,22 +40,13 @@ export class FormMineralComponent {
   @ViewChild('formExtendidoDiv') formExtendidoDiv!: ElementRef<HTMLDivElement>;
   @ViewChild('errorDiv') errorDiv!: ElementRef<HTMLParagraphElement>;
 
-  constructor(
-    private fb: FormBuilder,
-    private misionService: InicioMisionService,
-    private mineralValidationService: MineralValidationService,
-    private mineralService: MineralService,
-    private scrollService: ScrollService
-  ) {}
-
-  ngOnInit() {
-    this.misionService.astronauta$.subscribe(a => this.astronauta = a);
-    this.misionService.criterio$.subscribe(c => this.criterio = c);
-    this.misionService.reiniciar$.subscribe(() => {
-    this.reiniciarFormulario();
+  constructor() {
+    effect(() => {
+      this.reiniciar();
+      this.reiniciarFormulario();
     });
   }
-  
+
   seleccionarTipo(tipo: 'extendido' | 'reducido') {
     this.tipoFormulario = tipo;
     this.crearFormulario();
@@ -71,7 +71,7 @@ export class FormMineralComponent {
       clasificacion: ['', Validators.required],
       tamanoCristal: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
       temperatura: [null, [Validators.required]],
-      textura: ['', Validators.required], 
+      textura: ['', Validators.required],
       estructura: ['']
     });
   }
@@ -89,24 +89,28 @@ export class FormMineralComponent {
       this.form.value.estructura,
       this.form.value.textura
     );
+
     const error = this.mineralValidationService.validar(this.form);
     if (error && error.length > 0) {
       this.error = error;
-       setTimeout(() => {
+      setTimeout(() => {
         if (this.errorDiv) {
           this.scrollService.scrollToElement(this.errorDiv.nativeElement);
         }
       }, 0);
       return;
     }
+
     this.mineralService.establecerMineral(mineral.capturar());
     this.error = null;
+
     setTimeout(() => {
       this.scrollService.scrollToAnchor('entrada-sistema');
     }, 0);
   }
+
   reiniciarFormulario() {
-    this.form.reset();
+    if (this.form) this.form.reset();
     this.tipoFormulario = null;
     this.error = null;
   }

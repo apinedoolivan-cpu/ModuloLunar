@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { Mision } from '../models/mision.model';
 import { ISistemaSalida } from '../models/salida.model';
 import { InicioMisionService } from './inicio-mision.service';
@@ -10,44 +9,35 @@ import { MineralService } from './mineral';
 })
 export class MisionService {
 
-  private _mision = new BehaviorSubject<Mision | null>(null);
-  public mision$ = this._mision.asObservable();
+  private _mision = signal<Mision | null>(null);
+  public mision = this._mision;
 
-  constructor(private inicioService: InicioMisionService, private mineralService: MineralService) {
-    this.mineralService.mineral$.subscribe(() => {
-      this.reset();
-    });
-  }
+  constructor(
+    private inicioService: InicioMisionService,
+    private mineralService: MineralService
+  ) {}
 
   crearMision(salida: ISistemaSalida): void {
-
     const piloto = this.inicioService.obtenerAstronauta();
     const mineral = this.mineralService.obtenerMineralActual();
     const criterio = this.inicioService.obtenerCriterio();
-    if (!piloto) {
-      throw new Error("No hay piloto seleccionado para la misión");
-    }
-    if (!mineral) {
-      throw new Error("No hay mineral seleccionado para la misión");
-    }
-    if (!criterio) {
-      throw new Error("No hay criterio seleccionado para la misión");
+    
+    if (!piloto || !mineral || !criterio) {
+      console.warn("No se puede crear misión: faltan datos");
+      return;
     }
 
     const mision = new Mision(criterio, piloto, salida, mineral);
-    this._mision.next(mision);
-  }
-
-  obtenerMision(): Mision | null {
-    return this._mision.value;
+    this._mision.set(mision);
   }
 
   reset(): void {
-    this._mision.next(null);
+    this._mision.set(null);
   }
+
   resetearTodo(): void {
-    this.reset();        
-    this.mineralService.resetMineral();         
+    this.reset();
+    this.mineralService.resetMineral();
     this.inicioService.reset();
   }
 }
