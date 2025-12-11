@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { MisionService } from '../../services/mision';
 import { Mineral } from '../../models/mineral.model';
 import { MineralService } from '../../services/mineral';
 import { SistemaSalidaAmericano, SistemaSalidaEuropeo } from '../../models/salida.model';
 import { Mision } from '../../models/mision.model';
+import { ScrollService } from '../../services/scroll';
 
 @Component({
   selector: 'app-resultado-mision',
@@ -16,8 +17,10 @@ export class ResultadoMisionComponent {
   mision: Mision | null = null;
   mineral : Mineral | null = null; 
   tipo: String = "";
+  @ViewChild('resultadoDiv') resultadoDiv!: ElementRef<HTMLDivElement>;
 
-  constructor(public misionService: MisionService, public mineralService: MineralService) {}
+  constructor(public misionService: MisionService, public mineralService: MineralService, 
+    public scrollService: ScrollService) {}
 
   ngOnInit() {
     this.misionService.mision$.subscribe(c => this.mision = c);
@@ -30,9 +33,13 @@ export class ResultadoMisionComponent {
     this.misionService.crearMision(salida);
     if (this.mision && this.mision.mineral) {
       salida.procesar(this.mision.mineral);
-      console.log(this.mision.mineral.estructura)
     } 
     this.mineral = null;
+    setTimeout(() => {
+      if (this.resultadoDiv) {
+        this.scrollService.scrollToElement(this.resultadoDiv.nativeElement);
+      }
+    });
   }
 
   seleccionarSistemaAmerica(): void {
@@ -43,5 +50,10 @@ export class ResultadoMisionComponent {
       salida.procesar(this.mision.mineral);
     }
     this.mineral = null;
+    setTimeout(() => {
+      if (this.resultadoDiv) {
+        this.scrollService.scrollToElement(this.resultadoDiv.nativeElement);
+      }
+    });
   }
 }

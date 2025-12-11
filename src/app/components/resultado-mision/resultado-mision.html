@@ -9,7 +9,7 @@
         </div>
     }
     @if (mision) {
-        <div id="sistema-salida">
+        <div id="sistema-salida" #resultadoDiv>
             <h2>Misión de {{mision.piloto.dameNombre()}}</h2>
             <p> {{mision.criterio.descripcion()}}</p>
             @if (mision.analiza()) {

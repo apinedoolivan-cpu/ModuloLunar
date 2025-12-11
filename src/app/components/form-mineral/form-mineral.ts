@@ -96,7 +96,11 @@ export class FormMineralComponent {
     const error = this.mineralValidationService.validar(this.form);
     if (error && error.length > 0) {
       this.error = error;
+<<<<<<< HEAD
       setTimeout(() => {
+=======
+       setTimeout(() => {
+>>>>>>> 91271f45159bbbb5ecf79254f075f31b174bd7d0
         if (this.errorDiv) {
           this.scrollService.scrollToElement(this.errorDiv.nativeElement);
         }
@@ -106,7 +110,13 @@ export class FormMineralComponent {
 
     this.mineralService.establecerMineral(mineral.capturar());
     this.error = null;
+<<<<<<< HEAD
     this.scrollService.scrollToAnchor('sistema-entrada');
+=======
+    setTimeout(() => {
+      this.scrollService.scrollToAnchor('entrada-sistema');
+    }, 0);
+>>>>>>> 91271f45159bbbb5ecf79254f075f31b174bd7d0
   }
 
   reiniciarFormulario() {
