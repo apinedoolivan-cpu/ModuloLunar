@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AstronautaValidationService } from '../../services/form-astronauta';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { Astronauta } from '../../models/astronauta.model';
@@ -8,21 +7,21 @@ import { ICriterioValidacion } from '../../models/criterios.model';
 
 @Component({
   selector: 'app-form-astronauta',
-  imports: [ ReactiveFormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule],
   templateUrl: './form-astronauta.html',
-  styleUrl: './form-astronauta.scss',
+  styleUrls: ['./form-astronauta.scss'],
 })
-export class FormularioAstronautaComponent implements OnInit{
+export class FormularioAstronautaComponent {
+
   form: FormGroup;
   formError: string | null = null;
-  astronautaActual: Astronauta | null = null;
-  criterio: ICriterioValidacion| null = null;
-
 
   constructor(
-    private fb: FormBuilder, 
-    private misionService: InicioMisionService, 
-    private astronautaService: AstronautaValidationService) {
+    private fb: FormBuilder,
+    private misionService: InicioMisionService,
+    private astronautaService: AstronautaValidationService
+  ) {
     this.form = this.fb.group({
       id: ['', [Validators.pattern(/^[A-Z]{3}[0-9]{3}$/)]],
       nombre: [''],
@@ -30,8 +29,12 @@ export class FormularioAstronautaComponent implements OnInit{
     });
   }
 
-  ngOnInit() {
-    this.misionService.criterio$.subscribe(c => this.criterio = c);
+  get criterio(): ICriterioValidacion | null {
+    return this.misionService.criterio();
+  }
+
+  get astronautaActual(): Astronauta | null {
+    return this.misionService.astronauta();
   }
 
   aceptarAstronauta() {
@@ -45,12 +48,12 @@ export class FormularioAstronautaComponent implements OnInit{
     const nombre = this.form.get('nombre')?.value?.trim() || 'Agmunsen';
     const edad = this.form.get('edad')?.value || 40;
 
-    this.astronautaActual = new Astronauta(id, nombre, edad);
-    this.misionService.establecerAstronauta(this.astronautaActual);
+    const astronauta = new Astronauta(id, nombre, edad);
+    this.misionService.establecerAstronauta(astronauta);
     this.formError = null;
   }
+
   mostrar(): boolean {
-    if(this.misionService.obtenerCriterio() && !this.misionService.obtenerAstronauta()) return true;
-    return false;
+    return this.criterio !== null && this.astronautaActual === null;
   }
 }

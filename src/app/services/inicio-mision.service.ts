@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Injectable, signal, effect } from '@angular/core';
 import { Astronauta } from '../models/astronauta.model';
 import { ICriterioValidacion } from '../models/criterios.model';
 
@@ -7,32 +6,34 @@ import { ICriterioValidacion } from '../models/criterios.model';
   providedIn: 'root'
 })
 export class InicioMisionService {
-  private criterioSubject = new BehaviorSubject<ICriterioValidacion | null>(null);
-  private astronautaSubject = new BehaviorSubject<Astronauta | null>(null);
-  private reiniciarSubject = new Subject<void>();
 
-  criterio$ = this.criterioSubject.asObservable();
-  astronauta$ = this.astronautaSubject.asObservable();
-  reiniciar$ = this.reiniciarSubject.asObservable();
+  criterio = signal<ICriterioValidacion | null>(null);
+  astronauta = signal<Astronauta | null>(null);
+  reiniciar = signal(false);
 
   establecerCriterio(criterio: ICriterioValidacion) {
-    this.criterioSubject.next(criterio);
+    this.criterio.set(criterio);
   }
+
   establecerAstronauta(astronauta: Astronauta) {
-    this.astronautaSubject.next(astronauta);
+    this.astronauta.set(astronauta);
   }
+
+  reset() {
+    this.criterio.set(null);
+    this.astronauta.set(null);
+    this.reiniciar.set(!this.reiniciar()); 
+  }
+
   obtenerAstronauta(): Astronauta | null {
-    return this.astronautaSubject.value;
+    return this.astronauta();
   }
+
   obtenerCriterio(): ICriterioValidacion | null {
-    return this.criterioSubject.value;
+    return this.criterio();
   }
-  reset(){
-    this.criterioSubject.next(null);
-    this.astronautaSubject.next(null);
-    this.reiniciarSubject.next();
-  }
+
   puedeIniciarMineral(): boolean {
-    return this.astronautaSubject.value !== null && this.criterioSubject.value !== null;
+    return this.astronauta() !== null && this.criterio() !== null;
   }
 }
