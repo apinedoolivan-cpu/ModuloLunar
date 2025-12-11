@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { Astronauta } from '../../models/astronauta.model';
@@ -6,23 +6,22 @@ import { ICriterioValidacion } from '../../models/criterios.model';
 
 @Component({
   selector: 'app-datos-mision',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './datos-mision.html',
-  styleUrls: ['./datos-mision.scss'],
+  styleUrl: './datos-mision.scss',
 })
-export class DatosMisionComponent {
 
+export class DatosMisionComponent implements OnInit {
+  astronauta: Astronauta | null = null;
+  criterio: ICriterioValidacion | null = null;
   fechaInicio = new Date();
 
-  constructor(public misionService: InicioMisionService) {}
+  constructor(private misionService: InicioMisionService) {}
 
-  get astronauta(): Astronauta | null {
-    return this.misionService.astronauta();
+  ngOnInit() {
+    this.misionService.astronauta$.subscribe(a => this.astronauta = a);
+    this.misionService.criterio$.subscribe(c => this.criterio = c);
+    
   }
-
-  get criterio(): ICriterioValidacion | null {
-    return this.misionService.criterio();
-  }
-
+  
 }

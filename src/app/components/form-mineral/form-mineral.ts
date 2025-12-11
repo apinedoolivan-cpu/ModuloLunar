@@ -9,18 +9,19 @@ import { MineralService } from '../../services/mineral';
 import { ICriterioValidacion } from '../../models/criterios.model';
 import { ScrollService } from '../../services/scroll';
 
+
 @Component({
   selector: 'app-form-mineral',
-  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './form-mineral.html',
   styleUrls: ['./form-mineral.scss']
 })
 export class FormMineralComponent {
-
   tipoFormulario: 'extendido' | 'reducido' | null = null;
   form!: FormGroup;
   error: string[] | null = null;
+  criterio: ICriterioValidacion | null = null;
+  astronauta: Astronauta | null = null;
 
   opcionesOrigen = Object.values(OrigenMaterialLunar);
   opcionesClasificacion = Object.values(ClasificacionMaterialLunar);
@@ -38,18 +39,14 @@ export class FormMineralComponent {
     private scrollService: ScrollService
   ) {}
 
-  get criterio(): ICriterioValidacion | null {
-    return this.misionService.criterio();
+  ngOnInit() {
+    this.misionService.astronauta$.subscribe(a => this.astronauta = a);
+    this.misionService.criterio$.subscribe(c => this.criterio = c);
+    this.misionService.reiniciar$.subscribe(() => {
+    this.reiniciarFormulario();
+    });
   }
-
-  get astronauta(): Astronauta | null {
-    return this.misionService.astronauta();
-  }
-
-  get reiniciar(): boolean {
-    return this.misionService.reiniciar();
-  }
-
+  
   seleccionarTipo(tipo: 'extendido' | 'reducido') {
     this.tipoFormulario = tipo;
     this.crearFormulario();
@@ -73,7 +70,7 @@ export class FormMineralComponent {
       tamanoGrano: [null, [Validators.required, Validators.min(0.1)]],
       clasificacion: ['', Validators.required],
       tamanoCristal: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
-      temperatura: [null, Validators.required],
+      temperatura: [null, [Validators.required]],
       textura: ['', Validators.required], 
       estructura: ['']
     });
@@ -92,33 +89,22 @@ export class FormMineralComponent {
       this.form.value.estructura,
       this.form.value.textura
     );
-
     const error = this.mineralValidationService.validar(this.form);
     if (error && error.length > 0) {
       this.error = error;
-<<<<<<< HEAD
-      setTimeout(() => {
-=======
        setTimeout(() => {
->>>>>>> 91271f45159bbbb5ecf79254f075f31b174bd7d0
         if (this.errorDiv) {
           this.scrollService.scrollToElement(this.errorDiv.nativeElement);
         }
       }, 0);
       return;
     }
-
     this.mineralService.establecerMineral(mineral.capturar());
     this.error = null;
-<<<<<<< HEAD
-    this.scrollService.scrollToAnchor('sistema-entrada');
-=======
     setTimeout(() => {
       this.scrollService.scrollToAnchor('entrada-sistema');
     }, 0);
->>>>>>> 91271f45159bbbb5ecf79254f075f31b174bd7d0
   }
-
   reiniciarFormulario() {
     this.form.reset();
     this.tipoFormulario = null;
