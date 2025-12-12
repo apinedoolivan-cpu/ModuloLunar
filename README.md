@@ -1,59 +1,124 @@
-# ModuloLunar
+# Módulo Lunar
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0.
+Programa de recolección de minerales lunares desarrollado con Angular 19+ y Node.js, siguiendo buenas prácticas, usando signals, y bajo una arquitectura Modelo–Vista–Controlador (MVC).
 
-## Development server
+## 🛰️ Descripción del Proyecto
 
-To start a local development server, run:
+Módulo Lunar es una aplicación Angular diseñada para gestionar la recolección, almacenamiento y visualización de minerales extraídos de la superficie lunar. La aplicación utiliza las capacidades modernas de Angular, como:
 
-```bash
-ng serve
+* **Signals** para manejo de estado reactivo y desacoplado.
+* **Standalone Components** y estructura modular.
+* Arquitectura **MVC** para mantener separación clara entre presentación, lógica de negocio y datos.
+* Buenas prácticas como inyección de dependencias, uso de servicios, tipado fuerte con TypeScript, y separación por dominios.
+* **Node.js** como entorno de ejecución para Angular CLI y herramientas de desarrollo.
+
+## 🎯 Gestión de Misiones
+
+El proyecto permite crear y gestionar misiones lunares. Cada misión requiere definir:
+
+* **Criterio de búsqueda:** Parámetro para seleccionar los minerales que se recogerán.
+* **Astronauta asignado:** Nombre e identificación del astronauta responsable de la misión.
+* **Material a recolectar:** Paramentros del mineral para identificar.
+* **Sistema de salida:** Sistema para mostrar la validacion y datos del mineral.
+
+Esto permite planificar, ejecutar y registrar las misiones de recolección de manera estructurada y clara.
+
+## 🧱 Arquitectura del Proyecto
+
+La aplicación se organiza bajo el patrón **MVC** adaptado a Angular:
+
+* **Modelo (Model)s:** Interfaces y clases que representan minerales, misiones y de más clases.
+* **Vista (Components):** Componentes standalone que usan señales para reaccionar a cambios sin sobrecarga.
+* **Controlador (Services):** Servicios que contienen la lógica de negocio, gestión de estado mediante signals y comunicación con APIs.
+
+Estructura:
+
+```
+src/
+  app/
+    components/
+    models/
+    services/
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🚀 Funcionalidades Principales 
 
-## Code scaffolding
+* Creación y seguimiento de misiones con criterios, astronauta, material y sistema de salida.
+* Gestión de inventario lunar.
+* Señales para actualización en tiempo real.
+* Componentes desacoplados y reutilizables.
+* Arquitectura escalable y preparada para producción.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
+# 🛠️ Instrucciones Técnicas
+
+## ✔️ Generado con Angular CLI 21.0.0
+
+Este proyecto fue creado usando **Angular CLI versión 21.0.0**, lo que permite usar herramientas modernas para desarrollo, construcción y pruebas.
+
+## 📦 Instalación de dependencias (node_modules)
+
+La carpeta node_modules está excluida por el .gitignore, se puede reconstruir todas las dependencias ejecutando:
+```
+npm install
+```
+Este comando leerá el archivo package.json y descargará nuevamente todos los módulos necesarios para ejecutar el proyecto.
+Para información adicional: 
+```
+npm help
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🏗️ Construcción (Build)
 
-```bash
-ng generate --help
+Para compilar el proyecto:
 ```
-
-## Building
-
-To build the project run:
-
-```bash
 ng build
 ```
+Los artefactos generados se guardan en `dist/`.
+La compilación de producción incluye optimizaciones automáticas. Esta carpeta tambien esta excluida con por .gitignore
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## ▶️ Servidor de Desarrollo
 
-## Running unit tests
+Para iniciar un servidor local, ejecutar:
+```
+ng serve
+```
+Luego abrir en el navegador:
+```
+http://localhost:4200/
+```
+La aplicación se recarga automáticamente al guardar cambios.
+Para poder realizar ambas a la vez utilizar el observable: 
+```
+ng s -o
+```
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 🧪 Pruebas Unitarias
 
-```bash
+Para ejecutar pruebas unitarias con Karma:
+
+```
 ng test
 ```
 
-## Running end-to-end tests
+## 🧭 Pruebas End‑to‑End (e2e)
 
-For end-to-end (e2e) testing, run:
+Para pruebas E2E:
 
-```bash
+```
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Angular CLI no incluye un framework e2e por defecto, por lo que puedes elegir el que prefieras.
 
-## Additional Resources
+## 📚 Recursos Adicionales
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Más información disponible en la documentación oficial de Angular CLI.
+[Angular CLI Overview and Command Reference](https://angular.dev/tools/cli)
+
+---
+
+# 🌑 Créditos
+
+**Módulo Lunar** – Creado por Alejandro Pinedo.
