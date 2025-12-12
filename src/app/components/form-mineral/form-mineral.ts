@@ -23,7 +23,7 @@ export class FormMineralComponent {
   private scrollService = inject(ScrollService);
 
   form!: FormGroup;
-  error: string[] | null = null;
+  error: string | null = null;
   tipoFormulario: 'extendido' | 'reducido' | null = null;
 
   astronauta = this.misionService.astronauta;

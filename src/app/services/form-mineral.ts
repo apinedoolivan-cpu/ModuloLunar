@@ -6,7 +6,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class MineralValidationService {
 
-  validar(form: FormGroup): string[] {
+  validar(form: FormGroup): string {
     const errores: string[] = [];
     const controles = form.controls;
 
@@ -55,6 +55,6 @@ export class MineralValidationService {
       errores.push('La temperatura debe estar entre -100 y 100 Cº.');
     }
 
-    return errores;
+    return "Errores encontrados:<br>" + errores.join('<br>');
   }
 }

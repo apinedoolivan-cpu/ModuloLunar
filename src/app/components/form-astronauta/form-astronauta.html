@@ -12,7 +12,7 @@
             <input id="astro-edad" type="number" formControlName="edad" />
         </form>
             @if (formError) {
-        <div #errorDiv id="error">{{formError}}</div>
+        <div #errorDiv id="error" [innerHTML]="formError">{{formError}}</div>
         }
         <button (click)="aceptarAstronauta()">Aceptar</button>
     </div>

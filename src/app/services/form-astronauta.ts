@@ -11,13 +11,12 @@ export class AstronautaValidationService {
       const errores: string[] = [];
 
       const id = form.get('id');
-      const nombre = form.get('nombre');
       const edad = form.get('edad');
 
       if (id?.invalid) errores.push('El ID debe tener el formato AGM001 (3 letras + 3 números)');
       if (edad?.invalid || edad?.value < 18 || edad?.value > 65) errores.push('La edad debe estar entre 18 y 65');
 
-      return errores.length > 0 ? "ERROR: "+errores.join(', ') : null;
+      return errores.length > 0 ? "Errores encontrados:<br>" + errores.join('<br>') : null;
     }
     return null;
   }
