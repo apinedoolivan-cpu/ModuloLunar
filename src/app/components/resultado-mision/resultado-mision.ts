@@ -1,9 +1,12 @@
-import { Component, ViewChild, ElementRef, inject } from '@angular/core';
+import { Component, ViewChild, ElementRef, inject, effect} from '@angular/core';
 import { MisionService } from '../../services/mision';
 import { MineralService } from '../../services/mineral';
-import { ISistemaSalida, SistemaSalidaAmericano, SistemaSalidaEuropeo } from '../../models/salida.model';
+import { ISistemaSalida, SistemaSalidaEuropeo, SistemaSalidaAmericano
+} from '../../models/salida.model';
 import { ScrollService } from '../../services/scroll';
-export type SistemaTipo = 'europeo' | 'americano';
+import { Mineral } from '../../models/mineral.model';
+
+type SistemaTipo = 'europeo' | 'americano';
 
 @Component({
   selector: 'app-resultado-mision',
@@ -11,46 +14,48 @@ export type SistemaTipo = 'europeo' | 'americano';
   styleUrls: ['./resultado-mision.scss'],
   standalone: true
 })
-
 export class ResultadoMisionComponent {
 
-  private readonly misionService = inject(MisionService);
+  public readonly misionService = inject(MisionService);
   private readonly mineralService = inject(MineralService);
   private readonly scrollService = inject(ScrollService);
-  
 
   @ViewChild('resultadoDiv')
-  private resultadoDiv!: ElementRef<HTMLDivElement>;
+  resultadoDiv!: ElementRef<HTMLDivElement>;
 
-  readonly mision = this.misionService.mision;
-  readonly mineral = this.mineralService.mineral;
+  tipo: SistemaTipo | '' = '';
 
-  sistemaSeleccionado?: SistemaTipo;
+  mineral = this.mineralService.mineral;
+
+  mision = this.misionService.mision;
+
+  mineralSalida?: Mineral;
 
   seleccionarSistema(tipo: SistemaTipo): void {
-    this.sistemaSeleccionado = tipo;
-    const sistema: ISistemaSalida =
+
+    const mineralOriginal = this.mineral();
+    if (!mineralOriginal) {
+      return;
+    }
+
+    const salida: ISistemaSalida =
       tipo === 'americano'
         ? new SistemaSalidaAmericano()
         : new SistemaSalidaEuropeo();
 
-    const misionActual = this.mision();
-    if (!misionActual?.mineral) {
-      return;
-    }
+    this.tipo = salida.tipo;
+
+    this.misionService.crearMision(salida);
+    
+    this.mineralSalida = salida.procesar(mineralOriginal);
 
     this.mineralService.resetMineral();
-    queueMicrotask(() => {
+    
+    setTimeout(() => {
       if (this.resultadoDiv?.nativeElement) {
-        this.scrollService.scrollToElement(
-          this.resultadoDiv.nativeElement
-        );
+        this.scrollService.scrollToElement(this.resultadoDiv.nativeElement);
       }
     });
-  }
 
-  reiniciar(): void {
-    this.misionService.resetearTodo();
-    this.sistemaSeleccionado = undefined;
   }
 }

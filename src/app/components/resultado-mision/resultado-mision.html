@@ -1,71 +1,113 @@
 <div>
   @if (mineral()) {
     <div id="entrada-sistema">
-      <h2 i18n="@@selectOutputSystem">Elija un sistema de salida</h2>
+      <h2>
+        Elija un sistema de salida
+      </h2>
+
       <div id="botones-sistema">
-        <button (click)="seleccionarSistema('europeo')" i18n="@@europeanSystem">
+        <button
+          type="button"
+          (click)="seleccionarSistema('europeo')">
           Sistema Europeo
         </button>
-        <button (click)="seleccionarSistema('americano')" i18n="@@americanSystem">
+
+        <button
+          type="button"
+          (click)="seleccionarSistema('americano')">
           Sistema Americano
         </button>
       </div>
     </div>
   }
 
-  @if (mision() && !mineral()) {
+  @if (mision() && !mineral() && mineralSalida) {
     <div id="sistema-salida" #resultadoDiv>
 
-      <h2 i18n="@@missionTitle">
+      <h2>
         Misión de {{ mision()?.piloto?.dameNombre() }}
       </h2>
 
-      <p>{{ mision()?.criterio?.descripcion() }}</p>
+      <p>
+        {{ mision()?.criterio?.descripcion() }}
+      </p>
 
       @if (mision()?.analiza()) {
         <div id="emoji">😊</div>
-        <p i18n="@@validMineral">El mineral es válido</p>
+        <p>
+          El mineral es válido
+        </p>
       } @else {
         <div id="emoji">😡</div>
-        <p i18n="@@invalidMineral">El mineral NO es válido</p>
+        <p>
+          El mineral NO es válido
+        </p>
       }
 
-      <p><strong i18n="@@id">ID:</strong> {{ mision()?.mineral?.id }}</p>
-      <p><strong i18n="@@name">Nombre:</strong> {{ mision()?.mineral?.nombre }}</p>
-      <p><strong i18n="@@origin">Origen:</strong> {{ mision()?.mineral?.origen }}</p>
-      <p><strong i18n="@@hardness">Dureza:</strong> {{ mision()?.mineral?.dureza }}</p>
-      <p><strong i18n="@@grainSize">Tamaño de grano:</strong> {{ mision()?.mineral?.dametamanoGrano() }}</p>
-      <p><strong i18n="@@classification">Clasificación:</strong> {{ mision()?.mineral?.clasificacion }}</p>
       <p>
-        <strong i18n="@@crystalSize">Tamaño de cristal:</strong>
-        {{ mision()?.mineral?.tamanoCristal }}
-        <span i18n="@@crystalUnit">
-          @if (sistemaSeleccionado === 'europeo') { mm } @else { inches }
+        <strong>ID:</strong>
+        {{ mineralSalida.id }}
+      </p>
+
+      <p>
+        <strong>Nombre:</strong>
+        {{ mineralSalida.nombre }}
+      </p>
+
+      <p>
+        <strong>Origen:</strong>
+        {{ mineralSalida.origen }}
+      </p>
+
+      <p>
+        <strong>Dureza:</strong>
+        {{ mineralSalida.dureza }}
+      </p>
+
+      <p>
+        <strong>Tamaño de grano:</strong>
+        {{ mineralSalida.dametamanoGrano() }}
+      </p>
+
+      <p>
+        <strong>Clasificación:</strong>
+        {{ mineralSalida.clasificacion }}
+      </p>
+
+      <p>
+        <strong>Tamaño de cristal:</strong>
+        {{ mineralSalida.tamanoCristal }}
+        <span>
+          @if (tipo === 'europeo') { mm } @else { inches }
         </span>
+      </p>
 
-      @if (sistemaSeleccionado === 'americano') {
+      @if (tipo === 'americano') {
         <p>
-          <strong i18n="@@temperature">Temperatura de formación:</strong>
-          {{ mision()?.mineral?.temperatura }} Fº
+          <strong>Temperatura de formación:</strong>
+          {{ mineralSalida.temperatura }} °F
         </p>
       }
 
-      @if (mision()?.mineral?.estructura) {
+      @if (mineralSalida.estructura) {
         <p>
-          <strong i18n="@@structure">Estructura:</strong>
-          {{ mision()?.mineral?.estructura }}
+          <strong>Estructura:</strong>
+          {{ mineralSalida.estructura }}
         </p>
       }
 
       <p>
-        <strong i18n="@@texture">Textura:</strong>
-        {{ mision()?.mineral?.textura }}
+        <strong>Textura:</strong>
+        {{ mineralSalida.textura }}
       </p>
 
     </div>
   }
 
-  <button (click)="reiniciar()" id="reiniciar-boton">
+  <button
+    type="button"
+    id="reiniciar-boton"
+    (click)="misionService.resetearTodo()">
     Reiniciar Misión
   </button>
 
