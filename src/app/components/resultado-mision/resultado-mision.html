@@ -1,57 +1,72 @@
 <div>
   @if (mineral()) {
     <div id="entrada-sistema">
-      <h2>Eliga un sistema de salida</h2>
+      <h2 i18n="@@selectOutputSystem">Elija un sistema de salida</h2>
       <div id="botones-sistema">
-        <button (click)="seleccionarSistemaEuropa()">Sistema Europeo</button>
-        <button (click)="seleccionarSistemaAmerica()">Sistema Americano</button>
+        <button (click)="seleccionarSistema('europeo')" i18n="@@europeanSystem">
+          Sistema Europeo
+        </button>
+        <button (click)="seleccionarSistema('americano')" i18n="@@americanSystem">
+          Sistema Americano
+        </button>
       </div>
     </div>
   }
 
   @if (mision() && !mineral()) {
     <div id="sistema-salida" #resultadoDiv>
-      <h2>Misión de {{ mision()?.piloto?.dameNombre() }}</h2>
+
+      <h2 i18n="@@missionTitle">
+        Misión de {{ mision()?.piloto?.dameNombre() }}
+      </h2>
+
       <p>{{ mision()?.criterio?.descripcion() }}</p>
 
       @if (mision()?.analiza()) {
         <div id="emoji">😊</div>
-        <p>El mineral es válido</p>
+        <p i18n="@@validMineral">El mineral es válido</p>
       } @else {
         <div id="emoji">😡</div>
-        <p>El mineral NO es válido</p>
+        <p i18n="@@invalidMineral">El mineral NO es válido</p>
       }
 
-      @if (tipo === "europeo") {
-        <p><strong>ID:</strong> {{ mision()?.mineral?.id }}</p>
-        <p><strong>Nombre:</strong> {{ mision()?.mineral?.nombre }}</p>
-        <p><strong>Origen:</strong> {{ mision()?.mineral?.origen }}</p>
-        <p><strong>Dureza:</strong> {{ mision()?.mineral?.dureza }} / 10</p>
-        <p><strong>Tamaño de Grano:</strong> {{ mision()?.mineral?.dametamanoGrano() }}</p>
-        <p><strong>Clasificación:</strong> {{ mision()?.mineral?.clasificacion }}</p>
-        <p><strong>Tamaño de cristal:</strong> {{ mision()?.mineral?.tamanoCristal }} mm</p>
-        @if (mision()?.mineral?.estructura) {
-          <p><strong>Estructura:</strong> {{ mision()?.mineral?.estructura }}</p>
-        }
-        <p><strong>Textura:</strong> {{ mision()?.mineral?.textura }}</p>
+      <p><strong i18n="@@id">ID:</strong> {{ mision()?.mineral?.id }}</p>
+      <p><strong i18n="@@name">Nombre:</strong> {{ mision()?.mineral?.nombre }}</p>
+      <p><strong i18n="@@origin">Origen:</strong> {{ mision()?.mineral?.origen }}</p>
+      <p><strong i18n="@@hardness">Dureza:</strong> {{ mision()?.mineral?.dureza }}</p>
+      <p><strong i18n="@@grainSize">Tamaño de grano:</strong> {{ mision()?.mineral?.dametamanoGrano() }}</p>
+      <p><strong i18n="@@classification">Clasificación:</strong> {{ mision()?.mineral?.clasificacion }}</p>
+      <p>
+        <strong i18n="@@crystalSize">Tamaño de cristal:</strong>
+        {{ mision()?.mineral?.tamanoCristal }}
+        <span i18n="@@crystalUnit">
+          @if (sistemaSeleccionado === 'europeo') { mm } @else { inches }
+        </span>
+
+      @if (sistemaSeleccionado === 'americano') {
+        <p>
+          <strong i18n="@@temperature">Temperatura de formación:</strong>
+          {{ mision()?.mineral?.temperatura }} Fº
+        </p>
       }
 
-      @if (tipo === "americano") {
-        <p><strong>ID:</strong> {{ mision()?.mineral?.id }}</p>
-        <p><strong>Name:</strong> {{ mision()?.mineral?.nombre }}</p>
-        <p><strong>Origin:</strong> {{ mision()?.mineral?.origen }}</p>
-        <p><strong>Hardness:</strong> {{ mision()?.mineral?.dureza }} / 10</p>
-        <p><strong>Grain size:</strong> {{ mision()?.mineral?.dametamanoGrano() }}</p>
-        <p><strong>Classification:</strong> {{ mision()?.mineral?.clasificacion }}</p>
-        <p><strong>Crystal size:</strong> {{ mision()?.mineral?.tamanoCristal }} inches</p>
-        <p><strong>Formation temperature:</strong> {{ mision()?.mineral?.temperatura }} Fº</p>
-        @if (mision()?.mineral?.estructura) {
-          <p><strong>Structure:</strong> {{ mision()?.mineral?.estructura }}</p>
-        }
-        <p><strong>Texture:</strong> {{ mision()?.mineral?.textura }}</p>
+      @if (mision()?.mineral?.estructura) {
+        <p>
+          <strong i18n="@@structure">Estructura:</strong>
+          {{ mision()?.mineral?.estructura }}
+        </p>
       }
+
+      <p>
+        <strong i18n="@@texture">Textura:</strong>
+        {{ mision()?.mineral?.textura }}
+      </p>
+
     </div>
   }
 
-  <button (click)="misionService.resetearTodo()" id="reiniciar-boton">Reiniciar Mision</button>
+  <button (click)="reiniciar()" id="reiniciar-boton">
+    Reiniciar Misión
+  </button>
+
 </div>

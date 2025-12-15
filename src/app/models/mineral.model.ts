@@ -31,4 +31,23 @@ export class Mineral implements ICapturable {
     if (this.tamanoGrano < 2) return 'Grano fino';
     return 'Indefinido';
   }
+
+  cloneWith(changes: {
+    dureza?: number;
+    temperatura?: number;
+    tamanoCristal?: number;
+  }): Mineral {
+    return new Mineral(
+      this.id,
+      this.nombre,
+      this.origen,
+      changes.dureza ?? this.dureza,
+      this.tamanoGrano,
+      this.clasificacion,
+      changes.temperatura ?? this.temperatura,
+      changes.tamanoCristal ?? this.tamanoCristal,
+      this.estructura,
+      this.textura
+    );
+  }
 }

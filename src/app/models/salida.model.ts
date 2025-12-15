@@ -1,24 +1,27 @@
 import { Mineral } from "./mineral.model";
 export interface ISistemaSalida {
-  tipo: string;
-  procesar(mineral: Mineral): void;
+  readonly tipo: 'europeo' | 'americano';
+  procesar(mineral: Mineral): Mineral;
 }
 export class SistemaSalidaEuropeo implements ISistemaSalida {
-  tipo: "europeo" = "europeo";
+  readonly tipo = 'europeo';
 
-  procesar(mineral: Mineral): void {
-    mineral.tamanoGrano = parseFloat(mineral.tamanoGrano.toFixed(2));
-    mineral.temperatura = parseFloat(mineral.temperatura.toFixed(2));
-    mineral.tamanoCristal = parseFloat(mineral.tamanoCristal.toFixed(2));
+  procesar(mineral: Mineral): Mineral {
+    return mineral.cloneWith({
+      dureza: Number(mineral.dureza.toFixed(2)),
+      temperatura: Number(mineral.temperatura.toFixed(2)),
+      tamanoCristal: Number(mineral.tamanoCristal.toFixed(2))
+    });
   }
-    
 }
 export class SistemaSalidaAmericano implements ISistemaSalida {
-  tipo: "americano" = "americano";
-
-  procesar(mineral: Mineral): void {
-    mineral.tamanoGrano = parseFloat(mineral.tamanoGrano.toFixed(2));
-    mineral.temperatura = parseFloat(((mineral.temperatura * 9/5) + 32).toFixed(2));
-    mineral.tamanoCristal = parseFloat((mineral.tamanoCristal / 25.4).toFixed(2));
+  readonly tipo = 'americano';
+  
+    procesar(mineral: Mineral): Mineral {
+    return mineral.cloneWith({
+      dureza: Number(mineral.dureza.toFixed(2)),
+      temperatura: Number(((mineral.temperatura * 9 / 5) + 32).toFixed(2)),
+      tamanoCristal: Number((mineral.tamanoCristal / 25.4).toFixed(2))
+    });
   }
 }
