@@ -1,0 +1,22 @@
+<header class="app-header">
+  <div class="header-left">
+    <span class="app-title">Modulo Lunar</span>
+  </div>
+
+  <div class="header-right">
+    <button
+      class="lang-switch"
+      type="button"
+      (click)="switchLanguage()"
+      aria-label="Cambiar idioma"
+    >
+      <span class="lang-current">
+        {{ currentLang.toUpperCase() }}
+      </span>
+      →
+      <span class="lang-target">
+        {{ targetLang.toUpperCase() }}
+      </span>
+    </button>
+  </div>
+</header>
