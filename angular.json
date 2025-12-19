@@ -41,6 +41,9 @@
             ],
             "styles": [
               "src/styles.scss"
+            ],
+            "polyfills": [
+              "@angular/localize/init"
             ]
           },
           "configurations": {
@@ -53,6 +56,12 @@
               "optimization": false,
               "sourceMap": true,
               "localize": true
+            },
+            "en": {
+              "localize": ["en"]
+            },
+            "es": {
+              "localize": ["es"]
             }
           },
           "defaultConfiguration": "production"
@@ -68,6 +77,12 @@
             },
             "development": {
               "buildTarget": "ModuloLunar:build:development"
+            },
+            "en": {
+              "buildTarget": "ModuloLunar:build:en"
+            },
+            "es": {
+              "buildTarget": "ModuloLunar:build:es"
             }
           },
           "defaultConfiguration": "development"

@@ -20,6 +20,11 @@ export class SeleccionCriterioComponent {
     OrigenMaterialLunar.Metamoficas,
     OrigenMaterialLunar.Sedimentarias
   ];
+  criterioLabels: Record<OrigenMaterialLunar, string> = {
+    [OrigenMaterialLunar.Igneas]: $localize`:@@criterioIgneas:Ígneas`,
+    [OrigenMaterialLunar.Metamoficas]: $localize`:@@criterioMetamoficas:Metamórficas`,
+    [OrigenMaterialLunar.Sedimentarias]: $localize`:@@criterioSedimentarias:Sedimentarias`
+  };
 
   criterioSeleccionado: CriterioFactoria | null = null;
 
