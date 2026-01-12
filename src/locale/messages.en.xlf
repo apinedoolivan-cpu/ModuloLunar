@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="es" target-language="en" datatype="plaintext" original="ng2.template">
+<xliff version="1.2"
+       xmlns="urn:oasis:names:tc:xliff:document:1.2">
+
+  <file source-language="es"
+        target-language="en"
+        datatype="plaintext"
+        original="ng2.template">
     <body>
-
-      <trans-unit id="criterioBoton">
-        <source>{$INTERPOLATION}</source>
-        <target>{$INTERPOLATION}</target>
-      </trans-unit>
-
       <trans-unit id="criterioSeleccionado">
         <source>Criterio seleccionado: <x id="INTERPOLATION"/></source>
         <target>Selected criterion: <x id="INTERPOLATION"/></target>
       </trans-unit>
-
+    </body>
+  </file>
+  <file source-language="es"
+        target-language="en"
+        datatype="plaintext"
+        original="ng2.ts">
+    <body>
       <trans-unit id="criterioIgneas">
         <source>Ígneas</source>
         <target>Igneous</target>
@@ -27,7 +32,7 @@
         <source>Sedimentarias</source>
         <target>Sedimentary</target>
       </trans-unit>
-
     </body>
   </file>
+
 </xliff>
