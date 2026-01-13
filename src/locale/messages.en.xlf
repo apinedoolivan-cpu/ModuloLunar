@@ -46,12 +46,12 @@
         <target>Selected criterion: <x id="INTERPOLATION"/></target>
       </trans-unit>
 
-      <trans-unit id="astronautaTitle">
+      <trans-unit id="astroTitle">
         <source>Datos del Astronauta</source>
         <target>Astronaut Data</target>
       </trans-unit>
 
-      <trans-unit id="astroIdLabel">
+      <trans-unit id="idLabel">
         <source>ID:</source>
         <target>ID:</target>
       </trans-unit>
@@ -96,17 +96,17 @@
         <target>Sedimentary</target>
       </trans-unit>
 
-      <trans-unit id="errorIdAstronauta">
+      <trans-unit id="errorIdAstro">
         <source>El ID debe tener el formato AGM001 (3 letras + 3 números)</source>
         <target>The ID must have the format AGM001 (3 letters + 3 numbers)</target>
       </trans-unit>
 
-      <trans-unit id="errorEdadAstronauta">
+      <trans-unit id="errorEdadAstro">
         <source>La edad debe estar entre 18 y 65</source>
         <target>Age must be between 18 and 65</target>
       </trans-unit>
 
-      <trans-unit id="errorMessageAstronauta">
+      <trans-unit id="errorMessage">
         <source>Errores encontrados:</source>
         <target>Errors found:</target>
       </trans-unit>
