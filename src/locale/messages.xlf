@@ -2,27 +2,6 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="es" datatype="plaintext" original="ng2.template">
     <body>
-
-      <trans-unit id="criterioBoton">
-        <source>{$INTERPOLATION}</source>
-      </trans-unit>
-
-      <trans-unit id="criterioSeleccionado">
-        <source>Criterio seleccionado: <x id="INTERPOLATION"/></source>
-      </trans-unit>
-
-      <trans-unit id="criterioIgneas">
-        <source>Ígneas</source>
-      </trans-unit>
-
-      <trans-unit id="criterioMetamoficas">
-        <source>Metamórficas</source>
-      </trans-unit>
-
-      <trans-unit id="criterioSedimentarias">
-        <source>Sedimentarias</source>
-      </trans-unit>
-
     </body>
   </file>
 </xliff>

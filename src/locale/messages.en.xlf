@@ -7,17 +7,80 @@
         datatype="plaintext"
         original="ng2.template">
     <body>
+
+      <trans-unit id="appTitle">
+        <source>ModuloLunar</source>
+        <target>LunarModule</target>
+      </trans-unit>
+
+      <trans-unit id="headerAppTitle">
+        <source>Módulo Lunar</source>
+        <target>Lunar Module</target>
+      </trans-unit>
+
+      <trans-unit id="mainTitle">
+        <source>🪐 Misión Lunar</source>
+        <target>🪐 Lunar Mission</target>
+      </trans-unit>
+
+      <trans-unit id="programTitle">
+        <source>Programa de recolección de minerales lunares</source>
+        <target>Lunar Mineral Collection Program</target>
+      </trans-unit>
+
+      <trans-unit id="programDescription">
+        <source>
+          Bienvenido a la Misión Lunar. Selecciona un tipo de misión para comenzar.
+          Después introduce los datos del astronauta, si lo dejas vacío se escribe
+          la información automáticamente.
+        </source>
+        <target>
+          Welcome to the Lunar Mission. Select a mission type to begin.
+          Then enter the astronaut's data; if you leave it empty, the information
+          will be filled in automatically.
+        </target>
+      </trans-unit>
+
       <trans-unit id="criterioSeleccionado">
         <source>Criterio seleccionado: <x id="INTERPOLATION"/></source>
         <target>Selected criterion: <x id="INTERPOLATION"/></target>
       </trans-unit>
+
+      <trans-unit id="astronautaTitle">
+        <source>Datos del Astronauta</source>
+        <target>Astronaut Data</target>
+      </trans-unit>
+
+      <trans-unit id="astroIdLabel">
+        <source>ID:</source>
+        <target>ID:</target>
+      </trans-unit>
+
+      <trans-unit id="astroNombreLabel">
+        <source>Nombre:</source>
+        <target>Name:</target>
+      </trans-unit>
+
+      <trans-unit id="astroEdadLabel">
+        <source>Edad:</source>
+        <target>Age:</target>
+      </trans-unit>
+
+      <trans-unit id="aceptarBtn">
+        <source>Aceptar</source>
+        <target>Accept</target>
+      </trans-unit>
+
+
     </body>
   </file>
+
   <file source-language="es"
         target-language="en"
         datatype="plaintext"
         original="ng2.ts">
     <body>
+
       <trans-unit id="criterioIgneas">
         <source>Ígneas</source>
         <target>Igneous</target>
@@ -32,6 +95,22 @@
         <source>Sedimentarias</source>
         <target>Sedimentary</target>
       </trans-unit>
+
+      <trans-unit id="errorIdAstronauta">
+        <source>El ID debe tener el formato AGM001 (3 letras + 3 números)</source>
+        <target>The ID must have the format AGM001 (3 letters + 3 numbers)</target>
+      </trans-unit>
+
+      <trans-unit id="errorEdadAstronauta">
+        <source>La edad debe estar entre 18 y 65</source>
+        <target>Age must be between 18 and 65</target>
+      </trans-unit>
+
+      <trans-unit id="errorMessageAstronauta">
+        <source>Errores encontrados:<br></source>
+        <target>Errors found:<br></target>
+      </trans-unit>
+
     </body>
   </file>
 
