@@ -107,8 +107,8 @@
       </trans-unit>
 
       <trans-unit id="errorMessageAstronauta">
-        <source>Errores encontrados:<br></source>
-        <target>Errors found:<br></target>
+        <source>Errores encontrados:</source>
+        <target>Errors found:</target>
       </trans-unit>
 
     </body>
