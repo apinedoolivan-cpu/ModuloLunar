@@ -71,6 +71,37 @@
         <target>Accept</target>
       </trans-unit>
 
+      <trans-unit id="datosMisionTitle">
+        <source>Datos de la Misión</source>
+        <target>Mission Data</target>
+      </trans-unit>
+
+      <trans-unit id="astronautaLabel">
+        <source>Astronauta:</source>
+        <target>Astronaut:</target>
+      </trans-unit>
+
+      <trans-unit id="identificadorLabel">
+        <source>Identificador:</source>
+        <target>Identifier:</target>
+      </trans-unit>
+
+      <trans-unit id="edadLabel">
+        <source>Edad:</source>
+        <target>Age:</target>
+      </trans-unit>
+
+      <trans-unit id="fechaInicioLabel">
+        <source>Fecha inicio:</source>
+        <target>Start Date:</target>
+      </trans-unit>
+
+      <trans-unit id="tipoMaterialLabel">
+        <source>Tipo de material a recolectar:</source>
+        <target>Type of material to collect:</target>
+      </trans-unit>
+
+
 
     </body>
   </file>
@@ -86,7 +117,7 @@
         <target>Igneous</target>
       </trans-unit>
 
-      <trans-unit id="criterioMetamoficas">
+      <trans-unit id="criterioMetamorficas">
         <source>Metamórficas</source>
         <target>Metamorphic</target>
       </trans-unit>

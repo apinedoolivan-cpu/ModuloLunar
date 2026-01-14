@@ -1,6 +1,7 @@
 import { Component, inject, computed } from '@angular/core';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { ScrollService } from '../../services/scroll';
+import { TraduccionService } from '../../services/traduccion.service';
 import { OrigenMaterialLunar } from '../../models/enums.model';
 import { CriterioFactoria } from '../../models/criterios.model';
 
@@ -14,17 +15,13 @@ export class SeleccionCriterioComponent {
 
   public misionService = inject(InicioMisionService);
   private scrollService = inject(ScrollService);
+  public traduccionService = inject(TraduccionService);
 
   criterios = [
     OrigenMaterialLunar.Igneas,
     OrigenMaterialLunar.Metamoficas,
     OrigenMaterialLunar.Sedimentarias
   ];
-  criterioLabels: Record<OrigenMaterialLunar, string> = {
-    [OrigenMaterialLunar.Igneas]: $localize`:@@criterioIgneas:Ígneas`,
-    [OrigenMaterialLunar.Metamoficas]: $localize`:@@criterioMetamoficas:Metamórficas`,
-    [OrigenMaterialLunar.Sedimentarias]: $localize`:@@criterioSedimentarias:Sedimentarias`
-  };
 
   criterioSeleccionado: CriterioFactoria | null = null;
 
