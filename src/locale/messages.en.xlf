@@ -100,8 +100,155 @@
         <source>Tipo de material a recolectar:</source>
         <target>Type of material to collect:</target>
       </trans-unit>
+            <trans-unit id="formTipoFormulario">
+        <source>Selecciona el tipo de formulario</source>
+        <target>Select the form type</target>
+      </trans-unit>
 
+      <trans-unit id="btnFormularioReducido">
+        <source>Formulario Reducido</source>
+        <target>Reduced Form</target>
+      </trans-unit>
 
+      <trans-unit id="btnFormularioExtendido">
+        <source>Formulario Extendido</source>
+        <target>Extended Form</target>
+      </trans-unit>
+
+      <trans-unit id="formReducidoTitle">
+        <source>Formulario Reducido</source>
+        <target>Reduced Form</target>
+      </trans-unit>
+
+      <trans-unit id="redIdPlaceholder">
+        <source>ID (LLDDDDLL)</source>
+        <target>ID (LLDDDDLL)</target>
+      </trans-unit>
+
+      <trans-unit id="redNombrePlaceholder">
+        <source>Nombre del mineral</source>
+        <target>Mineral Name</target>
+      </trans-unit>
+
+      <trans-unit id="redOrigenPlaceholder">
+        <source>Origen</source>
+        <target>Origin</target>
+      </trans-unit>
+
+      <trans-unit id="redClasificacionPlaceholder">
+        <source>Clasificación</source>
+        <target>Classification</target>
+      </trans-unit>
+
+      <trans-unit id="redTexturaPlaceholder">
+        <source>Textura</source>
+        <target>Texture</target>
+      </trans-unit>
+
+      <trans-unit id="redDurezaPlaceholder">
+        <source>Dureza (1-10)</source>
+        <target>Hardness (1-10)</target>
+      </trans-unit>
+
+      <trans-unit id="redTamanoGranoPlaceholder">
+        <source>Tamaño del grano (mm)</source>
+        <target>Grain size (mm)</target>
+      </trans-unit>
+
+      <trans-unit id="redTamanoCristalPlaceholder">
+        <source>Tamaño de cristal</source>
+        <target>Crystal size</target>
+      </trans-unit>
+
+      <trans-unit id="redTemperaturaPlaceholder">
+        <source>Temperatura de formación (C)</source>
+        <target>Formation temperature (C)</target>
+      </trans-unit>
+
+      <trans-unit id="redEstructuraPlaceholder">
+        <source>Estructura (Opcional)</source>
+        <target>Structure (Optional)</target>
+      </trans-unit>
+
+      <trans-unit id="btnValidar">
+        <source>Validar</source>
+        <target>Validate</target>
+      </trans-unit>
+
+      <trans-unit id="formExtendidoTitle">
+        <source>Formulario Extendido</source>
+        <target>Extended Form</target>
+      </trans-unit>
+
+      <trans-unit id="extIdLabel">
+        <source>ID (LLDDDDLL)</source>
+        <target>ID (LLDDDDLL)</target>
+      </trans-unit>
+
+      <trans-unit id="extNombreLabel">
+        <source>Nombre</source>
+        <target>Name</target>
+      </trans-unit>
+
+      <trans-unit id="extOrigenLabel">
+        <source>Origen</source>
+        <target>Origin</target>
+      </trans-unit>
+
+      <trans-unit id="extOrigenOptionSeleccione">
+        <source>Seleccione</source>
+        <target>Select</target>
+      </trans-unit>
+
+      <trans-unit id="extDurezaLabel">
+        <source>Dureza (1-10)</source>
+        <target>Hardness (1-10)</target>
+      </trans-unit>
+
+      <trans-unit id="extTamanoGranoLabel">
+        <source>Tamaño de grano (mm)</source>
+        <target>Grain size (mm)</target>
+      </trans-unit>
+
+      <trans-unit id="extClasificacionLabel">
+        <source>Clasificación</source>
+        <target>Classification</target>
+      </trans-unit>
+
+      <trans-unit id="extClasificacionOptionSeleccione">
+        <source>Seleccione</source>
+        <target>Select</target>
+      </trans-unit>
+
+      <trans-unit id="extTamanoCristalLabel">
+        <source>Tamaño de cristales</source>
+        <target>Crystal size</target>
+      </trans-unit>
+
+      <trans-unit id="extTemperaturaLabel">
+        <source>Temperatura (Cº)</source>
+        <target>Temperature (Cº)</target>
+      </trans-unit>
+
+      <trans-unit id="extTexturaLabel">
+        <source>Textura</source>
+        <target>Texture</target>
+      </trans-unit>
+
+      <trans-unit id="extTexturaOptionSeleccione">
+        <source>Seleccione</source>
+        <target>Select</target>
+      </trans-unit>
+
+      <trans-unit id="extEstructuraLabel">
+        <source>Estructura</source>
+        <target>Structure</target>
+      </trans-unit>
+
+      <trans-unit id="extEstructuraPlaceholder">
+        <source>(Opcional)</source>
+        <target>(Optional)</target>
+      </trans-unit>
 
     </body>
   </file>

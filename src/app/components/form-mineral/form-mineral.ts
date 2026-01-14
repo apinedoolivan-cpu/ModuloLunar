@@ -92,7 +92,7 @@ export class FormMineralComponent {
 
     const error = this.mineralValidationService.validar(this.form);
     if (error && error.length > 0) {
-      this.error = error;
+      this.error = error.join('<br>');
       setTimeout(() => {
         if (this.errorDiv) {
           this.scrollService.scrollToElement(this.errorDiv.nativeElement);
