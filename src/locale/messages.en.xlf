@@ -100,7 +100,8 @@
         <source>Tipo de material a recolectar:</source>
         <target>Type of material to collect:</target>
       </trans-unit>
-            <trans-unit id="formTipoFormulario">
+      
+      <trans-unit id="formTipoFormulario">
         <source>Selecciona el tipo de formulario</source>
         <target>Select the form type</target>
       </trans-unit>
@@ -156,8 +157,8 @@
       </trans-unit>
 
       <trans-unit id="redTamanoCristalPlaceholder">
-        <source>Tamaño de cristal</source>
-        <target>Crystal size</target>
+        <source>Tamaño cristal (0-10)</source>
+        <target>Crystal size (0-10)</target>
       </trans-unit>
 
       <trans-unit id="redTemperaturaPlaceholder">
@@ -221,8 +222,8 @@
       </trans-unit>
 
       <trans-unit id="extTamanoCristalLabel">
-        <source>Tamaño de cristales</source>
-        <target>Crystal size</target>
+        <source>Tamaño cristales (0-10)</source>
+        <target>Crystal size (0-10)</target>
       </trans-unit>
 
       <trans-unit id="extTemperaturaLabel">
@@ -287,6 +288,91 @@
       <trans-unit id="errorTitulo">
         <source>Errores encontrados:</source>
         <target>Errors found:</target>
+      </trans-unit>
+
+      <trans-unit id="campoId">
+        <source>ID</source>
+        <target>ID</target>
+      </trans-unit>
+
+      <trans-unit id="campoNombre">
+        <source>Nombre</source>
+        <target>Name</target>
+      </trans-unit>
+
+      <trans-unit id="campoOrigen">
+        <source>Origen</source>
+        <target>Origin</target>
+      </trans-unit>
+
+      <trans-unit id="campoClasificacion">
+        <source>Clasificación</source>
+        <target>Classification</target>
+      </trans-unit>
+
+      <trans-unit id="campoTextura">
+        <source>Textura</source>
+        <target>Texture</target>
+      </trans-unit>
+
+      <trans-unit id="campoDureza">
+        <source>Dureza</source>
+        <target>Hardness</target>
+      </trans-unit>
+
+      <trans-unit id="campoTamanoGrano">
+        <source>Tamaño de grano</source>
+        <target>Grain size</target>
+      </trans-unit>
+
+      <trans-unit id="campoTamanoCristal">
+        <source>Tamaño de cristal</source>
+        <target>Crystal size</target>
+      </trans-unit>
+
+      <trans-unit id="campoTemperatura">
+        <source>Temperatura</source>
+        <target>Temperature</target>
+      </trans-unit>
+
+      <trans-unit id="errorIdAstro">
+        <source>El ID debe tener el formato AGM001 (3 letras + 3 números)</source>
+        <target>The ID must have the format AGM001 (3 letters + 3 numbers)</target>
+      </trans-unit>
+
+      <trans-unit id="errorEdadAstro">
+        <source>La edad debe estar entre 18 y 65</source>
+        <target>Age must be between 18 and 65</target>
+      </trans-unit>
+
+       <trans-unit id="errorIdMineral">
+        <source>El ID debe seguir el formato LLNNNNLL (ejemplo: AB1234CD).</source>
+        <target>The ID must follow the format LLNNNNLL (example: AB1234CD).</target>
+      </trans-unit>
+
+      <trans-unit id="errorDurezaMineral">
+        <source>La dureza debe estar entre 1 y 10.</source>
+        <target>Hardness must be between 1 and 10.</target>
+      </trans-unit>
+
+      <trans-unit id="errorTamanoGranoMineral">
+        <source>El tamaño de grano debe ser mayor que 0.</source>
+        <target>Grain size must be greater than 0.</target>
+      </trans-unit>
+
+      <trans-unit id="errorTamanoCristalMineral">
+        <source>El tamaño de cristal debe estar entre 0 y 10.</source>
+        <target>Crystal size must be between 0 and 10.</target>
+      </trans-unit>
+
+      <trans-unit id="errorTemperaturaMineral">
+        <source>La temperatura debe estar entre -100 y 100 Cº.</source>
+        <target>Temperature must be between -100 and 100 °C.</target>
+      </trans-unit>
+
+      <trans-unit id="errorCampoObligatorio">
+        <source>El campo "<x id="PH"/>" es obligatorio.</source>
+        <target>The field "<x id="PH"/>" is required.</target>
       </trans-unit>
 
     </body>

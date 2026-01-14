@@ -10,23 +10,26 @@ export class TraduccionService {
     [OrigenMaterialLunar.Sedimentarias]: $localize`:@@criterioSedimentarias:Sedimentarias`
   };
   private readonly nombresCampos: Record<string, string> = {
-    id: $localize`:@@campoId:ID`,
-    nombre: $localize`:@@campoNombre:Nombre`,
-    origen: $localize`:@@campoOrigen:Origen`,
-    clasificacion: $localize`:@@campoClasificacion:Clasificación`,
-    textura: $localize`:@@campoTextura:Textura`,
-    dureza: $localize`:@@campoDureza:Dureza`,
-    tamanoGrano: $localize`:@@campoTamanoGrano:Tamaño de grano`,
-    tamanoCristal: $localize`:@@campoTamanoCristal:Tamaño de cristal`,
-    temperatura: $localize`:@@campoTemperatura:Temperatura`
+    CAMPO_ID: $localize`:@@campoId:ID`,
+    CAMPO_NOMBRE: $localize`:@@campoNombre:Nombre`,
+    CAMPO_ORIGEN: $localize`:@@campoOrigen:Origen`,
+    CAMPO_CLASIFICACION: $localize`:@@campoClasificacion:Clasificación`,
+    CAMPO_TEXTURA: $localize`:@@campoTextura:Textura`,
+    CAMPO_DUREZA: $localize`:@@campoDureza:Dureza`,
+    CAMPO_TAMANOGRANO: $localize`:@@campoTamanoGrano:Tamaño de grano`,
+    CAMPO_TAMANOCRISTAL: $localize`:@@campoTamanoCristal:Tamaño de cristal`,
+    CAMPO_TEMPERATURA: $localize`:@@campoTemperatura:Temperatura`
   };
   private readonly mensajesErrorAstro: Record<string, string> = {
     ID_ASTRO_INVALIDO: $localize`:@@errorIdAstro:El ID debe tener el formato AGM001 (3 letras + 3 números)`,
     EDAD_INVALIDA: $localize`:@@errorEdadAstro:La edad debe estar entre 18 y 65`,
   };
   private readonly mensajesErrorMineral: Record<string, string> = {
-    ID_MINERAL_INVALIDO: $localize`:@@errorIdMineral:El ID del mineral no puede estar vacío`,
-    DUREZA_INVALIDA: $localize`:@@errorDurezaMineral:La dureza debe estar entre 1 y 10`,
+    ID_MINERAL_INVALIDO: $localize`:@@errorIdMineral:El ID debe seguir el formato LLNNNNLL (ejemplo: AB1234CD).`,
+    DUREZA_INVALIDA: $localize`:@@errorDurezaMineral:La dureza debe estar entre 1 y 10.`,
+    TAMANO_GRANO_INVALIDO: $localize`:@@errorTamanoGranoMineral:El tamaño de grano debe ser mayor que 0.`,
+    TAMANO_CRISTAL_INVALIDO: $localize`:@@errorTamanoCristalMineral:El tamaño de cristal debe estar entre 0 y 10.`,
+    TEMPERATURA_INVALIDA: $localize`:@@errorTemperaturaMineral:La temperatura debe estar entre -100 y 100 Cº.`
   };
   dameCriterioLabel(origen: OrigenMaterialLunar): string {
     return this.criterioLabels[origen];
@@ -37,11 +40,21 @@ export class TraduccionService {
   dameNombreCampo(campo: string): string {
     return this.nombresCampos[campo] || campo;
   }
-  errorNombreCampo(campo: string): string {
-    return $localize`:@@errorCampoObligatorio:El campo "${campo}" es obligatorio.`;
+  errorNombreCampo(codigoCampo: string): string {
+    const nombreCampo = this.dameNombreCampo(codigoCampo);
+    return $localize`:@@errorCampoObligatorio:El campo "${nombreCampo}" es obligatorio.`;
   }
   errorMessageMineral(codigos: string[]): string[] {
-    return codigos.map(codigo => this.mensajesErrorMineral[codigo]).filter(Boolean);
+    return codigos
+      .map(codigo => {
+
+        if (codigo.startsWith('CAMPO_')) {
+          return this.errorNombreCampo(codigo);
+        }
+
+        return this.mensajesErrorMineral[codigo];
+      })
+      .filter(Boolean);
   }
   errorTitulo(): string {
     return $localize`:@@errorTitulo:Errores encontrados:`;
