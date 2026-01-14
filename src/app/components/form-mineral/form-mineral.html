@@ -27,7 +27,7 @@
 
         <datalist id="lista-origen">
           @for (o of opcionesOrigen; track $index) {
-            <option [value]="o"></option>
+            <option [value]="traduccionService.dameOrigenMaterialLunarLabel(o)"></option>
           }
         </datalist>
 
@@ -37,7 +37,7 @@
 
         <datalist id="lista-clasificacion">
           @for (c of opcionesClasificacion; track $index) {
-            <option [value]="c"></option>
+            <option [value]="traduccionService.dameClasificacionMaterialLunarLabel(c)"></option>
           }
         </datalist>
 
@@ -47,7 +47,7 @@
 
         <datalist id="lista-textura">
           @for (t of opcionesTextura; track $index) {
-            <option [value]="t"></option>
+            <option [value]="traduccionService.dameTexturaMaterialLunarLabel(t)"></option>
           }
         </datalist>
 
@@ -98,7 +98,7 @@
           <select id="ext-origen" formControlName="origen" required>
             <option value="" i18n="@@extOrigenOptionSeleccione">Seleccione</option>
             @for (o of opcionesOrigen; track $index) {
-              <option [value]="o">{{ o }}</option>
+              <option [value]="o">{{ traduccionService.dameOrigenMaterialLunarLabel(o) }}</option>
             }
           </select>
         </div>
@@ -120,7 +120,7 @@
           <select id="ext-clasificacion" formControlName="clasificacion" required>
             <option value="" i18n="@@extClasificacionOptionSeleccione">Seleccione</option>
             @for (c of opcionesClasificacion; track $index) {
-              <option [value]="c">{{ c }}</option>
+              <option [value]="c">{{ traduccionService.dameClasificacionMaterialLunarLabel(c) }}</option>
             }
           </select>
         </div>
@@ -142,7 +142,7 @@
           <select id="ext-textura" formControlName="textura" required>
             <option value="" i18n="@@extTexturaOptionSeleccione">Seleccione</option>
             @for (t of opcionesTextura; track $index) {
-              <option [value]="t">{{ t }}</option>
+              <option [value]="t">{{ traduccionService.dameTexturaMaterialLunarLabel(t) }}</option>
             }
           </select>
         </div>

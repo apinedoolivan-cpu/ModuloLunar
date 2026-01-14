@@ -1,14 +1,26 @@
 import { Injectable } from '@angular/core';
-import { OrigenMaterialLunar } from '../models/enums.model';
+import { OrigenMaterialLunar, ClasificacionMaterialLunar, TexturaMaterialLunar } from '../models/enums.model';
 
 @Injectable({ providedIn: 'root' })
 export class TraduccionService {
 
-  private readonly criterioLabels: Record<OrigenMaterialLunar, string> = {
+  private readonly origenMaterialLunarLabels: Record<OrigenMaterialLunar, string> = {
     [OrigenMaterialLunar.Igneas]: $localize`:@@criterioIgneas:Ígneas`,
     [OrigenMaterialLunar.Metamoficas]: $localize`:@@criterioMetamorficas:Metamórficas`,
     [OrigenMaterialLunar.Sedimentarias]: $localize`:@@criterioSedimentarias:Sedimentarias`
   };
+  private readonly clasificacionMaterialLunarLabels: Record<ClasificacionMaterialLunar, string> = {
+    [ClasificacionMaterialLunar.RocasConstruccion]: $localize`:@@clasificacionRocasConstruccion:Rocas de construcción: Son aquellas rocas que se usan para la construcción de diferentes estructuras.`,
+    [ClasificacionMaterialLunar.RocaOrnamental]: $localize`:@@clasificacionRocaOrnamental:Roca ornamental: Son todas aquellas rocas de uso decorativo,integrado o no en edificio o estructuras superiores.`,
+    [ClasificacionMaterialLunar.Utensilios]: $localize`:@@clasificacionUtensilios:Utensilios: Rocas de uso en utensilios para el hombre.`,
+    [ClasificacionMaterialLunar.PiedraMachada]: $localize`:@@clasificacionPiedraMachada:Piedras machacadas: Áridos, ripios, agregados, etc. que son muy utilizados en la construcción como material de relleno.`
+  };
+  private readonly texturaMaterialLunarLabels: Record<TexturaMaterialLunar, string> = {
+    [TexturaMaterialLunar.Vitrea]: $localize`:@@texturaVitrea:Vítrea`,
+    [TexturaMaterialLunar.Afanitica]: $localize`:@@texturaAfanitica:Afanítica`,
+    [TexturaMaterialLunar.Faneritica]: $localize`:@@texturaFaneritica:Fanerítica`,
+  };  
+
   private readonly nombresCampos: Record<string, string> = {
     CAMPO_ID: $localize`:@@campoId:ID`,
     CAMPO_NOMBRE: $localize`:@@campoNombre:Nombre`,
@@ -31,8 +43,14 @@ export class TraduccionService {
     TAMANO_CRISTAL_INVALIDO: $localize`:@@errorTamanoCristalMineral:El tamaño de cristal debe estar entre 0 y 10.`,
     TEMPERATURA_INVALIDA: $localize`:@@errorTemperaturaMineral:La temperatura debe estar entre -100 y 100 Cº.`
   };
-  dameCriterioLabel(origen: OrigenMaterialLunar): string {
-    return this.criterioLabels[origen];
+  dameOrigenMaterialLunarLabel(origen: OrigenMaterialLunar): string {
+    return this.origenMaterialLunarLabels[origen];
+  }
+  dameClasificacionMaterialLunarLabel(clasificacion: ClasificacionMaterialLunar): string {
+    return this.clasificacionMaterialLunarLabels[clasificacion] || clasificacion;
+  }
+  dameTexturaMaterialLunarLabel(textura: TexturaMaterialLunar): string {
+    return this.texturaMaterialLunarLabels[textura] || textura;
   }
   errorMessageAstro(codigos: string[]): string[] {
     return codigos.map(codigo => this.mensajesErrorAstro[codigo]).filter(Boolean);

@@ -250,6 +250,116 @@
         <source>(Opcional)</source>
         <target>(Optional)</target>
       </trans-unit>
+      <!-- Selección de sistema de salida -->
+      <trans-unit id="tituloSeleccionSistemaSalida">
+        <source>Elija un sistema de salida</source>
+        <target>Choose an output system</target>
+      </trans-unit>
+
+      <trans-unit id="btnSistemaEuropeo">
+        <source>Sistema Europeo</source>
+        <target>European System</target>
+      </trans-unit>
+
+      <trans-unit id="btnSistemaAmericano">
+        <source>Sistema Americano</source>
+        <target>American System</target>
+      </trans-unit>
+
+      <!-- Resultado misión -->
+      <trans-unit id="tituloMisionPiloto">
+        <source>Misión de <x id="INTERPOLATION"/></source>
+        <target>Mission of <x id="INTERPOLATION"/></target>
+      </trans-unit>
+
+      <trans-unit id="mineralValidoMsg">
+        <source>El mineral es válido</source>
+        <target>The mineral is valid</target>
+      </trans-unit>
+
+      <trans-unit id="mineralNoValidoMsg">
+        <source>El mineral NO es válido</source>
+        <target>The mineral is NOT valid</target>
+      </trans-unit>
+
+      <!-- Labels de resultado mineral -->
+      <trans-unit id="mineralIdLabel">
+        <source>ID:</source>
+        <target>ID:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralNombreLabel">
+        <source>Nombre:</source>
+        <target>Name:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralOrigenLabel">
+        <source>Origen:</source>
+        <target>Origin:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralDurezaLabel">
+        <source>Dureza:</source>
+        <target>Hardness:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralTamanoGranoLabel">
+        <source>Tamaño de grano:</source>
+        <target>Grain size:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralClasificacionLabel">
+        <source>Clasificación:</source>
+        <target>Classification:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralTamanoCristalLabel">
+        <source>Tamaño de cristal:</source>
+        <target>Crystal size:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralTemperaturaLabel">
+        <source>Temperatura de formación:</source>
+        <target>Formation temperature:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralEstructuraLabel">
+        <source>Estructura:</source>
+        <target>Structure:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralTexturaLabel">
+        <source>Textura:</source>
+        <target>Texture:</target>
+      </trans-unit>
+
+      <!-- Unidades -->
+      <trans-unit id="unidadMm">
+        <source>mm</source>
+        <target>mm</target>
+      </trans-unit>
+
+      <trans-unit id="unidadInches">
+        <source>inches</source>
+        <target>inches</target>
+      </trans-unit>
+
+      <trans-unit id="unidadCelsius">
+        <source>Cº</source>
+        <target>°C</target>
+      </trans-unit>
+
+      <trans-unit id="unidadFahrenheit">
+        <source>Fº</source>
+        <target>°F</target>
+      </trans-unit>
+
+      <!-- Botón final -->
+      <trans-unit id="btnReiniciarMision">
+        <source>Reiniciar Misión</source>
+        <target>Restart Mission</target>
+      </trans-unit>
+      
 
     </body>
   </file>
@@ -273,6 +383,41 @@
       <trans-unit id="criterioSedimentarias">
         <source>Sedimentarias</source>
         <target>Sedimentary</target>
+      </trans-unit>
+
+      <trans-unit id="clasificacionRocasConstruccion">
+        <source>Rocas de construcción: Son aquellas rocas que se usan para la construcción de diferentes estructuras.</source>
+        <target>Building rocks: These are rocks used for constructing different structures.</target>
+      </trans-unit>
+
+      <trans-unit id="clasificacionRocaOrnamental">
+        <source>Roca ornamental: Son todas aquellas rocas de uso decorativo,integrado o no en edificio o estructuras superiores.</source>
+        <target>Ornamental rock: These are all those rocks used for decorative purposes, integrated or not into buildings or superior structures.</target>
+      </trans-unit>
+
+      <trans-unit id="clasificacionUtensilios">
+        <source> Utensilios: Rocas de uso en utensilios para el hombre.Rocas de uso en utensilios para el hombre.</source>
+        <target> Utensils: Rocks used in tools for humans.</target>
+      </trans-unit>
+
+      <trans-unit id="clasificacionPiedraMachada">
+        <source>Piedras machacadas: Áridos, rispios, agregados, etc. que son muy utilizados en la construcción como material de relleno.</source>
+        <target>Crushed stones: Aggregates, harsh, etc., that are widely used in construction as fill material.</target>
+      </trans-unit>
+
+      <trans-unit id="texturaVitrea">
+        <source>Vítrea</source>
+        <target>Vitreous</target>
+      </trans-unit>
+
+      <trans-unit id="texturaAfanitica">
+        <source>Afánitica</source>
+        <target>Aphanitic</target>
+      </trans-unit>
+
+      <trans-unit id="texturaFaneritica">
+        <source>Faneritica</source>
+        <target>Fanerotics</target>  
       </trans-unit>
 
       <trans-unit id="errorIdAstro">

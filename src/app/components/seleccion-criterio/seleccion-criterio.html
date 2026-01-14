@@ -2,14 +2,14 @@
   <div id="inicio-mision">
     @for (criterio of criterios; track criterio) {
       <button type="button" (click)="seleccionar(criterio)">
-        {{ traduccionService.dameCriterioLabel(criterio) }}
+        {{ traduccionService.dameOrigenMaterialLunarLabel(criterio) }}
       </button>
   }
   </div>
 
   @if (misionService.criterio() && criterioSeleccionado) {
      <p i18n="@@criterioSeleccionado">
-      Criterio seleccionado: {{ traduccionService.dameCriterioLabel(criterioSeleccionado.criterio.dameCriterio()) }}
+      Criterio seleccionado: {{ traduccionService.dameOrigenMaterialLunarLabel(criterioSeleccionado.criterio.dameCriterio()) }}
     </p>
   }
 }

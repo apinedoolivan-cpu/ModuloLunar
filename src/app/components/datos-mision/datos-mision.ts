@@ -20,7 +20,7 @@ export class DatosMisionComponent {
   criterioLabel = computed(() => {
     const criterio = this.criterio();
     return criterio
-      ? this.traduccionService.dameCriterioLabel(criterio.dameCriterio())
+      ? this.traduccionService.dameOrigenMaterialLunarLabel(criterio.dameCriterio())
       : '';
   });
   fechaInicio = new Date();

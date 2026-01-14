@@ -53,7 +53,7 @@ export class FormMineralComponent {
     this.tipoFormulario = tipo;
     this.crearFormulario();
     this.error = null;
-
+    
     setTimeout(() => {
       if (tipo === 'reducido' && this.formReducidoDiv) {
         this.scrollService.scrollToElement(this.formReducidoDiv.nativeElement);
