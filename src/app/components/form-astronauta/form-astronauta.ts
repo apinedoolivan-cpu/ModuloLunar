@@ -4,6 +4,7 @@ import { ScrollService } from '../../services/scroll';
 import { AstronautaValidationService } from '../../services/form-astronauta';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { Astronauta } from '../../models/astronauta.model';
+import { TraduccionService } from '../../services/traduccion.service';
 
 @Component({
   selector: 'app-form-astronauta',
@@ -18,6 +19,7 @@ export class FormularioAstronautaComponent {
   private misionService = inject(InicioMisionService);
   private astronautaService = inject(AstronautaValidationService);
   private scrollService = inject(ScrollService);
+  public traduccionService = inject(TraduccionService);
 
   criterio = this.misionService.criterio;
   astronauta = this.misionService.astronauta;
@@ -48,7 +50,7 @@ export class FormularioAstronautaComponent {
     const error = this.astronautaService.validar(this.form);
 
     if (error) {
-      this.formError = error;
+      this.formError = this.traduccionService.errorTitulo() + '<br>' + this.traduccionService.errorMessageAstro(error).join('<br>');
 
       setTimeout(() => {
         if (this.errorDiv) {

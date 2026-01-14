@@ -137,7 +137,7 @@
         <target>Age must be between 18 and 65</target>
       </trans-unit>
 
-      <trans-unit id="errorMessage">
+      <trans-unit id="errorTitulo">
         <source>Errores encontrados:</source>
         <target>Errors found:</target>
       </trans-unit>
