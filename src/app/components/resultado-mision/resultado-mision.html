@@ -30,9 +30,7 @@
         Misión de {{ mision()?.piloto?.dameNombre() }}
       </h2>
 
-      <p>
-        {{ mision()?.criterio?.descripcionKey() }}
-      </p>
+      <p>{{ criterioLabel}}</p>
 
       @if (mision()?.analiza()) {
         <div id="emoji">😊</div>
@@ -58,7 +56,7 @@
 
       <p>
         <strong i18n="@@mineralOrigenLabel">Origen:</strong>
-        {{ mineralSalida.origen }}
+        {{ traduccionService.dameOrigenMaterialLunarLabel(mineralSalida.origen) }}
       </p>
 
       <p>
@@ -68,12 +66,12 @@
 
       <p>
         <strong i18n="@@mineralTamanoGranoLabel">Tamaño de grano:</strong>
-        {{ mineralSalida.dametamanoGrano() }}
+        {{ traduccionService.dameTamanoGranoLabel(mineralSalida.dametamanoGrano()) }}
       </p>
 
       <p>
         <strong i18n="@@mineralClasificacionLabel">Clasificación:</strong>
-        {{ mineralSalida.clasificacion }}
+        {{ traduccionService.dameClasificacionMaterialLunarLabel(mineralSalida.clasificacion) }}
       </p>
 
       <p>
@@ -83,7 +81,7 @@
           @if (tipo === 'europeo') {
             <span i18n="@@unidadMm">mm</span>
           } @else {
-            <span i18n="@@unidadInches">inches</span>
+            <span i18n="@@unidadPulgadas">pulgadas</span>
           }
         </span>
       </p>
@@ -113,7 +111,7 @@
 
       <p>
         <strong i18n="@@mineralTexturaLabel">Textura:</strong>
-        {{ mineralSalida.textura }}
+        {{ traduccionService.dameTexturaMaterialLunarLabel(mineralSalida.textura) }}
       </p>
 
     </div>

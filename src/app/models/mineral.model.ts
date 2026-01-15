@@ -44,8 +44,8 @@ export class Mineral implements ICapturable {
       changes.dureza ?? this.dureza,
       this.tamanoGrano,
       this.clasificacion,
-      changes.temperatura ?? this.temperatura,
       changes.tamanoCristal ?? this.tamanoCristal,
+      changes.temperatura ?? this.temperatura,
       this.estructura,
       this.textura
     );

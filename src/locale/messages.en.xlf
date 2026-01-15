@@ -339,8 +339,8 @@
         <target>mm</target>
       </trans-unit>
 
-      <trans-unit id="unidadInches">
-        <source>inches</source>
+      <trans-unit id="unidadPulgadas">
+        <source>pulgadas</source>
         <target>inches</target>
       </trans-unit>
 
@@ -360,6 +360,25 @@
         <target>Restart Mission</target>
       </trans-unit>
       
+      <trans-unit id="tamanoMuyGrueso">
+        <source>Grano muy grueso</source>
+        <target>Very thick grain</target>
+      </trans-unit>
+
+      <trans-unit id="tamanoGrueso">
+        <source>Grano grueso</source>
+        <target>Thick grain</target>
+      </trans-unit>
+
+      <trans-unit id="tamanoMediano">
+        <source>Grano medio</source>
+        <target>Medium grain</target>
+      </trans-unit>
+
+      <trans-unit id="tamanoFino">
+        <source>Grano fino</source>
+        <target>Fine grain</target>
+      </trans-unit>
 
     </body>
   </file>

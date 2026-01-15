@@ -25,9 +25,10 @@ export class ResultadoMisionComponent {
   resultadoDiv!: ElementRef<HTMLDivElement>;
 
   tipo: SistemaTipo | '' = '';
+  criterioLabel: string = '';
 
   mineral = this.mineralService.mineral;
-
+  
   mision = this.misionService.mision;
 
   mineralSalida?: Mineral;
@@ -45,6 +46,8 @@ export class ResultadoMisionComponent {
         : new SistemaSalidaEuropeo();
 
     this.tipo = salida.tipo;
+    const criterio = this.mision()?.criterio?.dameCriterio();
+    this.criterioLabel = criterio ? this.traduccionService.dameOrigenMaterialLunarLabel(criterio): '';
 
     this.misionService.crearMision(salida);
     

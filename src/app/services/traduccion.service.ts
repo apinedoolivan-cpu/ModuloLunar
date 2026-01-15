@@ -32,6 +32,12 @@ export class TraduccionService {
     CAMPO_TAMANOCRISTAL: $localize`:@@campoTamanoCristal:Tamaño de cristal`,
     CAMPO_TEMPERATURA: $localize`:@@campoTemperatura:Temperatura`
   };
+  private readonly tamanosGranoLabels: Record<string, string> = {
+    GRANO_MUY_GRUESO: $localize`:@@tamanoMuyGrueso:Grano muy grueso`,
+    GRANO_GRUESO: $localize`:@@tamanoGrueso:Grano grueso`,
+    GRANO_MEDIO: $localize`:@@tamanoMediano:Grano medio`,
+    GRANO_FINO: $localize`:@@tamanoFino:Grano fino`
+  };
   private readonly mensajesErrorAstro: Record<string, string> = {
     ID_ASTRO_INVALIDO: $localize`:@@errorIdAstro:El ID debe tener el formato AGM001 (3 letras + 3 números)`,
     EDAD_INVALIDA: $localize`:@@errorEdadAstro:La edad debe estar entre 18 y 65`,
@@ -52,11 +58,14 @@ export class TraduccionService {
   dameTexturaMaterialLunarLabel(textura: TexturaMaterialLunar): string {
     return this.texturaMaterialLunarLabels[textura] || textura;
   }
-  errorMessageAstro(codigos: string[]): string[] {
-    return codigos.map(codigo => this.mensajesErrorAstro[codigo]).filter(Boolean);
+  dameTamanoGranoLabel(tamano: string): string {
+    return this.tamanosGranoLabels[tamano] || tamano;
   }
   dameNombreCampo(campo: string): string {
     return this.nombresCampos[campo] || campo;
+  }
+  errorMessageAstro(codigos: string[]): string[] {
+    return codigos.map(codigo => this.mensajesErrorAstro[codigo]).filter(Boolean);
   }
   errorNombreCampo(codigoCampo: string): string {
     const nombreCampo = this.dameNombreCampo(codigoCampo);
