@@ -21,35 +21,26 @@
               placeholder="Nombre del mineral" i18n-placeholder="@@redNombrePlaceholder"
               formControlName="nombre" required />
 
-        <input id="red-origen" list="lista-origen" type="text" 
-              placeholder="Origen" i18n-placeholder="@@redOrigenPlaceholder"
-              formControlName="origen" required />
+        <select id="red-origen" formControlName="origen" required>
+            <option value="" i18n="@@extOrigenOptionSeleccione">Seleccione</option>
+            @for (o of opcionesOrigen; track $index) {
+              <option [value]="o">{{ traduccionService.dameOrigenMaterialLunarLabel(o) }}</option>
+            }
+        </select>
 
-        <datalist id="lista-origen">
-          @for (o of opcionesOrigen; track $index) {
-            <option [value]="traduccionService.dameOrigenMaterialLunarLabel(o)"></option>
-          }
-        </datalist>
+        <select id="red-clasificacion" formControlName="clasificacion" required>
+            <option value="" i18n="@@extClasificacionOptionSeleccione">Seleccione</option>
+            @for (c of opcionesClasificacion; track $index) {
+              <option [value]="c">{{ traduccionService.dameClasificacionMaterialLunarLabel(c) }}</option>
+            }
+        </select>
 
-        <input id="red-clasificacion" list="lista-clasificacion" type="text"
-              placeholder="Clasificación" i18n-placeholder="@@redClasificacionPlaceholder"
-              required formControlName="clasificacion" />
-
-        <datalist id="lista-clasificacion">
-          @for (c of opcionesClasificacion; track $index) {
-            <option [value]="traduccionService.dameClasificacionMaterialLunarLabel(c)"></option>
-          }
-        </datalist>
-
-        <input id="red-textura" list="lista-textura" type="text" 
-              placeholder="Textura" i18n-placeholder="@@redTexturaPlaceholder"
-              formControlName="textura" required />
-
-        <datalist id="lista-textura">
-          @for (t of opcionesTextura; track $index) {
-            <option [value]="traduccionService.dameTexturaMaterialLunarLabel(t)"></option>
-          }
-        </datalist>
+        <select id="red-textura" formControlName="textura" required>
+            <option value="" i18n="@@extTexturaOptionSeleccione">Seleccione</option>
+            @for (t of opcionesTextura; track $index) {
+              <option [value]="t">{{ traduccionService.dameTexturaMaterialLunarLabel(t) }}</option>
+            }
+          </select>
 
         <input id="red-dureza" type="number" step="1" min="1" max="10"
               placeholder="Dureza (1-10)" i18n-placeholder="@@redDurezaPlaceholder"

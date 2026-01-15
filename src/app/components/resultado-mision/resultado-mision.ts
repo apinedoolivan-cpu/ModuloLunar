@@ -45,14 +45,15 @@ export class ResultadoMisionComponent {
         ? new SistemaSalidaAmericano()
         : new SistemaSalidaEuropeo();
 
-    this.tipo = salida.tipo;
-    const criterio = this.mision()?.criterio?.dameCriterio();
-    this.criterioLabel = criterio ? this.traduccionService.dameOrigenMaterialLunarLabel(criterio): '';
-
     this.misionService.crearMision(salida);
+
+    this.tipo = salida.tipo;
+    const criterio = this.mision()?.criterio?.descripcionKey();
+    
+    this.criterioLabel = criterio ? this.traduccionService.dameDescripcionCriterioLabel(criterio): '';
     
     this.mineralSalida = salida.procesar(mineralOriginal);
-
+    
     this.mineralService.resetMineral();
     
     setTimeout(() => {

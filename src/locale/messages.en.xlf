@@ -380,6 +380,21 @@
         <target>Fine grain</target>
       </trans-unit>
 
+      <trans-unit id="criterioIgneasDescripcion">
+        <source>Criterio Ígneas: Origen ígneo y grano muy grueso</source>
+        <target>Igneous criterion: Igneous origin and very thick grain</target>
+      </trans-unit>
+
+      <trans-unit id="criterioMetamorficasDescripcion">
+        <source>Criterio Metamórficas: Origen metamórfico, grano medio/fino y textura vítrea</source>
+        <target>Metamorphic criterion: Metamorphic origin, medium/fine grain and vitreous texture</target>
+      </trans-unit>
+
+      <trans-unit id="criterioSedimentariasDescripcion">
+        <source>Criterio Sedimentarias: Origen sedimentario y textura fanerítica</source>
+        <target>Sedimentary criterion: Sedimentary origin and faneritic texture</target>
+      </trans-unit>
+
     </body>
   </file>
 

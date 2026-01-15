@@ -19,8 +19,12 @@ export class TraduccionService {
     [TexturaMaterialLunar.Vitrea]: $localize`:@@texturaVitrea:Vítrea`,
     [TexturaMaterialLunar.Afanitica]: $localize`:@@texturaAfanitica:Afanítica`,
     [TexturaMaterialLunar.Faneritica]: $localize`:@@texturaFaneritica:Fanerítica`,
-  };  
-
+  };
+  private readonly descripcionesCriteriosLabels: Record<string, string> = {
+    CRITERIO_IGNEAS: $localize`:@@criterioIgneasDescripcion:Ígneas: Criterio Ígneas: Origen ígneo y grano muy grueso.`,
+    CRITERIO_METAMORFICAS: $localize`:@@criterioMetamorficasDescripcion:Criterio Metamórficas: Origen metamórfico, grano medio/fino y textura vítrea.`,
+    CRITERIO_SEDIMENTARIAS: $localize`:@@criterioSedimentariasDescripcion:Criterio Sedimentarias: Origen sedimentario y textura fanerítica.`
+  };
   private readonly nombresCampos: Record<string, string> = {
     CAMPO_ID: $localize`:@@campoId:ID`,
     CAMPO_NOMBRE: $localize`:@@campoNombre:Nombre`,
@@ -63,6 +67,9 @@ export class TraduccionService {
   }
   dameNombreCampo(campo: string): string {
     return this.nombresCampos[campo] || campo;
+  }
+  dameDescripcionCriterioLabel(descripcionKey: string): string {
+    return this.descripcionesCriteriosLabels[descripcionKey] || descripcionKey;
   }
   errorMessageAstro(codigos: string[]): string[] {
     return codigos.map(codigo => this.mensajesErrorAstro[codigo]).filter(Boolean);
