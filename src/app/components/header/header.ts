@@ -14,9 +14,8 @@ export class HeaderComponent {
     @Inject(DOCUMENT) private document: Document
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      // Solo se ejecuta en navegador
-      const lang = this.document.location.pathname.split('/')[1];
-      this.currentLang = lang === 'en' ? 'en' : 'es';
+      const pathParts = this.document.location.pathname.split('/').filter(Boolean);
+      this.currentLang = pathParts[1] === 'en' ? 'en' : 'es';
     }
   }
 
@@ -25,11 +24,19 @@ export class HeaderComponent {
   }
 
   switchLanguage(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      const pathParts = this.document.location.pathname.split('/').filter(Boolean);
-      pathParts.shift(); // quitar idioma actual
-      const newPath = `/${this.targetLang}/${pathParts.join('/')}`;
-      this.document.location.href = newPath || `/${this.targetLang}/`;
-    }
+  if (!isPlatformBrowser(this.platformId)) {
+    return;
   }
+
+  const pathParts = this.document.location.pathname.split('/').filter(Boolean);
+
+  const base = pathParts[0]; 
+  const rest = pathParts.slice(2);
+
+  const newPath = `/${base}/${this.targetLang}/${rest.join('/')}`;
+
+  this.document.location.href = rest.length
+    ? newPath
+    : `/${base}/${this.targetLang}/`;
+}
 }
