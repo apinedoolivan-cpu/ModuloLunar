@@ -54,7 +54,19 @@
             "production": {
               "optimization": true,
               "outputHashing": "all",
-              "localize": true
+              "localize": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "6kb"
+                }
+              ]
             },
             "development": {
               "optimization": false,
