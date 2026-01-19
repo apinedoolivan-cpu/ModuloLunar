@@ -1,18 +1,18 @@
 import { Mineral } from './mineral.model';
 import { OrigenMaterialLunar, TexturaMaterialLunar } from './enums.model';
 export interface ICriterioValidacion {
-  descripcion(): string;
+  descripcionKey(): string;
   esValido(mineral: Mineral): boolean;
   dameCriterio(): OrigenMaterialLunar
 }
 export class CriterioIgneas implements ICriterioValidacion {
   constructor(public origen: OrigenMaterialLunar) {}
-  descripcion(): string {
-    return 'Criterio Ígneas: Origen ígneo y grano muy grueso.';
+  descripcionKey(): string {
+    return 'CRITERIO_IGNEAS';
   }
   esValido(mineral: Mineral): boolean {
     return mineral.origen === this.origen &&
-           mineral.dametamanoGrano() === 'Grano muy grueso';
+           mineral.dametamanoGrano() === 'GRANO_MUY_GRUESO';
   }
   dameCriterio(): OrigenMaterialLunar{
     return this.origen;
@@ -21,13 +21,13 @@ export class CriterioIgneas implements ICriterioValidacion {
 
 export class CriterioMetamorficas implements ICriterioValidacion {
   constructor(public origen: OrigenMaterialLunar) {}
-  descripcion(): string {
-    return 'Criterio Metamórficas: Origen metamórfico, grano medio/fino y textura vítrea.';
+  descripcionKey(): string {
+    return 'CRITERIO_METAMORFICAS';
   }
   esValido(mineral: Mineral): boolean {
     const grano = mineral.dametamanoGrano();
     return mineral.origen === this.origen &&
-           (grano === 'Grano fino' || grano === 'Grano medio') &&
+           (grano === 'GRANO_FINO' || grano === 'GRANO_MEDIO') &&
            mineral.textura === TexturaMaterialLunar.Vitrea;
   }
   dameCriterio(): OrigenMaterialLunar{
@@ -37,8 +37,8 @@ export class CriterioMetamorficas implements ICriterioValidacion {
 
 export class CriterioSedimentarias implements ICriterioValidacion {
   constructor(public origen: OrigenMaterialLunar) {}
-  descripcion(): string {
-    return 'Criterio Sedimentarias: Origen sedimentario y textura fanerítica.';
+  descripcionKey(): string {
+    return 'CRITERIO_SEDIMENTARIAS';
   }
   esValido(mineral: Mineral): boolean {
     return mineral.origen === this.origen &&
@@ -63,7 +63,7 @@ export class CriterioFactoria {
         this.criterio = new CriterioSedimentarias(origen);
         break;
       default:
-        throw new Error('Origen de mineral no reconocido');
+        throw new Error('ORIGEN_NO_RECONOCIDO');
     }
   }
 }

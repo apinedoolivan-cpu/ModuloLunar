@@ -1,19 +1,25 @@
 @if(mostrarForm()){
-    <div id="astronauta">
-        <h3>Datos del Astronauta</h3>
-        <form [formGroup]="form" id="form-astronauta">
-            <label for="astro-id">ID: </label>
-            <input id="astro-id" type="text" formControlName="id" />
+  <div id="astronauta">
 
-            <label for="astro-nombre">Nombre: </label>
-            <input id="astro-nombre" type="text" formControlName="nombre" />
+    <h3 i18n="@@astroTitle">Datos del Astronauta</h3>
 
-            <label for="astro-edad">Edad: </label>
-            <input id="astro-edad" type="number" formControlName="edad" />
-        </form>
-            @if (formError) {
-        <div #errorDiv id="error" [innerHTML]="formError">{{formError}}</div>
-        }
-        <button (click)="aceptarAstronauta()">Aceptar</button>
-    </div>
+    <form [formGroup]="form" id="form-astronauta">
+
+      <label for="astro-id" i18n="@@idLabel">ID:</label>
+      <input id="astro-id" type="text" formControlName="id" />
+
+      <label for="astro-nombre" i18n="@@astroNombreLabel">Nombre:</label>
+      <input id="astro-nombre" type="text" formControlName="nombre" />
+
+      <label for="astro-edad" i18n="@@astroEdadLabel">Edad:</label>
+      <input id="astro-edad" type="number" formControlName="edad" />
+
+    </form>
+
+    @if (formError) {
+      <div #errorDiv id="error" [innerHTML]="formError">{{formError}}</div>
+    }
+
+    <button (click)="aceptarAstronauta()" i18n="@@aceptarBtn">Aceptar</button>
+  </div>
 }

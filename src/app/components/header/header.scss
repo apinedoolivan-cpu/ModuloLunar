@@ -1,0 +1,48 @@
+@use '../../estilos/variables' as *;
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 24px;
+  background-color: $form-bg;
+  color: $text-color;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    height: auto;
+  }
+}
+.app-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  @media (max-width: 600px) {
+    padding-top: 20px;
+  }
+}
+.lang-switch {
+  background: transparent;
+  border: 1px solid #ffffff40;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #ffffff20;
+  }
+
+  .lang-current {
+    font-weight: 600;
+  }
+
+  .lang-target {
+    opacity: 0.8;
+  }
+  
+}

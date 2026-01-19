@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InicioMisionService } from '../../services/inicio-mision.service';
+import { TraduccionService } from '../../services/traduccion.service';
 
 @Component({
   selector: 'app-datos-mision',
@@ -12,8 +13,15 @@ import { InicioMisionService } from '../../services/inicio-mision.service';
 export class DatosMisionComponent {
 
   private misionService = inject(InicioMisionService);
+  private traduccionService = inject(TraduccionService);
 
   astronauta = this.misionService.astronauta;
   criterio = this.misionService.criterio;
+  criterioLabel = computed(() => {
+    const criterio = this.criterio();
+    return criterio
+      ? this.traduccionService.dameOrigenMaterialLunarLabel(criterio.dameCriterio())
+      : '';
+  });
   fechaInicio = new Date();
 }

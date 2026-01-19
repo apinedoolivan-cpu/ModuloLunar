@@ -6,6 +6,7 @@ import { InicioMisionService } from '../../services/inicio-mision.service';
 import { MineralValidationService } from '../../services/form-mineral';
 import { MineralService } from '../../services/mineral';
 import { ScrollService } from '../../services/scroll';
+import { TraduccionService } from '../../services/traduccion.service';
 
 @Component({
   selector: 'app-form-mineral',
@@ -21,6 +22,7 @@ export class FormMineralComponent {
   private mineralValidationService = inject(MineralValidationService);
   private mineralService = inject(MineralService);
   private scrollService = inject(ScrollService);
+  public traduccionService = inject(TraduccionService);
 
   form!: FormGroup;
   error: string | null = null;
@@ -51,7 +53,7 @@ export class FormMineralComponent {
     this.tipoFormulario = tipo;
     this.crearFormulario();
     this.error = null;
-
+    
     setTimeout(() => {
       if (tipo === 'reducido' && this.formReducidoDiv) {
         this.scrollService.scrollToElement(this.formReducidoDiv.nativeElement);
@@ -92,7 +94,7 @@ export class FormMineralComponent {
 
     const error = this.mineralValidationService.validar(this.form);
     if (error && error.length > 0) {
-      this.error = error;
+      this.error = this.traduccionService.errorTitulo() + '<br>' + this.traduccionService.errorMessageMineral(error).join('<br>');
       setTimeout(() => {
         if (this.errorDiv) {
           this.scrollService.scrollToElement(this.errorDiv.nativeElement);

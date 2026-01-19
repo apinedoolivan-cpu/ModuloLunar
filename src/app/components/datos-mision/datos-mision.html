@@ -1,10 +1,10 @@
 @if (astronauta() && criterio()) {
   <div id="datos-mision">
-    <h2>Datos de la Misión</h2>
-    <p><strong>Astronauta:</strong> {{ astronauta()?.dameNombre() }}</p>
-    <p><strong>Identificador:</strong> {{ astronauta()?.dameId() }}</p>
-    <p><strong>Edad:</strong> {{ astronauta()?.dameEdad() }}</p>
-    <p><strong>Fecha inicio:</strong> {{ fechaInicio }}</p>
-    <p><strong>Tipo de material a recolectar:</strong> {{ criterio()?.dameCriterio() }}</p>
+    <h2 i18n="@@datosMisionTitle">Datos de la Misión</h2>
+    <p><strong i18n="@@astronautaLabel">Astronauta:</strong> {{ astronauta()?.dameNombre() }}</p>
+    <p><strong i18n="@@identificadorLabel">Identificador:</strong> {{ astronauta()?.dameId() }}</p>
+    <p><strong i18n="@@edadLabel">Edad:</strong> {{ astronauta()?.dameEdad() }}</p>
+    <p><strong i18n="@@fechaInicioLabel">Fecha inicio:</strong> {{ fechaInicio | date:'medium' }}</p>
+    <p><strong i18n="@@tipoMaterialLabel">Tipo de material a recolectar:</strong> {{ criterioLabel() }}</p>
   </div>
 }

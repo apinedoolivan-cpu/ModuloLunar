@@ -1,8 +1,18 @@
 <main class="main">
-    <h1>🪐 Misión Lunar</h1>
+    <app-header></app-header>
+    <h1 i18n="@@mainTitle">🪐 Misión Lunar</h1>
+
     <div id="info-programa">
-      <h2>Programa de recolección de minerales lunares</h2>
-      <p>Bienvenido a la Misión Lunar. Selecciona un tipo de misión para comenzar. Despues introduce los datos del astronauta, si lo dejas vacío se escribe la información automáticamente.</p>
+      <h2 i18n="@@programTitle">
+        Programa de recolección de minerales lunares
+        Prueba tus habilidades de astronauta
+      </h2>
+
+      <p i18n="@@programDescription">
+        Bienvenido a la Misión Lunar. Selecciona un tipo de misión para comenzar.
+        Después introduce los datos del astronauta, si lo dejas vacío se escribe
+        la información automáticamente.
+      </p>
     </div>
     <app-seleccion-criterio></app-seleccion-criterio>
     <app-form-astronauta></app-form-astronauta>

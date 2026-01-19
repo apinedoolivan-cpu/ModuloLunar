@@ -6,55 +6,55 @@ import { FormGroup } from '@angular/forms';
 })
 export class MineralValidationService {
 
-  validar(form: FormGroup): string | null {
+  validar(form: FormGroup): string[] | null {
     const errores: string[] = [];
-    const controles = form.controls;
-
     const valores = form.value;
 
-    for (const campo of Object.keys(controles)) {
+    for (const campo of Object.keys(valores)) {
 
-      if (campo.toLowerCase().includes('estructura')) {
+      if (campo === 'estructura') {
         continue;
       }
-
-      const valor = (controles[campo].value ?? '').toString().trim();
-
-      if (valor === '') {
-
-        const nombresEspeciales: Record<string, string> = {
-          tamanoGrano: 'Tamaño de grano',   
-          tamanoCristal: 'Tamaño de cristal'
-        };
-
-        const nombreVisible =
-          nombresEspeciales[campo] ??
-          campo.charAt(0).toUpperCase() + campo.slice(1);
-
-        errores.push(`El campo "${nombreVisible}" es obligatorio.`);
+      const valor = valores[campo];
+      if (
+        valor === null ||
+        (typeof valor === 'string' && valor.trim() === '')
+      ) {
+        errores.push('CAMPO_' + campo.toUpperCase());
       }
     }
-    const regexID = /^[A-Z]{2}[0-9]{4}[A-Z]{2}$/;
-    if (valores.id && !regexID.test(valores.id)) {
-      errores.push('El ID debe seguir el formato LLDDDDLL (ejemplo: AB1234CD).');
+
+    if (valores.id) {
+      const regexID = /^[A-Z]{2}[0-9]{4}[A-Z]{2}$/;
+      if (!regexID.test(valores.id)) {
+        errores.push('ID_MINERAL_INVALIDO');
+      }
     }
 
-    if (valores.dureza < 1 || valores.dureza > 10) {
-      errores.push('La dureza debe estar entre 1 y 10.');
+    if (valores.dureza !== null) {
+      if (valores.dureza < 1 || valores.dureza > 10) {
+        errores.push('DUREZA_INVALIDA');
+      }
     }
 
-    if (valores.tamanoGrano <= 0) {
-      errores.push('El tamaño de grano debe ser mayor que 0.');
+    if (valores.tamanoGrano !== null ) {
+      if (valores.tamanoGrano <= 0) {
+        errores.push('TAMANO_GRANO_INVALIDO');
+      }
     }
 
-    if (valores.tamanoCristal < 0 || valores.tamanoCristal > 10) {
-      errores.push('El tamaño de cristal debe estar entre 0 y 10.');
+    if (valores.tamanoCristal !== null) {
+      if (valores.tamanoCristal < 0 || valores.tamanoCristal > 10) {
+        errores.push('TAMANO_CRISTAL_INVALIDO');
+      }
     }
 
-    if (valores.temperatura < -100 || valores.temperatura > 100) {
-      errores.push('La temperatura debe estar entre -100 y 100 Cº.');
+    if (valores.temperatura !== null) {
+      if (valores.temperatura < -100 || valores.temperatura > 100) {
+        errores.push('TEMPERATURA_INVALIDA');
+      }
     }
 
-    return errores.length > 0 ? 'Errores encontrados:<br>' + errores.join('<br>') : null;
+    return errores.length > 0 ? errores : null;
   }
 }

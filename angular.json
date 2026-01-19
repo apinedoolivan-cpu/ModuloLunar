@@ -10,9 +10,9 @@
     "ModuloLunar": {
       "projectType": "application",
       "i18n": {
-        "sourceLocale": "en-US",
+        "sourceLocale": "es",
         "locales": {
-          "es-ES": "src/app/locale/messages.es.xlf"
+          "en": "src/locale/messages.en.xlf"
         }
       },
       "schematics": {
@@ -28,59 +28,65 @@
           "builder": "@angular/build:application",
           "options": {
             "localize": true,
-            "browser": "src/main.ts",
+            "index": "src/index.html",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
+                "glob": "favicon.ico",
+                "input": "src/assets",
+                "output": "assets"
+              },
+              {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/assets",
+                "output": "assets"
               }
             ],
             "styles": [
               "src/styles.scss"
             ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            },
             "polyfills": [
               "@angular/localize/init"
             ]
           },
           "configurations": {
             "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
-              "outputHashing": "all"
+              "optimization": true,
+              "outputHashing": "all",
+              "localize": true
             },
             "development": {
               "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "localize": true
+            },
+            "en": {
+              "localize": ["en"]
+            },
+            "es": {
+              "localize": ["es"]
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "open": true
+          },
           "configurations": {
             "production": {
               "buildTarget": "ModuloLunar:build:production"
             },
             "development": {
               "buildTarget": "ModuloLunar:build:development"
+            },
+            "en": {
+              "buildTarget": "ModuloLunar:build:en"
+            },
+            "es": {
+              "buildTarget": "ModuloLunar:build:es"
             }
           },
           "defaultConfiguration": "development"

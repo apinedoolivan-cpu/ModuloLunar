@@ -25,11 +25,11 @@ export class Mineral implements ICapturable {
   }
 
   dametamanoGrano(): string {
-    if (this.tamanoGrano > 30) return 'Grano muy grueso';
-    if (this.tamanoGrano >= 5 && this.tamanoGrano <= 30) return 'Grano grueso';
-    if (this.tamanoGrano >= 2 && this.tamanoGrano < 5) return 'Grano medio';
-    if (this.tamanoGrano < 2) return 'Grano fino';
-    return 'Indefinido';
+    if (this.tamanoGrano > 30) return 'GRANO_MUY_GRUESO';
+    if (this.tamanoGrano >= 5 && this.tamanoGrano <= 30) return 'GRANO_GRUESO';
+    if (this.tamanoGrano >= 2 && this.tamanoGrano < 5) return 'GRANO_MEDIO';
+    if (this.tamanoGrano < 2) return 'GRANO_FINO';
+    return "";
   }
 
   cloneWith(changes: {
@@ -44,8 +44,8 @@ export class Mineral implements ICapturable {
       changes.dureza ?? this.dureza,
       this.tamanoGrano,
       this.clasificacion,
-      changes.temperatura ?? this.temperatura,
       changes.tamanoCristal ?? this.tamanoCristal,
+      changes.temperatura ?? this.temperatura,
       this.estructura,
       this.textura
     );

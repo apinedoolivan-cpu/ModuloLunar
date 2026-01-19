@@ -1,6 +1,7 @@
 import { Component, inject, computed } from '@angular/core';
 import { InicioMisionService } from '../../services/inicio-mision.service';
 import { ScrollService } from '../../services/scroll';
+import { TraduccionService } from '../../services/traduccion.service';
 import { OrigenMaterialLunar } from '../../models/enums.model';
 import { CriterioFactoria } from '../../models/criterios.model';
 
@@ -14,6 +15,7 @@ export class SeleccionCriterioComponent {
 
   public misionService = inject(InicioMisionService);
   private scrollService = inject(ScrollService);
+  public traduccionService = inject(TraduccionService);
 
   criterios = [
     OrigenMaterialLunar.Igneas,

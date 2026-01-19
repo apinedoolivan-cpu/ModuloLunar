@@ -1,156 +1,157 @@
 @if (astronauta() && criterio()) {
   <div id="forma-entrada">
-    <h2>Selecciona el tipo de formulario</h2>
+    <h2 i18n="@@formTipoFormulario">Selecciona el tipo de formulario</h2>
     <div id="botones-entrada">
-      <button (click)="seleccionarTipo('reducido')">Formulario Reducido</button>
-      <button (click)="seleccionarTipo('extendido')">Formulario Extendido</button>
+      <button (click)="seleccionarTipo('reducido')" i18n="@@btnFormularioReducido">Formulario Reducido</button>
+      <button (click)="seleccionarTipo('extendido')" i18n="@@btnFormularioExtendido">Formulario Extendido</button>
     </div>
   </div>
 
   @if (tipoFormulario === 'reducido') {
     <div id="mineral-form" #formReducidoDiv>
-      <h3>Formulario Reducido</h3>
+      <h3 i18n="@@formReducidoTitle">Formulario Reducido</h3>
 
       <form [formGroup]="form" id="form-reducido">
 
-        <input id="red-id" type="text" placeholder="ID (LLDDDDLL)"
+        <input id="red-id" type="text" 
+              placeholder="ID (LLDDDDLL)" i18n-placeholder="@@redIdPlaceholder"
               formControlName="id" required pattern="[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}" />
 
-        <input id="red-nombre" type="text" placeholder="Nombre del mineral"
+        <input id="red-nombre" type="text" 
+              placeholder="Nombre del mineral" i18n-placeholder="@@redNombrePlaceholder"
               formControlName="nombre" required />
 
-        <input id="red-origen" list="lista-origen" type="text" placeholder="Origen"
-              formControlName="origen" required />
+        <select id="red-origen" formControlName="origen" required>
+            <option value="" i18n="@@extOrigenOptionSeleccione">Seleccione</option>
+            @for (o of opcionesOrigen; track $index) {
+              <option [value]="o">{{ traduccionService.dameOrigenMaterialLunarLabel(o) }}</option>
+            }
+        </select>
 
-        <datalist id="lista-origen">
-          @for (o of opcionesOrigen; track $index) {
-            <option [value]="o"></option>
-          }
-        </datalist>
+        <select id="red-clasificacion" formControlName="clasificacion" required>
+            <option value="" i18n="@@extClasificacionOptionSeleccione">Seleccione</option>
+            @for (c of opcionesClasificacion; track $index) {
+              <option [value]="c">{{ traduccionService.dameClasificacionMaterialLunarLabel(c) }}</option>
+            }
+        </select>
 
-        <input id="red-clasificacion" list="lista-clasificacion" type="text"
-              placeholder="Clasificación" required formControlName="clasificacion" />
-
-        <datalist id="lista-clasificacion">
-          @for (c of opcionesClasificacion; track $index) {
-            <option [value]="c"></option>
-          }
-        </datalist>
-
-        <input id="red-textura" list="lista-textura" type="text" placeholder="Textura"
-              formControlName="textura" required />
-
-        <datalist id="lista-textura">
-          @for (t of opcionesTextura; track $index) {
-            <option [value]="t"></option>
-          }
-        </datalist>
+        <select id="red-textura" formControlName="textura" required>
+            <option value="" i18n="@@extTexturaOptionSeleccione">Seleccione</option>
+            @for (t of opcionesTextura; track $index) {
+              <option [value]="t">{{ traduccionService.dameTexturaMaterialLunarLabel(t) }}</option>
+            }
+          </select>
 
         <input id="red-dureza" type="number" step="1" min="1" max="10"
-              placeholder="Dureza (1-10)" formControlName="dureza" required />
+              placeholder="Dureza (1-10)" i18n-placeholder="@@redDurezaPlaceholder"
+              formControlName="dureza" required />
 
         <input id="red-tamanoGrano" type="number" step="1" min="0"
-              placeholder="Tamaño del grano (mm)" formControlName="tamanoGrano" required />
+              placeholder="Tamaño del grano (mm)" i18n-placeholder="@@redTamanoGranoPlaceholder"
+              formControlName="tamanoGrano" required />
 
         <input id="red-tamanoCristal" type="number" step="1" min="0" max="10"
-              placeholder="Tamaño de cristal" formControlName="tamanoCristal" required />
+              placeholder="Tamaño cristal (0-10)" i18n-placeholder="@@redTamanoCristalPlaceholder"
+              formControlName="tamanoCristal" required />
 
         <input id="red-temperatura" type="number" step="1" min="-100" max="100"
-              placeholder="Temperatura de formación (C)" formControlName="temperatura" required />
+              placeholder="Temperatura de formación (C)" i18n-placeholder="@@redTemperaturaPlaceholder"
+              formControlName="temperatura" required />
 
         <input id="red-estructura" type="text"
-              placeholder="Estructura (Opcional)" formControlName="estructura" />
+              placeholder="Estructura (Opcional)" i18n-placeholder="@@redEstructuraPlaceholder"
+              formControlName="estructura" />
 
       </form>
-      <button (click)="enviar()">Validar</button>
+      <button (click)="enviar()" i18n="@@btnValidar">Validar</button>
     </div>
-    @if (error) {
-      <p #errorDiv id="error" [innerHTML]="error">{{error}}</p>
-    }
   }
+
   @if (tipoFormulario === 'extendido') {
     <div id="mineral-form" #formExtendidoDiv>
-      <h3>Formulario Extendido</h3>
+      <h3 i18n="@@formExtendidoTitle">Formulario Extendido</h3>
 
       <form [formGroup]="form" id="form-extendido">
 
         <div>
-          <label for="ext-id">ID (LLDDDDLL)</label>
+          <label for="ext-id" i18n="@@extIdLabel">ID (LLDDDDLL)</label>
           <input id="ext-id" type="text" formControlName="id"
                 required pattern="[A-Za-z]{2}[0-9]{4}[A-Za-z]{2}" />
         </div>
 
         <div>
-          <label for="ext-nombre">Nombre</label>
+          <label for="ext-nombre" i18n="@@extNombreLabel">Nombre</label>
           <input id="ext-nombre" type="text" formControlName="nombre" required />
         </div>
 
         <div>
-          <label for="ext-origen">Origen</label>
+          <label for="ext-origen" i18n="@@extOrigenLabel">Origen</label>
           <select id="ext-origen" formControlName="origen" required>
-            <option value="">Seleccione</option>
+            <option value="" i18n="@@extOrigenOptionSeleccione">Seleccione</option>
             @for (o of opcionesOrigen; track $index) {
-              <option [value]="o">{{ o }}</option>
+              <option [value]="o">{{ traduccionService.dameOrigenMaterialLunarLabel(o) }}</option>
             }
           </select>
         </div>
 
         <div>
-          <label for="ext-dureza">Dureza (1-10)</label>
+          <label for="ext-dureza" i18n="@@extDurezaLabel">Dureza (1-10)</label>
           <input id="ext-dureza" type="number" step="1" min="1" max="10"
                 formControlName="dureza" required />
         </div>
 
         <div>
-          <label for="ext-tamanoGrano">Tamaño de grano (mm)</label>
+          <label for="ext-tamanoGrano" i18n="@@extTamanoGranoLabel">Tamaño de grano (mm)</label>
           <input id="ext-tamanoGrano" type="number" step="1" min="1"
                 formControlName="tamanoGrano" required />
         </div>
 
         <div>
-          <label for="ext-clasificacion">Clasificación</label>
+          <label for="ext-clasificacion" i18n="@@extClasificacionLabel">Clasificación</label>
           <select id="ext-clasificacion" formControlName="clasificacion" required>
-            <option value="">Seleccione</option>
+            <option value="" i18n="@@extClasificacionOptionSeleccione">Seleccione</option>
             @for (c of opcionesClasificacion; track $index) {
-              <option [value]="c">{{ c }}</option>
+              <option [value]="c">{{ traduccionService.dameClasificacionMaterialLunarLabel(c) }}</option>
             }
           </select>
         </div>
 
         <div>
-          <label for="ext-tamanoCristal">Tamaño de cristales</label>
+          <label for="ext-tamanoCristal" i18n="@@extTamanoCristalLabel">Tamaño cristales (0-10)</label>
           <input id="ext-tamanoCristal" type="number" step="1" min="0" max="10"
                 formControlName="tamanoCristal" required />
         </div>
 
         <div>
-          <label for="ext-temperatura">Temperatura (Cº)</label>
+          <label for="ext-temperatura" i18n="@@extTemperaturaLabel">Temperatura (Cº)</label>
           <input id="ext-temperatura" type="number" step="1" min="-100" max="100"
                 formControlName="temperatura" required />
         </div>
 
         <div>
-          <label for="ext-textura">Textura</label>
+          <label for="ext-textura" i18n="@@extTexturaLabel">Textura</label>
           <select id="ext-textura" formControlName="textura" required>
-            <option value="">Seleccione</option>
+            <option value="" i18n="@@extTexturaOptionSeleccione">Seleccione</option>
             @for (t of opcionesTextura; track $index) {
-              <option [value]="t">{{ t }}</option>
+              <option [value]="t">{{ traduccionService.dameTexturaMaterialLunarLabel(t) }}</option>
             }
           </select>
         </div>
         
         <div id="ext-elemento-estructura">
-          <label for="ext-estructura">Estructura</label>
+          <label for="ext-estructura" i18n="@@extEstructuraLabel">Estructura</label>
           <input id="ext-estructura" type="text"
-                placeholder="(Opcional)" formControlName="estructura" />
+                placeholder="(Opcional)" i18n-placeholder="@@extEstructuraPlaceholder"
+                formControlName="estructura" />
         </div>
 
       </form>
 
-        <button (click)="enviar()">Validar</button>
+        <button (click)="enviar()" i18n="@@btnValidar">Validar</button>
     </div>
-    @if (error) {
-      <p #errorDiv id="error" [innerHTML]="error">{{ error }}</p>
-    }
+  }
+
+  @if (error) {
+      <p #errorDiv id="error" [innerHTML]="error">{{error}}</p>
   }
 }

@@ -1,20 +1,22 @@
 <div>
   @if (mineral()) {
     <div id="entrada-sistema">
-      <h2>
+      <h2 i18n="@@tituloSeleccionSistemaSalida">
         Elija un sistema de salida
       </h2>
 
       <div id="botones-sistema">
         <button
           type="button"
-          (click)="seleccionarSistema('europeo')">
+          (click)="seleccionarSistema('europeo')"
+          i18n="@@btnSistemaEuropeo">
           Sistema Europeo
         </button>
 
         <button
           type="button"
-          (click)="seleccionarSistema('americano')">
+          (click)="seleccionarSistema('americano')"
+          i18n="@@btnSistemaAmericano">
           Sistema Americano
         </button>
       </div>
@@ -24,81 +26,92 @@
   @if (mision() && !mineral() && mineralSalida) {
     <div id="sistema-salida" #resultadoDiv>
 
-      <h2>
+      <h2 i18n="@@tituloMisionPiloto">
         Misión de {{ mision()?.piloto?.dameNombre() }}
       </h2>
 
-      <p>
-        {{ mision()?.criterio?.descripcion() }}
-      </p>
+      <p>{{ criterioLabel}}</p>
 
       @if (mision()?.analiza()) {
         <div id="emoji">😊</div>
-        <p>
+        <p i18n="@@mineralValidoMsg">
           El mineral es válido
         </p>
       } @else {
         <div id="emoji">😡</div>
-        <p>
+        <p i18n="@@mineralNoValidoMsg">
           El mineral NO es válido
         </p>
       }
 
       <p>
-        <strong>ID:</strong>
+        <strong i18n="@@mineralIdLabel">ID:</strong>
         {{ mineralSalida.id }}
       </p>
 
       <p>
-        <strong>Nombre:</strong>
+        <strong i18n="@@mineralNombreLabel">Nombre:</strong>
         {{ mineralSalida.nombre }}
       </p>
 
       <p>
-        <strong>Origen:</strong>
-        {{ mineralSalida.origen }}
+        <strong i18n="@@mineralOrigenLabel">Origen:</strong>
+        {{ traduccionService.dameOrigenMaterialLunarLabel(mineralSalida.origen) }}
       </p>
 
       <p>
-        <strong>Dureza:</strong>
+        <strong i18n="@@mineralDurezaLabel">Dureza:</strong>
         {{ mineralSalida.dureza }}
       </p>
 
       <p>
-        <strong>Tamaño de grano:</strong>
-        {{ mineralSalida.dametamanoGrano() }}
+        <strong i18n="@@mineralTamanoGranoLabel">Tamaño de grano:</strong>
+        {{ traduccionService.dameTamanoGranoLabel(mineralSalida.dametamanoGrano()) }}
       </p>
 
       <p>
-        <strong>Clasificación:</strong>
-        {{ mineralSalida.clasificacion }}
+        <strong i18n="@@mineralClasificacionLabel">Clasificación:</strong>
+        {{ traduccionService.dameClasificacionMaterialLunarLabel(mineralSalida.clasificacion) }}
       </p>
 
       <p>
-        <strong>Tamaño de cristal:</strong>
+        <strong i18n="@@mineralTamanoCristalLabel">Tamaño de cristal:</strong>
         {{ mineralSalida.tamanoCristal }}
         <span>
-          @if (tipo === 'europeo') { mm } @else { inches }
+          @if (tipo === 'europeo') {
+            <span i18n="@@unidadMm">mm</span>
+          } @else {
+            <span i18n="@@unidadPulgadas">pulgadas</span>
+          }
         </span>
       </p>
 
-      @if (tipo === 'americano') {
-        <p>
-          <strong>Temperatura de formación:</strong>
-          {{ mineralSalida.temperatura }} °F
-        </p>
-      }
+     
+      <p>
+        <strong i18n="@@mineralTemperaturaLabel">
+          Temperatura de formación:
+        </strong>
+        {{ mineralSalida.temperatura }}
+        <span>
+          @if (tipo === 'europeo') {
+            <span i18n="@@unidadCelsius">°C</span>
+          } @else {
+            <span i18n="@@unidadFahrenheit">°F</span>
+          }
+        </span>
+      </p>
+    
 
       @if (mineralSalida.estructura) {
         <p>
-          <strong>Estructura:</strong>
+          <strong i18n="@@mineralEstructuraLabel">Estructura:</strong>
           {{ mineralSalida.estructura }}
         </p>
       }
 
       <p>
-        <strong>Textura:</strong>
-        {{ mineralSalida.textura }}
+        <strong i18n="@@mineralTexturaLabel">Textura:</strong>
+        {{ traduccionService.dameTexturaMaterialLunarLabel(mineralSalida.textura) }}
       </p>
 
     </div>
@@ -107,7 +120,8 @@
   <button
     type="button"
     id="reiniciar-boton"
-    (click)="misionService.resetearTodo()">
+    (click)="misionService.resetearTodo()"
+    i18n="@@btnReiniciarMision">
     Reiniciar Misión
   </button>
 

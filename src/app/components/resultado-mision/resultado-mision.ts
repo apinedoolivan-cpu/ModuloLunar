@@ -1,10 +1,10 @@
 import { Component, ViewChild, ElementRef, inject, effect} from '@angular/core';
 import { MisionService } from '../../services/mision';
 import { MineralService } from '../../services/mineral';
-import { ISistemaSalida, SistemaSalidaEuropeo, SistemaSalidaAmericano
-} from '../../models/salida.model';
+import { ISistemaSalida, SistemaSalidaEuropeo, SistemaSalidaAmericano} from '../../models/salida.model';
 import { ScrollService } from '../../services/scroll';
 import { Mineral } from '../../models/mineral.model';
+import { TraduccionService } from '../../services/traduccion.service';
 
 type SistemaTipo = 'europeo' | 'americano';
 
@@ -19,14 +19,16 @@ export class ResultadoMisionComponent {
   public readonly misionService = inject(MisionService);
   private readonly mineralService = inject(MineralService);
   private readonly scrollService = inject(ScrollService);
+  public readonly traduccionService = inject(TraduccionService);
 
   @ViewChild('resultadoDiv')
   resultadoDiv!: ElementRef<HTMLDivElement>;
 
   tipo: SistemaTipo | '' = '';
+  criterioLabel: string = '';
 
   mineral = this.mineralService.mineral;
-
+  
   mision = this.misionService.mision;
 
   mineralSalida?: Mineral;
@@ -43,12 +45,15 @@ export class ResultadoMisionComponent {
         ? new SistemaSalidaAmericano()
         : new SistemaSalidaEuropeo();
 
-    this.tipo = salida.tipo;
-
     this.misionService.crearMision(salida);
+
+    this.tipo = salida.tipo;
+    const criterio = this.mision()?.criterio?.descripcionKey();
+    
+    this.criterioLabel = criterio ? this.traduccionService.dameDescripcionCriterioLabel(criterio): '';
     
     this.mineralSalida = salida.procesar(mineralOriginal);
-
+    
     this.mineralService.resetMineral();
     
     setTimeout(() => {

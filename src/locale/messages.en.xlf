@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2"
+       xmlns="urn:oasis:names:tc:xliff:document:1.2">
+
+  <file source-language="es"
+        target-language="en"
+        datatype="plaintext"
+        original="ng2.template">
+    <body>
+
+      <trans-unit id="appTitle">
+        <source>ModuloLunar</source>
+        <target>LunarModule</target>
+      </trans-unit>
+
+      <trans-unit id="headerAppTitle">
+        <source>Módulo Lunar</source>
+        <target>Lunar Module</target>
+      </trans-unit>
+
+      <trans-unit id="mainTitle">
+        <source>🪐 Misión Lunar</source>
+        <target>🪐 Lunar Mission</target>
+      </trans-unit>
+
+      <trans-unit id="programTitle">
+        <source>Programa de recolección de minerales lunares</source>
+        <target>Lunar Mineral Collection Program</target>
+      </trans-unit>
+
+      <trans-unit id="programDescription">
+        <source>
+          Bienvenido a la Misión Lunar. Selecciona un tipo de misión para comenzar.
+          Después introduce los datos del astronauta, si lo dejas vacío se escribe
+          la información automáticamente.
+        </source>
+        <target>
+          Welcome to the Lunar Mission. Select a mission type to begin.
+          Then enter the astronaut's data; if you leave it empty, the information
+          will be filled in automatically.
+        </target>
+      </trans-unit>
+
+      <trans-unit id="criterioSeleccionado">
+        <source>Criterio seleccionado: <x id="INTERPOLATION"/></source>
+        <target>Selected criterion: <x id="INTERPOLATION"/></target>
+      </trans-unit>
+
+      <trans-unit id="astroTitle">
+        <source>Datos del Astronauta</source>
+        <target>Astronaut Data</target>
+      </trans-unit>
+
+      <trans-unit id="idLabel">
+        <source>ID:</source>
+        <target>ID:</target>
+      </trans-unit>
+
+      <trans-unit id="astroNombreLabel">
+        <source>Nombre:</source>
+        <target>Name:</target>
+      </trans-unit>
+
+      <trans-unit id="astroEdadLabel">
+        <source>Edad:</source>
+        <target>Age:</target>
+      </trans-unit>
+
+      <trans-unit id="aceptarBtn">
+        <source>Aceptar</source>
+        <target>Accept</target>
+      </trans-unit>
+
+      <trans-unit id="datosMisionTitle">
+        <source>Datos de la Misión</source>
+        <target>Mission Data</target>
+      </trans-unit>
+
+      <trans-unit id="astronautaLabel">
+        <source>Astronauta:</source>
+        <target>Astronaut:</target>
+      </trans-unit>
+
+      <trans-unit id="identificadorLabel">
+        <source>Identificador:</source>
+        <target>Identifier:</target>
+      </trans-unit>
+
+      <trans-unit id="edadLabel">
+        <source>Edad:</source>
+        <target>Age:</target>
+      </trans-unit>
+
+      <trans-unit id="fechaInicioLabel">
+        <source>Fecha inicio:</source>
+        <target>Start Date:</target>
+      </trans-unit>
+
+      <trans-unit id="tipoMaterialLabel">
+        <source>Tipo de material a recolectar:</source>
+        <target>Type of material to collect:</target>
+      </trans-unit>
+      
+      <trans-unit id="formTipoFormulario">
+        <source>Selecciona el tipo de formulario</source>
+        <target>Select the form type</target>
+      </trans-unit>
+
+      <trans-unit id="btnFormularioReducido">
+        <source>Formulario Reducido</source>
+        <target>Reduced Form</target>
+      </trans-unit>
+
+      <trans-unit id="btnFormularioExtendido">
+        <source>Formulario Extendido</source>
+        <target>Extended Form</target>
+      </trans-unit>
+
+      <trans-unit id="formReducidoTitle">
+        <source>Formulario Reducido</source>
+        <target>Reduced Form</target>
+      </trans-unit>
+
+      <trans-unit id="redIdPlaceholder">
+        <source>ID (LLDDDDLL)</source>
+        <target>ID (LLDDDDLL)</target>
+      </trans-unit>
+
+      <trans-unit id="redNombrePlaceholder">
+        <source>Nombre del mineral</source>
+        <target>Mineral Name</target>
+      </trans-unit>
+
+      <trans-unit id="redOrigenPlaceholder">
+        <source>Origen</source>
+        <target>Origin</target>
+      </trans-unit>
+
+      <trans-unit id="redClasificacionPlaceholder">
+        <source>Clasificación</source>
+        <target>Classification</target>
+      </trans-unit>
+
+      <trans-unit id="redTexturaPlaceholder">
+        <source>Textura</source>
+        <target>Texture</target>
+      </trans-unit>
+
+      <trans-unit id="redDurezaPlaceholder">
+        <source>Dureza (1-10)</source>
+        <target>Hardness (1-10)</target>
+      </trans-unit>
+
+      <trans-unit id="redTamanoGranoPlaceholder">
+        <source>Tamaño del grano (mm)</source>
+        <target>Grain size (mm)</target>
+      </trans-unit>
+
+      <trans-unit id="redTamanoCristalPlaceholder">
+        <source>Tamaño cristal (0-10)</source>
+        <target>Crystal size (0-10)</target>
+      </trans-unit>
+
+      <trans-unit id="redTemperaturaPlaceholder">
+        <source>Temperatura de formación (C)</source>
+        <target>Formation temperature (C)</target>
+      </trans-unit>
+
+      <trans-unit id="redEstructuraPlaceholder">
+        <source>Estructura (Opcional)</source>
+        <target>Structure (Optional)</target>
+      </trans-unit>
+
+      <trans-unit id="btnValidar">
+        <source>Validar</source>
+        <target>Validate</target>
+      </trans-unit>
+
+      <trans-unit id="formExtendidoTitle">
+        <source>Formulario Extendido</source>
+        <target>Extended Form</target>
+      </trans-unit>
+
+      <trans-unit id="extIdLabel">
+        <source>ID (LLDDDDLL)</source>
+        <target>ID (LLDDDDLL)</target>
+      </trans-unit>
+
+      <trans-unit id="extNombreLabel">
+        <source>Nombre</source>
+        <target>Name</target>
+      </trans-unit>
+
+      <trans-unit id="extOrigenLabel">
+        <source>Origen</source>
+        <target>Origin</target>
+      </trans-unit>
+
+      <trans-unit id="extOrigenOptionSeleccione">
+        <source>Seleccione</source>
+        <target>Select</target>
+      </trans-unit>
+
+      <trans-unit id="extDurezaLabel">
+        <source>Dureza (1-10)</source>
+        <target>Hardness (1-10)</target>
+      </trans-unit>
+
+      <trans-unit id="extTamanoGranoLabel">
+        <source>Tamaño de grano (mm)</source>
+        <target>Grain size (mm)</target>
+      </trans-unit>
+
+      <trans-unit id="extClasificacionLabel">
+        <source>Clasificación</source>
+        <target>Classification</target>
+      </trans-unit>
+
+      <trans-unit id="extClasificacionOptionSeleccione">
+        <source>Seleccione</source>
+        <target>Select</target>
+      </trans-unit>
+
+      <trans-unit id="extTamanoCristalLabel">
+        <source>Tamaño cristales (0-10)</source>
+        <target>Crystal size (0-10)</target>
+      </trans-unit>
+
+      <trans-unit id="extTemperaturaLabel">
+        <source>Temperatura (Cº)</source>
+        <target>Temperature (Cº)</target>
+      </trans-unit>
+
+      <trans-unit id="extTexturaLabel">
+        <source>Textura</source>
+        <target>Texture</target>
+      </trans-unit>
+
+      <trans-unit id="extTexturaOptionSeleccione">
+        <source>Seleccione</source>
+        <target>Select</target>
+      </trans-unit>
+
+      <trans-unit id="extEstructuraLabel">
+        <source>Estructura</source>
+        <target>Structure</target>
+      </trans-unit>
+
+      <trans-unit id="extEstructuraPlaceholder">
+        <source>(Opcional)</source>
+        <target>(Optional)</target>
+      </trans-unit>
+      <!-- Selección de sistema de salida -->
+      <trans-unit id="tituloSeleccionSistemaSalida">
+        <source>Elija un sistema de salida</source>
+        <target>Choose an output system</target>
+      </trans-unit>
+
+      <trans-unit id="btnSistemaEuropeo">
+        <source>Sistema Europeo</source>
+        <target>European System</target>
+      </trans-unit>
+
+      <trans-unit id="btnSistemaAmericano">
+        <source>Sistema Americano</source>
+        <target>American System</target>
+      </trans-unit>
+
+      <!-- Resultado misión -->
+      <trans-unit id="tituloMisionPiloto">
+        <source>Misión de <x id="INTERPOLATION"/></source>
+        <target>Mission of <x id="INTERPOLATION"/></target>
+      </trans-unit>
+
+      <trans-unit id="mineralValidoMsg">
+        <source>El mineral es válido</source>
+        <target>The mineral is valid</target>
+      </trans-unit>
+
+      <trans-unit id="mineralNoValidoMsg">
+        <source>El mineral NO es válido</source>
+        <target>The mineral is NOT valid</target>
+      </trans-unit>
+
+      <!-- Labels de resultado mineral -->
+      <trans-unit id="mineralIdLabel">
+        <source>ID:</source>
+        <target>ID:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralNombreLabel">
+        <source>Nombre:</source>
+        <target>Name:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralOrigenLabel">
+        <source>Origen:</source>
+        <target>Origin:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralDurezaLabel">
+        <source>Dureza:</source>
+        <target>Hardness:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralTamanoGranoLabel">
+        <source>Tamaño de grano:</source>
+        <target>Grain size:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralClasificacionLabel">
+        <source>Clasificación:</source>
+        <target>Classification:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralTamanoCristalLabel">
+        <source>Tamaño de cristal:</source>
+        <target>Crystal size:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralTemperaturaLabel">
+        <source>Temperatura de formación:</source>
+        <target>Formation temperature:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralEstructuraLabel">
+        <source>Estructura:</source>
+        <target>Structure:</target>
+      </trans-unit>
+
+      <trans-unit id="mineralTexturaLabel">
+        <source>Textura:</source>
+        <target>Texture:</target>
+      </trans-unit>
+
+      <!-- Unidades -->
+      <trans-unit id="unidadMm">
+        <source>mm</source>
+        <target>mm</target>
+      </trans-unit>
+
+      <trans-unit id="unidadPulgadas">
+        <source>pulgadas</source>
+        <target>inches</target>
+      </trans-unit>
+
+      <trans-unit id="unidadCelsius">
+        <source>Cº</source>
+        <target>°C</target>
+      </trans-unit>
+
+      <trans-unit id="unidadFahrenheit">
+        <source>Fº</source>
+        <target>°F</target>
+      </trans-unit>
+
+      <!-- Botón final -->
+      <trans-unit id="btnReiniciarMision">
+        <source>Reiniciar Misión</source>
+        <target>Restart Mission</target>
+      </trans-unit>
+      
+      <trans-unit id="tamanoMuyGrueso">
+        <source>Grano muy grueso</source>
+        <target>Very thick grain</target>
+      </trans-unit>
+
+      <trans-unit id="tamanoGrueso">
+        <source>Grano grueso</source>
+        <target>Thick grain</target>
+      </trans-unit>
+
+      <trans-unit id="tamanoMediano">
+        <source>Grano medio</source>
+        <target>Medium grain</target>
+      </trans-unit>
+
+      <trans-unit id="tamanoFino">
+        <source>Grano fino</source>
+        <target>Fine grain</target>
+      </trans-unit>
+
+      <trans-unit id="criterioIgneasDescripcion">
+        <source>Criterio Ígneas: Origen ígneo y grano muy grueso</source>
+        <target>Igneous criterion: Igneous origin and very thick grain</target>
+      </trans-unit>
+
+      <trans-unit id="criterioMetamorficasDescripcion">
+        <source>Criterio Metamórficas: Origen metamórfico, grano medio/fino y textura vítrea</source>
+        <target>Metamorphic criterion: Metamorphic origin, medium/fine grain and vitreous texture</target>
+      </trans-unit>
+
+      <trans-unit id="criterioSedimentariasDescripcion">
+        <source>Criterio Sedimentarias: Origen sedimentario y textura fanerítica</source>
+        <target>Sedimentary criterion: Sedimentary origin and faneritic texture</target>
+      </trans-unit>
+
+    </body>
+  </file>
+
+  <file source-language="es"
+        target-language="en"
+        datatype="plaintext"
+        original="ng2.ts">
+    <body>
+
+      <trans-unit id="criterioIgneas">
+        <source>Ígneas</source>
+        <target>Igneous</target>
+      </trans-unit>
+
+      <trans-unit id="criterioMetamorficas">
+        <source>Metamórficas</source>
+        <target>Metamorphic</target>
+      </trans-unit>
+
+      <trans-unit id="criterioSedimentarias">
+        <source>Sedimentarias</source>
+        <target>Sedimentary</target>
+      </trans-unit>
+
+      <trans-unit id="clasificacionRocasConstruccion">
+        <source>Rocas de construcción: Son aquellas rocas que se usan para la construcción de diferentes estructuras.</source>
+        <target>Building rocks: These are rocks used for constructing different structures.</target>
+      </trans-unit>
+
+      <trans-unit id="clasificacionRocaOrnamental">
+        <source>Roca ornamental: Son todas aquellas rocas de uso decorativo,integrado o no en edificio o estructuras superiores.</source>
+        <target>Ornamental rock: These are all those rocks used for decorative purposes, integrated or not into buildings or superior structures.</target>
+      </trans-unit>
+
+      <trans-unit id="clasificacionUtensilios">
+        <source> Utensilios: Rocas de uso en utensilios para el hombre.Rocas de uso en utensilios para el hombre.</source>
+        <target> Utensils: Rocks used in tools for humans.</target>
+      </trans-unit>
+
+      <trans-unit id="clasificacionPiedraMachada">
+        <source>Piedras machacadas: Áridos, rispios, agregados, etc. que son muy utilizados en la construcción como material de relleno.</source>
+        <target>Crushed stones: Aggregates, harsh, etc., that are widely used in construction as fill material.</target>
+      </trans-unit>
+
+      <trans-unit id="texturaVitrea">
+        <source>Vítrea</source>
+        <target>Vitreous</target>
+      </trans-unit>
+
+      <trans-unit id="texturaAfanitica">
+        <source>Afánitica</source>
+        <target>Aphanitic</target>
+      </trans-unit>
+
+      <trans-unit id="texturaFaneritica">
+        <source>Faneritica</source>
+        <target>Fanerotics</target>  
+      </trans-unit>
+
+      <trans-unit id="errorIdAstro">
+        <source>El ID debe tener el formato AGM001 (3 letras + 3 números)</source>
+        <target>The ID must have the format AGM001 (3 letters + 3 numbers)</target>
+      </trans-unit>
+
+      <trans-unit id="errorEdadAstro">
+        <source>La edad debe estar entre 18 y 65</source>
+        <target>Age must be between 18 and 65</target>
+      </trans-unit>
+
+      <trans-unit id="errorTitulo">
+        <source>Errores encontrados:</source>
+        <target>Errors found:</target>
+      </trans-unit>
+
+      <trans-unit id="campoId">
+        <source>ID</source>
+        <target>ID</target>
+      </trans-unit>
+
+      <trans-unit id="campoNombre">
+        <source>Nombre</source>
+        <target>Name</target>
+      </trans-unit>
+
+      <trans-unit id="campoOrigen">
+        <source>Origen</source>
+        <target>Origin</target>
+      </trans-unit>
+
+      <trans-unit id="campoClasificacion">
+        <source>Clasificación</source>
+        <target>Classification</target>
+      </trans-unit>
+
+      <trans-unit id="campoTextura">
+        <source>Textura</source>
+        <target>Texture</target>
+      </trans-unit>
+
+      <trans-unit id="campoDureza">
+        <source>Dureza</source>
+        <target>Hardness</target>
+      </trans-unit>
+
+      <trans-unit id="campoTamanoGrano">
+        <source>Tamaño de grano</source>
+        <target>Grain size</target>
+      </trans-unit>
+
+      <trans-unit id="campoTamanoCristal">
+        <source>Tamaño de cristal</source>
+        <target>Crystal size</target>
+      </trans-unit>
+
+      <trans-unit id="campoTemperatura">
+        <source>Temperatura</source>
+        <target>Temperature</target>
+      </trans-unit>
+
+      <trans-unit id="errorIdAstro">
+        <source>El ID debe tener el formato AGM001 (3 letras + 3 números)</source>
+        <target>The ID must have the format AGM001 (3 letters + 3 numbers)</target>
+      </trans-unit>
+
+      <trans-unit id="errorEdadAstro">
+        <source>La edad debe estar entre 18 y 65</source>
+        <target>Age must be between 18 and 65</target>
+      </trans-unit>
+
+       <trans-unit id="errorIdMineral">
+        <source>El ID debe seguir el formato LLNNNNLL (ejemplo: AB1234CD).</source>
+        <target>The ID must follow the format LLNNNNLL (example: AB1234CD).</target>
+      </trans-unit>
+
+      <trans-unit id="errorDurezaMineral">
+        <source>La dureza debe estar entre 1 y 10.</source>
+        <target>Hardness must be between 1 and 10.</target>
+      </trans-unit>
+
+      <trans-unit id="errorTamanoGranoMineral">
+        <source>El tamaño de grano debe ser mayor que 0.</source>
+        <target>Grain size must be greater than 0.</target>
+      </trans-unit>
+
+      <trans-unit id="errorTamanoCristalMineral">
+        <source>El tamaño de cristal debe estar entre 0 y 10.</source>
+        <target>Crystal size must be between 0 and 10.</target>
+      </trans-unit>
+
+      <trans-unit id="errorTemperaturaMineral">
+        <source>La temperatura debe estar entre -100 y 100 Cº.</source>
+        <target>Temperature must be between -100 and 100 °C.</target>
+      </trans-unit>
+
+      <trans-unit id="errorCampoObligatorio">
+        <source>El campo "<x id="PH"/>" es obligatorio.</source>
+        <target>The field "<x id="PH"/>" is required.</target>
+      </trans-unit>
+
+    </body>
+  </file>
+
+</xliff>

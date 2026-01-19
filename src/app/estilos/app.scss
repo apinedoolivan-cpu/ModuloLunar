@@ -1,12 +1,14 @@
+@use './variables.scss' as *;
+
 #info-programa {
-  background: rgba(0, 0, 30, 0.85);
-  padding: 25px;
-  border-radius: 20px;
+  background: $form-bg;
+  padding: $padding;
+  border-radius: $border-radius;
   margin: 15px auto;
-  max-width: 800px;
+  max-width: $max-width-form;
   width: 90%;
-  box-shadow: 0 0 25px #0ff, 0 0 50px #00f inset;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 25px $primary-color, 0 0 50px $secondary-color inset;
+  border: 1px solid $input-bg;
   display: flex;
   flex-direction: column;
   align-items: center;

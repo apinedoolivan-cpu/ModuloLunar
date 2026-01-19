@@ -1,17 +1,27 @@
 import { Component, signal } from '@angular/core';
 import { SeleccionCriterioComponent } from './components/seleccion-criterio/seleccion-criterio';
-import { Astronauta } from './models/astronauta.model';
 import { FormularioAstronautaComponent } from "./components/form-astronauta/form-astronauta";
 import { DatosMisionComponent } from "./components/datos-mision/datos-mision";
 import { FormMineralComponent } from "./components/form-mineral/form-mineral";
 import { ResultadoMisionComponent } from "./components/resultado-mision/resultado-mision";
 import { FondoEstrellasComponent } from "./components/fondo-estrellas/fondo-estrellas";
+import { HeaderComponent } from "./components/header/header";
+import { Astronauta } from './models/astronauta.model';
 
 @Component({
   selector: 'app-root',
-  imports: [SeleccionCriterioComponent, FormularioAstronautaComponent, DatosMisionComponent, FormMineralComponent, ResultadoMisionComponent, FondoEstrellasComponent],
+  standalone: true,
+  imports: [
+    SeleccionCriterioComponent,
+    FormularioAstronautaComponent,
+    DatosMisionComponent,
+    FormMineralComponent,
+    ResultadoMisionComponent,
+    FondoEstrellasComponent,
+    HeaderComponent
+  ],
   templateUrl: './app.html',
-  styleUrl: './estilos/app.scss'
+  styleUrls: ['./estilos/app.scss']
 })
 export class App {
   astronautaActual: Astronauta | null = null;
