@@ -14,8 +14,16 @@ export class HeaderComponent {
     @Inject(DOCUMENT) private document: Document
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      const pathParts = this.document.location.pathname.split('/').filter(Boolean);
-      this.currentLang = pathParts[1] === 'en' ? 'en' : 'es';
+      const pathParts = this.document.location.pathname
+        .split('/')
+        .filter(Boolean);
+
+      const langIndex = pathParts.findIndex(p => p === 'es' || p === 'en');
+
+      this.currentLang =
+        langIndex !== -1 && pathParts[langIndex] === 'en'
+          ? 'en'
+          : 'es';
     }
   }
 
@@ -24,19 +32,30 @@ export class HeaderComponent {
   }
 
   switchLanguage(): void {
-  if (!isPlatformBrowser(this.platformId)) {
-    return;
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const pathParts = this.document.location.pathname
+      .split('/')
+      .filter(Boolean);
+
+    const langIndex = pathParts.findIndex(p => p === 'es' || p === 'en');
+
+    let newParts = [...pathParts];
+
+    if (langIndex !== -1) {
+      
+      newParts[langIndex] = this.targetLang;
+    } else {
+    
+      newParts.push(this.targetLang);
+    }
+
+    const newPath = '/' + newParts.join('/');
+
+    this.document.location.href = newPath.endsWith('/')
+      ? newPath
+      : newPath + '/';
   }
-
-  const pathParts = this.document.location.pathname.split('/').filter(Boolean);
-
-  const base = pathParts[0]; 
-  const rest = pathParts.slice(2);
-
-  const newPath = `/${base}/${this.targetLang}/${rest.join('/')}`;
-
-  this.document.location.href = rest.length
-    ? newPath
-    : `/${base}/${this.targetLang}/`;
-}
 }
